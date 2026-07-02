@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Дарья Повалихина - нутрициолог</title>
 <meta name="description" content="Консультации нутрициолога Дарьи Повалихиной: питание, дефициты, биохимия, анкета и удобная запись." />
-<link rel="stylesheet" href="./styles.css?v=shadow-body-3" />
+<link rel="stylesheet" href="./styles.css?v=female-outline-2" />
 </head>
 <body class="cms-loading"><script>document.documentElement.classList.add("cms-booting");setTimeout(function(){document.body&&document.body.classList.remove("cms-loading");},1200);</script><div class="scroll-progress" aria-hidden="true"><span></span></div>
 <header class="topbar">
@@ -32,46 +32,24 @@
         <button class="is-active" type="button" data-body-view="front">Спереди</button>
         <button type="button" data-body-view="back">Сзади</button>
       </div>
-      <svg class="body-art body-art-front shadow-figure" viewBox="0 0 360 560" role="img" aria-label="Силуэт спереди">
+      <svg class="body-art body-art-front female-outline" viewBox="0 0 360 560" role="img" aria-label="Женский силуэт спереди">
         <defs>
-          <filter id="shadowFigureFront" x="-25%" y="-25%" width="150%" height="150%">
-            <feGaussianBlur stdDeviation="9"/>
-            <feComponentTransfer><feFuncA type="linear" slope=".82"/></feComponentTransfer>
-          </filter>
-          <filter id="shadowFigureSoftFront" x="-35%" y="-35%" width="170%" height="170%">
-            <feGaussianBlur stdDeviation="18"/>
-            <feComponentTransfer><feFuncA type="linear" slope=".34"/></feComponentTransfer>
-          </filter>
+          <linearGradient id="femaleFrontFill" x1="50%" x2="50%" y1="0%" y2="100%"><stop offset="0%" stop-color="rgba(244,240,234,.86)"/><stop offset="55%" stop-color="rgba(244,240,234,.58)"/><stop offset="100%" stop-color="rgba(185,154,103,.18)"/></linearGradient>
         </defs>
-        <g class="shadow-soft" filter="url(#shadowFigureSoftFront)">
-          <path d="M181 54c29 0 51 24 51 56s-22 58-51 58-52-26-52-58 23-56 52-56Zm-24 125c-38 8-68 36-83 83-20 63-11 150 30 240 10 22 36 15 33-10-6-55-7-112 8-164 7-25 18-48 32-66 17 24 29 57 33 99 5 48-5 95-9 137 15 21 45 21 61 0-7-56-12-111 2-166 9-37 24-70 45-99 17-24-1-58-28-53-33 6-59 12-83 7-17-4-25-12-41-8Z"/>
-        </g>
-        <g class="shadow-main" filter="url(#shadowFigureFront)">
-          <path d="M181 58c27 0 47 22 47 52s-20 54-47 54-48-24-48-54 21-52 48-52Z"/><path d="M166 142c10 7 20 8 30 0 5 16 8 35 9 51-17 9-34 9-51 0 1-16 5-35 12-51Z"/>
-          <path d="M154 178c-35 9-61 37-74 82-17 60-7 143 28 220 8 18 28 15 27-5-2-45-4-93 7-139 8-32 20-59 37-78 13 22 21 56 22 101 1 43-7 89-12 128 14 15 39 15 53 0-6-44-12-88-8-128 4-43 16-78 34-103 20-28 45-41 73-38-8-31-29-53-58-63-34-12-68 21-102 20-10 0-18-2-27 3Z"/>
-          <path d="M99 203c-27 21-41 56-45 98-4 43 7 73 29 90 15 12 31-3 23-21-18-40-11-86 11-126 11-19 4-37-18-41Z"/>
-          <path d="M264 204c26 23 39 59 41 101 2 43-11 72-34 88-16 11-31-5-22-22 20-39 15-86-5-127-10-20-2-37 20-40Z"/>
+        <g class="female-figure">
+          <path class="female-fill" d="M180 38c23 0 39 18 39 43 0 26-16 44-39 44s-39-18-39-44c0-25 16-43 39-43Zm-22 92c-22 4-40 17-52 39-13 24-23 62-31 111-5 31-11 65-20 99-4 16 4 30 18 32 13 2 23-6 27-21 9-34 15-73 20-110 4-27 9-47 15-63 6 36 6 76 2 115-5 50-13 101-19 149-2 20 10 37 28 38 17 1 30-12 33-32 5-39 9-82 12-122 1-15 2-31 3-45h12c1 14 2 30 3 45 3 40 7 83 12 122 3 20 16 33 33 32 18-1 30-18 28-38-6-48-14-99-19-149-4-39-4-79 2-115 6 16 11 36 15 63 5 37 11 76 20 110 4 15 14 23 27 21 14-2 22-16 18-32-9-34-15-68-20-99-8-49-18-87-31-111-12-22-30-35-52-39-10-2-18 4-24 16-8 14-28 14-36 0-6-12-14-18-24-16Z"/>
+          <path class="female-line" d="M180 36c24 0 41 18 41 45s-17 46-41 46-41-19-41-46 17-45 41-45Zm-25 94c-20 5-37 18-49 40-13 25-23 63-31 110-6 35-11 68-20 99m230-99c-8-47-18-85-31-110-12-22-29-35-49-40m-70 87c8 42 6 84 2 123-5 48-13 97-19 143m124 0c-6-46-14-95-19-143-4-39-6-81 2-123m-60-70c8 16 22 25 35 25s27-9 35-25m-68 118c10 8 24 12 37 12s27-4 37-12m-60 55h44m-39 0c-1 47-5 111-13 167m52-167c1 47 5 111 13 167m-88-16c-21 2-38-12-37-32m126 32c21 2 38-12 37-32"/>
+          <path class="female-detail" d="M151 188c10 9 20 13 29 13s19-4 29-13M160 224c6 9 13 13 20 13s14-4 20-13M176 253c3 20 3 40 0 61m8-61c-3 20-3 40 0 61"/>
         </g>
       </svg>
-      <svg class="body-art body-art-back shadow-figure" viewBox="0 0 360 560" role="img" aria-label="Силуэт сзади">
+      <svg class="body-art body-art-back female-outline" viewBox="0 0 360 560" role="img" aria-label="Женский силуэт сзади">
         <defs>
-          <filter id="shadowFigureBack" x="-25%" y="-25%" width="150%" height="150%">
-            <feGaussianBlur stdDeviation="9"/>
-            <feComponentTransfer><feFuncA type="linear" slope=".82"/></feComponentTransfer>
-          </filter>
-          <filter id="shadowFigureSoftBack" x="-35%" y="-35%" width="170%" height="170%">
-            <feGaussianBlur stdDeviation="18"/>
-            <feComponentTransfer><feFuncA type="linear" slope=".34"/></feComponentTransfer>
-          </filter>
+          <linearGradient id="femaleBackFill" x1="50%" x2="50%" y1="0%" y2="100%"><stop offset="0%" stop-color="rgba(244,240,234,.84)"/><stop offset="55%" stop-color="rgba(244,240,234,.56)"/><stop offset="100%" stop-color="rgba(185,154,103,.18)"/></linearGradient>
         </defs>
-        <g class="shadow-soft" filter="url(#shadowFigureSoftBack)">
-          <path d="M181 55c29 0 51 24 51 57s-22 58-51 58-52-25-52-58 23-57 52-57Zm-31 124c-41 10-71 43-85 94-17 63-1 147 42 225 12 21 37 13 33-12-8-53-9-104 2-151 8-37 24-67 45-88 21 23 35 56 41 100 6 48-3 94-10 137 15 21 46 20 61-2-1-51 6-97 26-137 12-25 28-44 50-58-9-34-34-58-70-71-35-12-67 4-104-35-12-4-21-5-31-2Z"/>
-        </g>
-        <g class="shadow-main" filter="url(#shadowFigureBack)">
-          <path d="M181 59c27 0 47 22 47 53s-20 54-47 54-48-23-48-54 21-53 48-53Z"/><path d="M166 143c10 7 20 8 30 0 5 16 8 35 9 51-17 9-34 9-51 0 1-16 5-35 12-51Z"/>
-          <path d="M151 180c-38 11-65 43-77 91-15 59-2 137 34 209 9 18 29 14 27-6-4-47-4-93 8-137 9-34 25-63 47-85 16 24 27 58 30 102 3 43-4 89-11 130 15 16 40 15 54-2-2-48 4-92 21-132 15-35 38-59 72-72-8-34-32-58-67-70-43-15-70-2-95-27-14-4-28-4-43-1Z"/>
-          <path d="M105 206c-27 24-39 61-39 103 0 39 14 67 36 82 16 10 30-7 20-24-22-38-19-82 1-122 10-20 4-37-18-39Z"/>
-          <path d="M259 206c27 24 39 61 39 103 0 39-14 67-36 82-16 10-30-7-20-24 22-38 19-82-1-122-10-20-4-37 18-39Z"/>
+        <g class="female-figure">
+          <path class="female-fill back-fill" d="M180 38c23 0 39 18 39 43 0 26-16 44-39 44s-39-18-39-44c0-25 16-43 39-43Zm-24 92c-23 5-40 19-52 42-13 26-21 62-29 108-5 31-11 65-20 99-4 16 4 30 18 32 13 2 23-6 27-21 9-34 15-73 20-110 4-26 9-46 15-62 7 34 8 70 5 106-4 51-13 104-20 157-3 20 9 37 27 38 17 1 30-12 33-32 6-40 10-82 13-122 1-15 2-31 3-45h8c1 14 2 30 3 45 3 40 7 82 13 122 3 20 16 33 33 32 18-1 30-18 27-38-7-53-16-106-20-157-3-36-2-72 5-106 6 16 11 36 15 62 5 37 11 76 20 110 4 15 14 23 27 21 14-2 22-16 18-32-9-34-15-68-20-99-8-46-16-82-29-108-12-23-29-37-52-42-14-3-25 6-34 19-9-13-20-22-34-19Z"/>
+          <path class="female-line" d="M180 36c24 0 41 18 41 45s-17 46-41 46-41-19-41-46 17-45 41-45Zm-27 94c-21 6-37 20-49 42-13 26-22 62-29 108-6 35-11 68-20 99m230-99c-7-46-16-82-29-108-12-22-28-36-49-42m-72 88c8 39 8 78 5 115-4 50-13 101-20 148m120 0c-7-47-16-98-20-148-3-37-3-76 5-115m-65-66c12 10 25 15 40 15s28-5 40-15m-75 49c18 15 52 15 70 0m-69 81c18 9 48 9 66 0m-56 38h48m-44 0c-1 47-5 111-13 167m52-167c1 47 5 111 13 167"/>
+          <path class="female-detail" d="M156 174c12 18 28 26 44 26s32-8 44-26M160 220c10 17 22 25 40 25s30-8 40-25M170 280c7 10 17 15 30 15s23-5 30-15"/>
         </g>
       </svg>
       <div class="body-map-labels" aria-hidden="true">
@@ -96,6 +74,6 @@
 <div class="modal format-modal" id="formatModal" aria-hidden="true"><div class="modal-backdrop" data-close-format-modal></div><section class="modal-dialog format-dialog" role="dialog" aria-modal="true" aria-labelledby="formatModalTitle"><button class="modal-close" type="button" aria-label="Закрыть" data-close-format-modal>×</button><p class="eyebrow">Форматы работы</p><h2 id="formatModalTitle">Выберите формат</h2><div class="format-carousel"><button class="carousel-button" type="button" id="prevFormat" aria-label="Предыдущие форматы">‹</button><div class="format-viewport"><div class="format-track" id="formatTrack"><label class="format-card"><input type="radio" name="formatChoice" value="Разовая консультация" data-price="6000 рублей" data-price-et="60 eurot" data-price-en="60 euro" checked /><span class="format-title">Разовая консультация</span><span class="format-text">60–75 минут по телефону или Google Meet. Разбор анкеты, анализов, ранее проведенных исследований, жалоб и ответы на вопросы.</span><span class="format-subtitle">В ходе консультации формируется:</span><span class="format-list"><span>направление работы по вашей проблеме</span><span>рекомендации по питанию, физической нагрузке и образу жизни</span><span>схема нутрицевтической коррекции</span><span>помощь в выборе препаратов</span></span><strong>6000 рублей</strong></label><label class="format-card"><input type="radio" name="formatChoice" value="Дистанционное ведение" data-price="10000 рублей" data-price-et="100 eurot" data-price-en="100 euro" /><span class="format-title">Дистанционное ведение</span><span class="format-text">Консультация 60–75 минут и поддержка в течение месяца: вы пишете вопросы, я отвечаю в рабочее время с 8 до 18:00.</span><span class="format-subtitle">В ходе работы формируется протокол:</span><span class="format-list"><span>направление работы по вашей проблеме</span><span>рекомендации по питанию, физической нагрузке и образу жизни</span><span>схема нутрицевтической коррекции</span><span>помощь в выборе препаратов</span></span><strong>10000 рублей</strong></label><label class="format-card"><input type="radio" name="formatChoice" value="Повторная консультация" data-price="5000 рублей" data-price-et="50 eurot" data-price-en="50 euro" /><span class="format-title">Повторная консультация</span><span class="format-text">Повторная консультация через 2 месяца для контроля текущего состояния и корректировки назначений.</span><strong>5000 рублей</strong></label><label class="format-card"><input type="radio" name="formatChoice" value="Разбор анализов" data-price="4000 рублей" data-price-et="40 eurot" data-price-en="40 euro" /><span class="format-title">Разбор анализов</span><span class="format-text">Разбираем результаты ваших анализов и интерпретацию с учетом симптомов, жалоб и анамнеза.</span><strong>4000 рублей</strong></label></div></div><button class="carousel-button" type="button" id="nextFormat" aria-label="Следующие форматы">›</button></div><button class="button primary submit-button" type="button" id="applyFormatChoice">Выбрать</button></section></div>
 <div class="modal" id="questionnaireModal" aria-hidden="true"><div class="modal-backdrop" data-close-modal></div><section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="questionnaireModalTitle"><button class="modal-close" type="button" aria-label="Закрыть" data-close-modal>×</button><p class="eyebrow">Анкета клиента</p><h2 id="questionnaireModalTitle">Как вам удобнее заполнить анкету?</h2><div class="modal-options"><a class="modal-option" href="./questionnaire.html" target="_blank" rel="noreferrer" aria-label="Анкета онлайн"><strong>Анкета онлайн</strong><span>Откроется онлайн-анкета с вопросами по порядку и окном для ответа.</span></a><a class="modal-option" href="./assets/questionnaire.pdf" download aria-label="Скачать документ"><strong>Скачать документ</strong><span>Скачайте PDF-анкету и заполните в удобном темпе.</span></a></div></section></div>
 <footer class="footer"><p>Дарья Повалихина, нутрициолог</p><a href="https://taplink.cc/darja_nutritsioloog">taplink.cc/darja_nutritsioloog</a></footer>
-<script src="./script.js?v=shadow-body-3"></script>
+<script src="./script.js?v=female-outline-2"></script>
 </body>
 </html>
