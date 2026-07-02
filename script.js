@@ -359,6 +359,19 @@ applyLanguage(currentLanguage);
     if (element && value !== undefined) element.textContent = value;
   }
 
+  function setLabelText(selector, value) {
+    const element = document.querySelector(selector);
+    if (!element || value === undefined) return;
+    const textNode = Array.from(element.childNodes).find((node) => node.nodeType === Node.TEXT_NODE && node.nodeValue.trim());
+    if (textNode) textNode.nodeValue = value;
+    else element.insertBefore(document.createTextNode(value), element.firstChild);
+  }
+
+  function setPlaceholder(selector, value) {
+    const element = document.querySelector(selector);
+    if (element && value !== undefined) element.setAttribute("placeholder", value);
+  }
+
   function renderMarquee(value) {
     const marquee = document.querySelector(".marquee div");
     if (!marquee || value === undefined) return;
@@ -383,7 +396,20 @@ applyLanguage(currentLanguage);
       hero_note: ".hero-signature",
       profile_name: ".profile-caption strong",
       profile_role: ".profile-caption span",
+      booking_eyebrow: "#booking .booking-copy .eyebrow",
       booking_title: "#booking-title",
+      booking_intro: ".booking-copy > p:not(.eyebrow)",
+      booking_note: ".booking-note p",
+      selected_format_label: ".selected-format span",
+      choose_format_button: "#openFormatModal",
+      contact_choice_title: ".contact-choice p",
+      questionnaire_format_legend: ".questionnaire-choice legend",
+      questionnaire_online_option_title: ".questionnaire-choice label:nth-of-type(1) strong",
+      questionnaire_online_option_text: ".questionnaire-choice label:nth-of-type(1) small",
+      questionnaire_document_option_title: ".questionnaire-choice label:nth-of-type(2) strong",
+      questionnaire_document_option_text: ".questionnaire-choice label:nth-of-type(2) small",
+      time_slots_legend: "#bookingForm fieldset:not(.questionnaire-choice) legend",
+      booking_submit_button: "#bookingForm .submit-button",
       questionnaire_eyebrow: "#questionnaire .eyebrow",
       questionnaire_title: "#questionnaire-title",
       questionnaire_description: "#questionnaire p:not(.eyebrow)",
@@ -400,6 +426,19 @@ applyLanguage(currentLanguage);
       footer_link_label: ".footer a"
     };
     Object.entries(textTargets).forEach(([key, selector]) => setText(selector, pick(texts[key], lang)));
+    const bookingLabels = {
+      booking_name_label: '#bookingForm .form-row label:nth-child(1)',
+      booking_phone_label: '#bookingForm .form-row label:nth-child(2)',
+      booking_email_label: '#bookingForm > label:nth-of-type(1)',
+      booking_date_label: '#bookingForm > label:nth-of-type(2)',
+      booking_request_label: '#bookingForm > label:nth-of-type(3)',
+      contact_whatsapp_label: '.contact-choice label:nth-of-type(1)',
+      contact_telegram_label: '.contact-choice label:nth-of-type(2)'
+    };
+    Object.entries(bookingLabels).forEach(([key, selector]) => setLabelText(selector, pick(texts[key], lang)));
+    setPlaceholder('#phone', pick(texts.booking_phone_placeholder, lang));
+    setPlaceholder('#email', pick(texts.booking_email_placeholder, lang));
+    setPlaceholder('#message', pick(texts.booking_request_placeholder, lang));
     renderMarquee(pick(texts.marquee_topics, lang));
   }
 
