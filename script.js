@@ -462,6 +462,15 @@ applyLanguage(currentLanguage);
     }).join("");
   }
 
+  function applyApproach(data, lang) {
+    if (!Array.isArray(data.approach) || !data.approach.length) return;
+    const container = document.querySelector("#method .method-grid");
+    if (!container) return;
+    container.innerHTML = data.approach.map((card) => {
+      return '<div><span>' + (card.number || '') + '</span><h3>' + (pick(card.title, lang) || '') + '</h3><p>' + (pick(card.text, lang) || '') + '</p></div>';
+    }).join("");
+  }
+
   function applyRequests(data, lang) {
     if (!Array.isArray(data.requests) || !data.requests.length) return;
     const container = document.querySelector("#requests .request-columns");
@@ -493,6 +502,7 @@ applyLanguage(currentLanguage);
     applyFormats(data, lang);
     applyReviews(data, lang);
     applyRequests(data, lang);
+    applyApproach(data, lang);
     applyAnalyses(data, lang);
     if (typeof updateFeedbackCarousel === "function") updateFeedbackCarousel();
     if (typeof updateFormatCarousel === "function") updateFormatCarousel();
