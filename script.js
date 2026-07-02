@@ -340,7 +340,14 @@ applyLanguage(currentLanguage);
 // Notion CMS bridge. The static page stays usable if the API is unavailable.
 (function () {
   const langFromPage = () => document.documentElement.lang || localStorage.getItem("siteLanguage") || "ru";
-  const pick = (value, lang) => value && (value[lang] || value.ru || value.en || value.et || "");
+  const pick = (value, lang) => {
+    if (!value) return undefined;
+    if (Object.prototype.hasOwnProperty.call(value, lang)) return value[lang];
+    if (Object.prototype.hasOwnProperty.call(value, "ru")) return value.ru;
+    if (Object.prototype.hasOwnProperty.call(value, "en")) return value.en;
+    if (Object.prototype.hasOwnProperty.call(value, "et")) return value.et;
+    return undefined;
+  };
   const price = (format, lang) => {
     if (!format) return "";
     if (lang === "ru") return format.priceRub ? format.priceRub + " рублей" : "";
@@ -349,12 +356,13 @@ applyLanguage(currentLanguage);
 
   function setText(selector, value) {
     const element = document.querySelector(selector);
-    if (element && value) element.textContent = value;
+    if (element && value !== undefined) element.textContent = value;
   }
 
   function renderMarquee(value) {
     const marquee = document.querySelector(".marquee div");
-    if (!marquee || !value) return;
+    if (!marquee || value === undefined) return;
+    if (value === "") { marquee.innerHTML = ""; return; }
     const topics = value.split(/[•|]/).map((item) => item.trim()).filter(Boolean);
     if (!topics.length) return;
     const doubled = topics.concat(topics);
