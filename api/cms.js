@@ -146,14 +146,19 @@ function mapLinks(pages) {
 
 function mapTexts(pages) {
   const texts = {};
-  pages.filter(active).forEach((page) => {
+  pages.forEach((page) => {
     const key = text(page, "Key");
     if (!key) return;
+    if (!active(page)) {
+      texts[key] = { ru: "", en: "", et: "", order: number(page, "Order"), disabled: true };
+      return;
+    }
     texts[key] = {
       ru: text(page, "RU"),
       en: text(page, "EN") || text(page, "RU"),
       et: text(page, "ET") || text(page, "RU"),
-      order: number(page, "Order")
+      order: number(page, "Order"),
+      disabled: false
     };
   });
   return texts;
@@ -168,7 +173,7 @@ module.exports = async function handler(req, res) {
       queryDatabase(env("NOTION_LINKS_DB_ID")),
       queryDatabase(env("NOTION_TEXTS_DB_ID"))
     ]);
-    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=900");
+    res.setHeader("Cache-Control", "no-store, max-age=0");
     res.status(200).json({
       ok: true,
       formats: mapFormats(formats),
