@@ -462,6 +462,18 @@ applyLanguage(currentLanguage);
     }).join("");
   }
 
+  function applyRequests(data, lang) {
+    if (!Array.isArray(data.requests) || !data.requests.length) return;
+    const container = document.querySelector("#requests .request-columns");
+    if (!container) return;
+    container.innerHTML = data.requests.map((column) => {
+      const items = Array.isArray(column.items?.[lang]) ? column.items[lang] : [];
+      return '<article><h3>' + (pick(column.title, lang) || "") + '</h3><ul>' +
+        items.map((item) => '<li>' + item + '</li>').join("") +
+        '</ul></article>';
+    }).join("");
+  }
+
   function applyAnalyses(data, lang) {
     if (!Array.isArray(data.analyses) || !data.analyses.length) return;
     const list = document.querySelector(".lab-list");
@@ -480,6 +492,7 @@ applyLanguage(currentLanguage);
     applyLinks(data, lang);
     applyFormats(data, lang);
     applyReviews(data, lang);
+    applyRequests(data, lang);
     applyAnalyses(data, lang);
     if (typeof updateFeedbackCarousel === "function") updateFeedbackCarousel();
     if (typeof updateFormatCarousel === "function") updateFormatCarousel();
