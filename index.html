@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Дарья Повалихина - нутрициолог</title>
 <meta name="description" content="Консультации нутрициолога Дарьи Повалихиной: питание, дефициты, биохимия, анкета и удобная запись." />
-<link rel="stylesheet" href="./styles.css?v=lab-list-3" />
+<link rel="stylesheet" href="./styles.css?v=body-map-2" />
 </head>
 <body class="cms-loading"><script>document.documentElement.classList.add("cms-booting");setTimeout(function(){document.body&&document.body.classList.remove("cms-loading");},1200);</script><div class="scroll-progress" aria-hidden="true"><span></span></div>
 <header class="topbar">
@@ -28,15 +28,28 @@
   </div>
   <div class="body-map-layout">
     <div class="body-map-visual" aria-label="Интерактивная карта тела">
-      <svg class="body-silhouette" viewBox="0 0 260 560" role="img" aria-label="Силуэт человека">
-        <path class="body-head" d="M130 34c28 0 50 22 50 50s-22 50-50 50-50-22-50-50 22-50 50-50Z" />
-        <path class="body-neck" d="M112 136h36v36h-36z" />
-        <path class="body-torso" d="M82 174c18-16 78-16 96 0 16 14 24 42 22 75l-10 132h-120l-10-132c-2-33 6-61 22-75Z" />
-        <path class="body-arm left" d="M78 192c-16 16-25 41-34 75l-17 65c-4 16 5 31 20 35s29-5 34-21l18-72" />
-        <path class="body-arm right" d="M182 192c16 16 25 41 34 75l17 65c4 16-5 31-20 35s-29-5-34-21l-18-72" />
-        <path class="body-leg left" d="M88 374l-23 131c-3 18 10 34 28 37s34-10 37-28l22-140" />
-        <path class="body-leg right" d="M172 374l23 131c3 18-10 34-28 37s-34-10-37-28l-22-140" />
+      <svg class="body-silhouette body-map-orbit" viewBox="0 0 320 520" role="img" aria-label="Карта систем организма">
+        <defs>
+          <radialGradient id="bodyGlow" cx="50%" cy="45%" r="58%">
+            <stop offset="0%" stop-color="rgba(185,154,103,.20)" />
+            <stop offset="68%" stop-color="rgba(244,240,234,.06)" />
+            <stop offset="100%" stop-color="rgba(244,240,234,0)" />
+          </radialGradient>
+        </defs>
+        <ellipse class="body-aura" cx="160" cy="260" rx="118" ry="210" />
+        <path class="body-core" d="M160 38c30 0 54 24 54 54s-24 54-54 54-54-24-54-54 24-54 54-54Zm0 132c58 0 96 48 96 122 0 92-39 176-96 176s-96-84-96-176c0-74 38-122 96-122Z" />
+        <path class="body-centerline" d="M160 158v286" />
+        <path class="body-ribs" d="M108 238c30-22 74-22 104 0M98 294c36-24 88-24 124 0M101 350c34 20 84 20 118 0" />
       </svg>
+      <div class="body-map-labels" aria-hidden="true">
+        <span style="--x:50%;--y:13%">мозг</span>
+        <span style="--x:50%;--y:25%">щитовидка</span>
+        <span style="--x:38%;--y:40%">печень</span>
+        <span style="--x:61%;--y:42%">стресс</span>
+        <span style="--x:50%;--y:48%">ЖКТ</span>
+        <span style="--x:50%;--y:61%">гормоны</span>
+        <span style="--x:38%;--y:72%">энергия</span>
+      </div>
       <div class="body-map-points" id="bodyMapPoints"></div>
     </div>
     <article class="body-map-card" id="bodyMapCard" aria-live="polite"></article>
@@ -50,6 +63,6 @@
 <div class="modal format-modal" id="formatModal" aria-hidden="true"><div class="modal-backdrop" data-close-format-modal></div><section class="modal-dialog format-dialog" role="dialog" aria-modal="true" aria-labelledby="formatModalTitle"><button class="modal-close" type="button" aria-label="Закрыть" data-close-format-modal>×</button><p class="eyebrow">Форматы работы</p><h2 id="formatModalTitle">Выберите формат</h2><div class="format-carousel"><button class="carousel-button" type="button" id="prevFormat" aria-label="Предыдущие форматы">‹</button><div class="format-viewport"><div class="format-track" id="formatTrack"><label class="format-card"><input type="radio" name="formatChoice" value="Разовая консультация" data-price="6000 рублей" data-price-et="60 eurot" data-price-en="60 euro" checked /><span class="format-title">Разовая консультация</span><span class="format-text">60–75 минут по телефону или Google Meet. Разбор анкеты, анализов, ранее проведенных исследований, жалоб и ответы на вопросы.</span><span class="format-subtitle">В ходе консультации формируется:</span><span class="format-list"><span>направление работы по вашей проблеме</span><span>рекомендации по питанию, физической нагрузке и образу жизни</span><span>схема нутрицевтической коррекции</span><span>помощь в выборе препаратов</span></span><strong>6000 рублей</strong></label><label class="format-card"><input type="radio" name="formatChoice" value="Дистанционное ведение" data-price="10000 рублей" data-price-et="100 eurot" data-price-en="100 euro" /><span class="format-title">Дистанционное ведение</span><span class="format-text">Консультация 60–75 минут и поддержка в течение месяца: вы пишете вопросы, я отвечаю в рабочее время с 8 до 18:00.</span><span class="format-subtitle">В ходе работы формируется протокол:</span><span class="format-list"><span>направление работы по вашей проблеме</span><span>рекомендации по питанию, физической нагрузке и образу жизни</span><span>схема нутрицевтической коррекции</span><span>помощь в выборе препаратов</span></span><strong>10000 рублей</strong></label><label class="format-card"><input type="radio" name="formatChoice" value="Повторная консультация" data-price="5000 рублей" data-price-et="50 eurot" data-price-en="50 euro" /><span class="format-title">Повторная консультация</span><span class="format-text">Повторная консультация через 2 месяца для контроля текущего состояния и корректировки назначений.</span><strong>5000 рублей</strong></label><label class="format-card"><input type="radio" name="formatChoice" value="Разбор анализов" data-price="4000 рублей" data-price-et="40 eurot" data-price-en="40 euro" /><span class="format-title">Разбор анализов</span><span class="format-text">Разбираем результаты ваших анализов и интерпретацию с учетом симптомов, жалоб и анамнеза.</span><strong>4000 рублей</strong></label></div></div><button class="carousel-button" type="button" id="nextFormat" aria-label="Следующие форматы">›</button></div><button class="button primary submit-button" type="button" id="applyFormatChoice">Выбрать</button></section></div>
 <div class="modal" id="questionnaireModal" aria-hidden="true"><div class="modal-backdrop" data-close-modal></div><section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="questionnaireModalTitle"><button class="modal-close" type="button" aria-label="Закрыть" data-close-modal>×</button><p class="eyebrow">Анкета клиента</p><h2 id="questionnaireModalTitle">Как вам удобнее заполнить анкету?</h2><div class="modal-options"><a class="modal-option" href="./questionnaire.html" target="_blank" rel="noreferrer" aria-label="Анкета онлайн"><strong>Анкета онлайн</strong><span>Откроется онлайн-анкета с вопросами по порядку и окном для ответа.</span></a><a class="modal-option" href="./assets/questionnaire.pdf" download aria-label="Скачать документ"><strong>Скачать документ</strong><span>Скачайте PDF-анкету и заполните в удобном темпе.</span></a></div></section></div>
 <footer class="footer"><p>Дарья Повалихина, нутрициолог</p><a href="https://taplink.cc/darja_nutritsioloog">taplink.cc/darja_nutritsioloog</a></footer>
-<script src="./script.js?v=lab-list-3"></script>
+<script src="./script.js?v=body-map-2"></script>
 </body>
 </html>
