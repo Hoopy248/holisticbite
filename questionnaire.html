@@ -39,7 +39,7 @@
 <section class="q-step " data-index="36" data-question="Обычный рацион за один день"><div class="kicker">Вопрос 37</div><h2>Обычный рацион за один день</h2><p>Во сколько проснулись, завтрак/обед/ужин, перекусы, время, продукты, объем, напитки, во сколько легли спать.</p><textarea name="answer-36" placeholder="Ваш ответ"></textarea></section>
 <section class="q-step " data-index="37" data-question="Дата заполнения"><div class="kicker">Вопрос 38</div><h2>Дата заполнения</h2><p>Укажите дату заполнения анкеты.</p><textarea name="answer-37" placeholder="Ваш ответ"></textarea></section><section class="final-step" id="finalStep"><div class="kicker">Финальный шаг</div><h2>Куда отправить анкету?</h2><p>Укажите вашу почту. После нажатия сайт откроет подготовленное письмо на адрес darja.nutritsioloog@gmail.com. Проверьте текст и нажмите отправить в своем почтовом клиенте.</p><div class="email-grid"><label>Ваш e-mail<input id="clientEmail" type="email" required placeholder="name@example.com"/></label><label>Ваше имя<input id="clientNameFinal" type="text" placeholder="Имя"/></label></div><p class="notice">Для полностью автоматической отправки без открытия почты нужен сервер или сервис вроде Formspree/EmailJS.</p></section><div class="actions"><button class="button secondary" type="button" id="prevBtn">Назад</button><button class="button primary" type="button" id="nextBtn">Далее</button></div></form></main></div><script>
 (function(){
-  var steps = Array.prototype.slice.call(document.querySelectorAll('.q-step'));
+  var form = document.getElementById('questionnaireForm');
   var finalStep = document.getElementById('finalStep');
   var prevBtn = document.getElementById('prevBtn');
   var nextBtn = document.getElementById('nextBtn');
@@ -47,36 +47,137 @@
   var progressMeta = document.getElementById('progressMeta');
   var targetEmail = 'darja.nutritsioloog@gmail.com';
   var index = 0;
-  function render(){
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.q-step'));
+  var lang = localStorage.getItem('siteLanguage') || document.documentElement.lang || 'ru';
+
+  var defaults = {
+    pageTitle: { ru: 'Анкета клиента', en: 'Client questionnaire', et: 'Kliendiküsimustik' },
+    lead: { ru: 'Ответьте на вопросы по порядку. В конце укажите почту, и сайт подготовит письмо для отправки Дарье.', en: 'Answer the questions in order. At the end, enter your email and the site will prepare a message to send to Darya.', et: 'Vasta küsimustele järjest. Lõpus sisesta oma e-post ja sait valmistab ette kirja Darjale saatmiseks.' },
+    download: { ru: 'Скачать PDF-анкету', en: 'Download PDF form', et: 'Laadi PDF-ankeet alla' },
+    question: { ru: 'Вопрос', en: 'Question', et: 'Küsimus' },
+    of: { ru: 'из', en: 'of', et: '/' },
+    finalKicker: { ru: 'Финальный шаг', en: 'Final step', et: 'Viimane samm' },
+    finalTitle: { ru: 'Куда отправить анкету?', en: 'Where should the questionnaire be sent?', et: 'Kuhu ankeet saata?' },
+    finalText: { ru: 'Укажите вашу почту. После нажатия сайт откроет подготовленное письмо на адрес darja.nutritsioloog@gmail.com. Проверьте текст и нажмите отправить в своем почтовом клиенте.', en: 'Enter your email. After clicking the button, the site will open a prepared message to darja.nutritsioloog@gmail.com. Check the text and send it from your email app.', et: 'Sisesta oma e-post. Pärast nupu vajutamist avab sait ettevalmistatud kirja aadressile darja.nutritsioloog@gmail.com. Kontrolli teksti ja saada see oma e-posti rakendusest.' },
+    emailLabel: { ru: 'Ваш e-mail', en: 'Your email', et: 'Sinu e-post' },
+    nameLabel: { ru: 'Ваше имя', en: 'Your name', et: 'Sinu nimi' },
+    namePlaceholder: { ru: 'Имя', en: 'Name', et: 'Nimi' },
+    notice: { ru: 'Для полностью автоматической отправки без открытия почты нужен сервер или сервис вроде Formspree/EmailJS.', en: 'Fully automatic sending without opening email requires a server or a service like Formspree/EmailJS.', et: 'Täisautomaatseks saatmiseks ilma e-posti avamata on vaja serverit või teenust nagu Formspree/EmailJS.' },
+    prev: { ru: 'Назад', en: 'Back', et: 'Tagasi' },
+    next: { ru: 'Далее', en: 'Next', et: 'Edasi' },
+    prepare: { ru: 'Подготовить письмо', en: 'Prepare email', et: 'Valmista kiri ette' },
+    ready: { ru: 'Готово к отправке', en: 'Ready to send', et: 'Saatmiseks valmis' },
+    mailTitle: { ru: 'Анкета клиента HolisticBite', en: 'HolisticBite client questionnaire', et: 'HolisticBite kliendiankeet' },
+    clientEmail: { ru: 'Email клиента', en: 'Client email', et: 'Kliendi e-post' },
+    clientName: { ru: 'Имя клиента', en: 'Client name', et: 'Kliendi nimi' }
+  };
+
+  function pick(value, fallbackKey) {
+    if (value && Object.prototype.hasOwnProperty.call(value, lang)) return value[lang];
+    if (value && Object.prototype.hasOwnProperty.call(value, 'ru')) return value.ru;
+    return defaults[fallbackKey] ? (defaults[fallbackKey][lang] || defaults[fallbackKey].ru) : '';
+  }
+
+  function textFromCms(texts, key, fallbackKey) {
+    return pick(texts && texts[key], fallbackKey);
+  }
+
+  function setText(selector, value) {
+    var el = document.querySelector(selector);
+    if (el && value !== undefined) el.textContent = value;
+  }
+
+  function setLabelText(label, value) {
+    if (!label || value === undefined) return;
+    var node = Array.prototype.slice.call(label.childNodes).find(function(item){ return item.nodeType === Node.TEXT_NODE && item.nodeValue.trim(); });
+    if (node) node.nodeValue = value;
+    else label.insertBefore(document.createTextNode(value), label.firstChild);
+  }
+
+  function applyUiTexts(texts) {
+    setText('aside .title', textFromCms(texts, 'questionnaire_page_title', 'pageTitle'));
+    document.title = textFromCms(texts, 'questionnaire_page_title', 'pageTitle') + ' - HolisticBite';
+    setText('aside .lead', textFromCms(texts, 'questionnaire_page_lead', 'lead'));
+    setText('aside .download', textFromCms(texts, 'questionnaire_page_download', 'download'));
+    setText('#finalStep .kicker', textFromCms(texts, 'questionnaire_final_kicker', 'finalKicker'));
+    setText('#finalStep h2', textFromCms(texts, 'questionnaire_final_title', 'finalTitle'));
+    setText('#finalStep > p', textFromCms(texts, 'questionnaire_final_text', 'finalText'));
+    var labels = document.querySelectorAll('#finalStep .email-grid label');
+    setLabelText(labels[0], textFromCms(texts, 'questionnaire_email_label', 'emailLabel'));
+    setLabelText(labels[1], textFromCms(texts, 'questionnaire_name_label', 'nameLabel'));
+    var email = document.getElementById('clientEmail');
+    var name = document.getElementById('clientNameFinal');
+    if (email) email.placeholder = textFromCms(texts, 'questionnaire_email_placeholder', null) || 'name@example.com';
+    if (name) name.placeholder = textFromCms(texts, 'questionnaire_name_placeholder', 'namePlaceholder');
+    setText('#finalStep .notice', textFromCms(texts, 'questionnaire_notice', 'notice'));
+    prevBtn.textContent = textFromCms(texts, 'questionnaire_prev_button', 'prev');
+  }
+
+  function renderQuestionSteps(items, texts) {
+    if (!items || !items.length) return;
+    steps.forEach(function(step){ step.remove(); });
+    steps = items.map(function(item, i){
+      var section = document.createElement('section');
+      section.className = 'q-step' + (i === 0 ? ' is-active' : '');
+      section.dataset.index = String(i);
+      var question = pick(item.question, null) || item.title || '';
+      var help = pick(item.help, null) || '';
+      var placeholder = pick(item.placeholder, null) || textFromCms(texts, 'questionnaire_answer_placeholder', null) || (lang === 'en' ? 'Your answer' : lang === 'et' ? 'Sinu vastus' : 'Ваш ответ');
+      section.dataset.question = question;
+      section.innerHTML = '<div class="kicker"></div><h2></h2><p></p><textarea name="answer-' + i + '"></textarea>';
+      section.querySelector('.kicker').textContent = textFromCms(texts, 'questionnaire_question_label', 'question') + ' ' + (i + 1);
+      section.querySelector('h2').textContent = question;
+      section.querySelector('p').textContent = help;
+      section.querySelector('textarea').placeholder = placeholder;
+      form.insertBefore(section, finalStep);
+      return section;
+    });
+    index = 0;
+  }
+
+  function render(texts){
     steps.forEach(function(step,i){ step.classList.toggle('is-active', i === index && index < steps.length); });
     finalStep.classList.toggle('is-active', index === steps.length);
     prevBtn.disabled = index === 0;
-    nextBtn.textContent = index === steps.length ? 'Подготовить письмо' : 'Далее';
-    var progress = Math.round((index / steps.length) * 100);
+    nextBtn.textContent = index === steps.length ? textFromCms(texts, 'questionnaire_prepare_button', 'prepare') : textFromCms(texts, 'questionnaire_next_button', 'next');
+    var progress = steps.length ? Math.round((index / steps.length) * 100) : 0;
     progressBar.style.width = progress + '%';
-    progressMeta.textContent = index === steps.length ? 'Готово к отправке' : 'Вопрос ' + (index + 1) + ' из ' + steps.length;
+    progressMeta.textContent = index === steps.length ? textFromCms(texts, 'questionnaire_ready_text', 'ready') : textFromCms(texts, 'questionnaire_question_label', 'question') + ' ' + (index + 1) + ' ' + textFromCms(texts, 'questionnaire_of_label', 'of') + ' ' + steps.length;
   }
+
   function collectAnswers(){
-    return steps.map(function(step,i){
+    return steps.map(function(step){
       var question = step.getAttribute('data-question');
       var answer = (step.querySelector('textarea') || {}).value || '';
       return { question: question, answer: answer.trim() };
     });
   }
-  function sendMail(){
+
+  function sendMail(texts){
     var emailInput = document.getElementById('clientEmail');
     var email = emailInput.value.trim();
     if(!email){ emailInput.focus(); return; }
     var name = document.getElementById('clientNameFinal').value.trim();
     var answers = collectAnswers();
-    var lines = ['Анкета клиента HolisticBite', '', 'Email клиента: ' + email];
-    if(name) lines.push('Имя клиента: ' + name);
+    var lines = [textFromCms(texts, 'questionnaire_mail_title', 'mailTitle'), '', textFromCms(texts, 'questionnaire_mail_email_label', 'clientEmail') + ': ' + email];
+    if(name) lines.push(textFromCms(texts, 'questionnaire_mail_name_label', 'clientName') + ': ' + name);
     answers.forEach(function(item,i){ lines.push('', (i+1) + '. ' + item.question, item.answer || '-'); });
-    var subject = 'Анкета клиента' + (name ? ' - ' + name : '');
-    window.location.href = 'mailto:' + targetEmail + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\\n'));
+    var subject = textFromCms(texts, 'questionnaire_mail_subject', 'mailTitle') + (name ? ' - ' + name : '');
+    window.location.href = 'mailto:' + targetEmail + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
   }
-  nextBtn.addEventListener('click', function(){ if(index < steps.length){ index += 1; render(); } else { sendMail(); } });
-  prevBtn.addEventListener('click', function(){ if(index > 0){ index -= 1; render(); } });
-  render();
+
+  function start(cms){
+    var texts = (cms && cms.texts) || {};
+    applyUiTexts(texts);
+    if (cms && Array.isArray(cms.questionnaire) && cms.questionnaire.length) renderQuestionSteps(cms.questionnaire, texts);
+    nextBtn.addEventListener('click', function(){ if(index < steps.length){ index += 1; render(texts); } else { sendMail(texts); } });
+    prevBtn.addEventListener('click', function(){ if(index > 0){ index -= 1; render(texts); } });
+    render(texts);
+  }
+
+  fetch('/api/cms?ts=' + Date.now(), { cache: 'no-store', headers: { Accept: 'application/json' } })
+    .then(function(response){ return response.ok ? response.json() : null; })
+    .then(start)
+    .catch(function(){ start(null); });
 })();
 </script></body></html>
