@@ -369,6 +369,11 @@ applyLanguage(currentLanguage);
 
 
 
+function revealCmsPage() {
+  document.body?.classList.remove("cms-loading");
+  document.documentElement.classList.add("cms-ready");
+}
+
 // Notion CMS bridge. The static page stays usable if the API is unavailable.
 (function () {
   const langFromPage = () => document.documentElement.lang || localStorage.getItem("siteLanguage") || "ru";
@@ -632,8 +637,10 @@ applyLanguage(currentLanguage);
       if (!response.ok) throw new Error("CMS request failed");
       window.__HOLISTICBITE_CMS__ = await response.json();
       applyCmsData();
+      revealCmsPage();
     } catch (error) {
       console.info("Notion CMS is unavailable; using static content.", error);
+      revealCmsPage();
     }
   }
 
