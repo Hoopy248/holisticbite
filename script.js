@@ -171,16 +171,48 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-bookingForm?.addEventListener("submit", (event) => {
+bookingForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(bookingForm);
   const date = getLocalDate(data.get("date"));
   const friendlyDate = formatter.format(date);
-  formStatus.textContent = `${data.get("clientName")}, запись на ${data.get("service")} ${friendlyDate} в ${data.get("slot")} создана. Формат анкеты: ${data.get("questionnaireFormat")}.`;
-  bookingForm.reset();
-  setupDates();
-  setSelectedService("Разовая консультация");
-  renderSlots();
+  const submitButton = bookingForm.querySelector(".submit-button");
+  const selectedInput = Array.from(formatInputs).find((input) => input.checked);
+  const payload = {
+    type: "booking",
+    clientName: data.get("clientName"),
+    phone: data.get("phone"),
+    email: data.get("email"),
+    contactChannels: data.getAll("contactChannel"),
+    service: data.get("service"),
+    price: selectedInput ? selectedInput.dataset.price : selectedFormatPrice?.textContent,
+    questionnaireFormat: data.get("questionnaireFormat"),
+    date: friendlyDate,
+    slot: data.get("slot"),
+    message: data.get("message")
+  };
+
+  if (formStatus) formStatus.textContent = "Отправляем заявку...";
+  if (submitButton) submitButton.disabled = true;
+
+  try {
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось отправить заявку");
+    if (formStatus) formStatus.textContent = "Заявка отправлена. Дарья свяжется с вами по указанным контактам.";
+    bookingForm.reset();
+    setupDates();
+    setSelectedService("Разовая консультация");
+    renderSlots();
+  } catch (error) {
+    if (formStatus) formStatus.textContent = "Не удалось отправить заявку. Проверьте данные или попробуйте позже.";
+  } finally {
+    if (submitButton) submitButton.disabled = false;
+  }
 });
 
 setupDates();
@@ -441,6 +473,9 @@ applyLanguage(currentLanguage);
       lab_modal_note: "#labListModal .lab-note",
       lab_modal_deadline: "#labListModal .lab-deadline",
       feedback_title: "#feedback-title",
+      contact_eyebrow: "#contact .eyebrow",
+      contact_title: "#contact-title",
+      contact_description: "#contact .contact-description",
       footer_text: ".footer p",
       footer_link_label: ".footer a"
     };
@@ -477,6 +512,17 @@ applyLanguage(currentLanguage);
       storyButtons[1].href = links.telegram_blog.url || storyButtons[1].href;
       storyButtons[1].textContent = pick(links.telegram_blog.label, lang) || storyButtons[1].textContent;
     }
+    const contactButtons = {
+      whatsapp_contact: document.querySelector('[data-contact-whatsapp]'),
+      telegram_contact: document.querySelector('[data-contact-telegram]'),
+      email_contact: document.querySelector('[data-contact-email]')
+    };
+    Object.entries(contactButtons).forEach(([key, button]) => {
+      if (links[key] && button) {
+        button.href = links[key].url || button.href;
+        button.textContent = pick(links[key].label, lang) || button.textContent;
+      }
+    });
     const online = document.querySelector('.modal-option[href$="questionnaire.html"]');
     const pdf = document.querySelector('.modal-option[download]');
     if (links.questionnaire_online && online) online.href = links.questionnaire_online.url || online.href;
