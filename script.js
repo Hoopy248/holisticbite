@@ -372,6 +372,18 @@ applyLanguage(currentLanguage);
     if (element && value !== undefined) element.setAttribute("placeholder", value);
   }
 
+  function setAttributeValue(selector, attribute, value) {
+    const element = document.querySelector(selector);
+    if (element && value !== undefined) element.setAttribute(attribute, value);
+  }
+
+  function setFormatSelectedBadge(value, lang) {
+    const label = value !== undefined ? value : lang === "en" ? "Selected" : lang === "et" ? "Valitud" : "Выбрано";
+    document.querySelectorAll(".format-title").forEach((element) => {
+      element.dataset.selectedLabel = label;
+    });
+  }
+
   function renderMarquee(value) {
     const marquee = document.querySelector(".marquee div");
     if (!marquee || value === undefined) return;
@@ -402,6 +414,9 @@ applyLanguage(currentLanguage);
       booking_note: ".booking-note p",
       selected_format_label: ".selected-format span",
       choose_format_button: "#openFormatModal",
+      format_apply_button: "#applyFormatChoice",
+      format_modal_title: "#formatModalTitle",
+      format_modal_eyebrow: "#formatModal .eyebrow",
       contact_choice_title: ".contact-choice p",
       questionnaire_format_legend: ".questionnaire-choice legend",
       questionnaire_online_option_title: ".questionnaire-choice label:nth-of-type(1) strong",
@@ -426,6 +441,10 @@ applyLanguage(currentLanguage);
       footer_link_label: ".footer a"
     };
     Object.entries(textTargets).forEach(([key, selector]) => setText(selector, pick(texts[key], lang)));
+    setFormatSelectedBadge(pick(texts.format_selected_badge, lang), lang);
+    setAttributeValue('#prevFormat', 'aria-label', pick(texts.format_prev_label, lang));
+    setAttributeValue('#nextFormat', 'aria-label', pick(texts.format_next_label, lang));
+    setAttributeValue('#formatModal .modal-close', 'aria-label', pick(texts.format_close_label, lang));
     const bookingLabels = {
       booking_name_label: '#bookingForm .form-row label:nth-child(1)',
       booking_phone_label: '#bookingForm .form-row label:nth-child(2)',
