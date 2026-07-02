@@ -335,3 +335,164 @@ document.querySelectorAll(".language-switcher button").forEach((button) => butto
 formatInputs.forEach((input) => input.addEventListener("change", () => setTimeout(() => applyLanguage(currentLanguage), 0)));
 applyLanguage(currentLanguage);
 
+
+
+// Notion CMS bridge. The static page stays usable if the API is unavailable.
+(function () {
+  const langFromPage = () => document.documentElement.lang || localStorage.getItem("siteLanguage") || "ru";
+  const pick = (value, lang) => value && (value[lang] || value.ru || value.en || value.et || "");
+  const price = (format, lang) => {
+    if (!format) return "";
+    if (lang === "ru") return format.priceRub ? format.priceRub + " рублей" : "";
+    return format.priceEur ? format.priceEur + " euro" : "";
+  };
+
+  function setText(selector, value) {
+    const element = document.querySelector(selector);
+    if (element && value) element.textContent = value;
+  }
+
+  function renderMarquee(value) {
+    const marquee = document.querySelector(".marquee div");
+    if (!marquee || !value) return;
+    const topics = value.split(/[•|]/).map((item) => item.trim()).filter(Boolean);
+    if (!topics.length) return;
+    const doubled = topics.concat(topics);
+    marquee.innerHTML = doubled.map((topic) => '<span>' + topic + '</span>').join("");
+  }
+
+  function applyTexts(data, lang) {
+    const texts = data.texts || {};
+    const textTargets = {
+      brand_name: ".brand span",
+      nav_requests: ".nav a:nth-child(1)",
+      nav_approach: ".nav a:nth-child(2)",
+      nav_cases: ".nav a:nth-child(3)",
+      topbar_booking: ".topbar-actions .topbar-action:nth-of-type(1)",
+      topbar_questionnaire: ".topbar-actions .topbar-action:nth-of-type(2)",
+      hero_title: "#hero-title",
+      hero_subtitle: ".hero-copy",
+      hero_note: ".hero-signature",
+      profile_name: ".profile-caption strong",
+      profile_role: ".profile-caption span",
+      booking_title: "#booking-title",
+      questionnaire_title: "#questionnaire-title",
+      analyses_button: "#openLabList",
+      feedback_title: "#feedback-title",
+      footer_text: ".footer p",
+      footer_link_label: ".footer a"
+    };
+    Object.entries(textTargets).forEach(([key, selector]) => setText(selector, pick(texts[key], lang)));
+    renderMarquee(pick(texts.marquee_topics, lang));
+  }
+
+  function applyLinks(data, lang) {
+    const links = data.links || {};
+    const storyButtons = document.querySelectorAll(".stories-actions a");
+    if (links.instagram && storyButtons[0]) {
+      storyButtons[0].href = links.instagram.url || storyButtons[0].href;
+      storyButtons[0].textContent = pick(links.instagram.label, lang) || storyButtons[0].textContent;
+    }
+    if (links.telegram_blog && storyButtons[1]) {
+      storyButtons[1].href = links.telegram_blog.url || storyButtons[1].href;
+      storyButtons[1].textContent = pick(links.telegram_blog.label, lang) || storyButtons[1].textContent;
+    }
+    const online = document.querySelector('.modal-option[href$="questionnaire.html"]');
+    const pdf = document.querySelector('.modal-option[download]');
+    if (links.questionnaire_online && online) online.href = links.questionnaire_online.url || online.href;
+    if (links.questionnaire_pdf && pdf) pdf.href = links.questionnaire_pdf.url || pdf.href;
+  }
+
+  function applyFormats(data, lang) {
+    if (!Array.isArray(data.formats) || !data.formats.length) return;
+    const cards = document.querySelectorAll(".format-card");
+    data.formats.forEach((format, index) => {
+      const card = cards[index];
+      if (!card) return;
+      const input = card.querySelector('input[name="formatChoice"]');
+      const title = card.querySelector(".format-title");
+      const description = card.querySelector(".format-text");
+      const list = card.querySelector(".format-list");
+      const strong = card.querySelector("strong:last-child");
+      const name = pick(format.name, lang);
+      if (input) {
+        input.value = name;
+        input.dataset.price = price(format, "ru");
+        input.dataset.priceEn = price(format, "en");
+        input.dataset.priceEt = price(format, "et");
+      }
+      if (title) title.textContent = name;
+      if (description) description.textContent = pick(format.description, lang);
+      if (list && Array.isArray(format.includes?.[lang]) && format.includes[lang].length) {
+        list.innerHTML = format.includes[lang].map((item) => '<span>' + item + '</span>').join("");
+      }
+      if (strong) strong.textContent = price(format, lang);
+    });
+
+    const first = data.formats[0];
+    if (first) {
+      const selectedName = pick(first.name, lang);
+      const input = document.querySelector('.format-card input[name="formatChoice"]:checked') || document.querySelector('.format-card input[name="formatChoice"]');
+      if (input) {
+        document.querySelector("#selectedFormatTitle").textContent = input.value || selectedName;
+        document.querySelector("#selectedFormatPrice").textContent = lang === "ru" ? input.dataset.price : lang === "et" ? input.dataset.priceEt : input.dataset.priceEn;
+        const service = document.querySelector("#service");
+        if (service) service.value = input.value || selectedName;
+      }
+    }
+  }
+
+  function applyReviews(data, lang) {
+    if (!Array.isArray(data.reviews) || !data.reviews.length) return;
+    const track = document.querySelector("#feedbackTrack");
+    if (!track) return;
+    track.innerHTML = data.reviews.map((review) => {
+      return '<article class="feedback-card">' +
+        '<p>' + (pick(review.text, lang) || "") + '</p>' +
+        '<footer><strong>' + (review.client || "") + '</strong><span>' + (pick(review.caption, lang) || "") + '</span></footer>' +
+        '</article>';
+    }).join("");
+  }
+
+  function applyAnalyses(data, lang) {
+    if (!Array.isArray(data.analyses) || !data.analyses.length) return;
+    const list = document.querySelector(".lab-list");
+    if (!list) return;
+    list.innerHTML = data.analyses
+      .filter((item) => item.group !== "history")
+      .map((item) => '<li>' + pick(item.title, lang) + '</li>')
+      .join("");
+  }
+
+  function applyCmsData() {
+    const data = window.__HOLISTICBITE_CMS__;
+    if (!data || !data.ok) return;
+    const lang = langFromPage();
+    applyTexts(data, lang);
+    applyLinks(data, lang);
+    applyFormats(data, lang);
+    applyReviews(data, lang);
+    applyAnalyses(data, lang);
+    if (typeof updateFeedbackCarousel === "function") updateFeedbackCarousel();
+    if (typeof updateFormatCarousel === "function") updateFormatCarousel();
+  }
+
+  async function loadCmsData() {
+    try {
+      const response = await fetch("/api/cms?ts=" + Date.now(), { cache: "no-store", headers: { Accept: "application/json" } });
+      if (!response.ok) throw new Error("CMS request failed");
+      window.__HOLISTICBITE_CMS__ = await response.json();
+      applyCmsData();
+    } catch (error) {
+      console.info("Notion CMS is unavailable; using static content.", error);
+    }
+  }
+
+  document.querySelectorAll(".language-switcher button").forEach((button) => {
+    button.addEventListener("click", () => window.setTimeout(applyCmsData, 0));
+  });
+  document.addEventListener("change", (event) => {
+    if (event.target && event.target.matches('.format-card input[name="formatChoice"]')) window.setTimeout(applyCmsData, 0);
+  });
+  loadCmsData();
+})();
