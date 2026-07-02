@@ -185,6 +185,29 @@ function mapLinks(pages) {
   return links;
 }
 
+function mapQuestionnaire(pages) {
+  return pages.filter(active).map((page) => ({
+    id: page.id,
+    title: title(page),
+    question: {
+      ru: text(page, "Question RU") || title(page),
+      en: text(page, "Question EN") || text(page, "Question RU") || title(page),
+      et: text(page, "Question ET") || text(page, "Question RU") || title(page)
+    },
+    help: {
+      ru: text(page, "Help RU"),
+      en: text(page, "Help EN") || text(page, "Help RU"),
+      et: text(page, "Help ET") || text(page, "Help RU")
+    },
+    placeholder: {
+      ru: text(page, "Placeholder RU") || "Ваш ответ",
+      en: text(page, "Placeholder EN") || text(page, "Placeholder RU") || "Your answer",
+      et: text(page, "Placeholder ET") || text(page, "Placeholder RU") || "Sinu vastus"
+    },
+    order: number(page, "Order")
+  })).sort(byOrder);
+}
+
 function mapTexts(pages) {
   const texts = {};
   pages.forEach((page) => {
@@ -207,14 +230,15 @@ function mapTexts(pages) {
 
 module.exports = async function handler(req, res) {
   try {
-    const [formats, reviews, analyses, links, texts, requests, approach] = await Promise.all([
+    const [formats, reviews, analyses, links, texts, requests, approach, questionnaire] = await Promise.all([
       queryDatabase(env("NOTION_FORMATS_DB_ID")),
       queryDatabase(env("NOTION_REVIEWS_DB_ID")),
       queryDatabase(env("NOTION_ANALYSES_DB_ID")),
       queryDatabase(env("NOTION_LINKS_DB_ID")),
       queryDatabase(env("NOTION_TEXTS_DB_ID")),
       queryDatabase(env("NOTION_REQUESTS_DB_ID")),
-      queryDatabase(env("NOTION_APPROACH_DB_ID"))
+      queryDatabase(env("NOTION_APPROACH_DB_ID")),
+      queryDatabase(env("NOTION_QUESTIONNAIRE_DB_ID"))
     ]);
     res.setHeader("Cache-Control", "no-store, max-age=0");
     res.status(200).json({
@@ -225,7 +249,8 @@ module.exports = async function handler(req, res) {
       links: mapLinks(links),
       texts: mapTexts(texts),
       requests: mapRequests(requests),
-      approach: mapApproach(approach)
+      approach: mapApproach(approach),
+      questionnaire: mapQuestionnaire(questionnaire)
     });
   } catch (error) {
     res.status(500).json({ ok: false, error: error.message });
