@@ -260,3 +260,47 @@ h1,h2{line-height:1.08;overflow:visible;padding-block:.08em}.hero-content h1{lin
 .female-fill{opacity:.46}.female-line{stroke:rgba(244,240,234,.82);stroke-width:1.7}.female-detail{stroke:rgba(185,154,103,.24);stroke-width:1.05}
 .body-point{width:22px;height:22px;background:rgba(25,25,31,.64)}
 @media(max-width:640px){.body-art.female-outline{width:min(80%,290px);transform:translate(-50%,-50%) scaleX(.84)}}
+
+
+/* Statue body map */
+.body-map-visual{
+  min-height:720px;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(244,240,234,.10), transparent 30%),
+    radial-gradient(circle at 50% 78%, rgba(70,16,34,.14), transparent 34%),
+    linear-gradient(145deg, #202027, #302b31 58%, #231d23);
+  border-color:rgba(244,240,234,.13);
+}
+.body-map-visual::before{
+  inset:18px;
+  border-color:rgba(185,154,103,.16);
+  background:linear-gradient(90deg,rgba(244,240,234,.025) 1px,transparent 1px),linear-gradient(0deg,rgba(244,240,234,.018) 1px,transparent 1px);
+  background-size:28px 28px;
+  z-index:1;
+}
+.body-map-visual .body-art.female-outline{display:none!important}
+.body-statue{
+  position:absolute;
+  left:50%;
+  top:53%;
+  width:min(84%,430px);
+  height:calc(100% - 96px);
+  object-fit:contain;
+  object-position:center center;
+  transform:translate(-50%,-50%);
+  z-index:2;
+  filter:drop-shadow(0 30px 48px rgba(0,0,0,.38));
+  transition:opacity .35s ease, transform .45s ease;
+  user-select:none;
+  pointer-events:none;
+}
+.body-statue-back{opacity:0;transform:translate(-47%,-50%) scale(.985)}
+.body-map-visual.is-back .body-statue-front{opacity:0;transform:translate(-53%,-50%) scale(.985)}
+.body-map-visual.is-back .body-statue-back{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.body-view-toggle{z-index:9;background:rgba(25,25,31,.80);border-color:rgba(185,154,103,.22)}
+.body-map-points{z-index:8}
+.body-point{width:24px;height:24px;background:rgba(25,25,31,.76);border-color:rgba(185,154,103,.52)}
+.body-point span{width:7px;height:7px;background:var(--gold)}
+.body-point.is-active{background:rgba(70,16,34,.95);border-color:rgba(244,240,234,.64)}
+@media(max-width:980px){.body-map-visual{min-height:680px}.body-statue{width:min(82%,410px)}}
+@media(max-width:640px){.body-map-visual{min-height:560px}.body-statue{width:min(90%,335px);height:calc(100% - 82px)}}
