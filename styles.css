@@ -197,3 +197,19 @@ h1,h2{line-height:1.08;overflow:visible;padding-block:.08em}.hero-content h1{lin
 .body-point{width:30px;height:30px}.body-point::before{inset:-10px}.body-point span{width:8px;height:8px}
 .body-art-line{stroke:rgba(244,240,234,.38)}
 .body-art-wash{opacity:.70}.body-art-wash.wine{opacity:.56}
+
+
+/* Body map: make figure read as human first */
+.body-art{width:min(73%,320px);top:56%}
+.body-map-labels span{opacity:.55;transform:translate(20px,-50%) scale(.92)}
+.body-map-labels span:nth-child(3),.body-map-labels span:nth-child(7){transform:translate(calc(-100% - 20px),-50%) scale(.92)}
+.body-map-visual:hover .body-map-labels span{opacity:.95}
+.body-point{width:28px;height:28px}.body-point::before{inset:-8px}
+@media(max-width:640px){.body-art{width:min(82%,300px)}}
+
+
+/* Body map: keep artwork clean, hide permanent labels */
+.body-map-labels{display:none}
+.body-point{background:rgba(25,25,31,.70);border-color:rgba(185,154,103,.55)}
+.body-point span{background:rgba(244,240,234,.90)}
+.body-point.is-active{background:rgba(70,16,34,.92)}
