@@ -436,6 +436,10 @@ applyLanguage(currentLanguage);
       questionnaire_download_title: "#questionnaireModal .modal-option:nth-child(2) strong",
       questionnaire_download_text: "#questionnaireModal .modal-option:nth-child(2) span",
       analyses_button: "#openLabList",
+      lab_modal_eyebrow: "#labListModal .eyebrow",
+      lab_modal_title: "#labListTitle",
+      lab_modal_note: "#labListModal .lab-note",
+      lab_modal_deadline: "#labListModal .lab-deadline",
       feedback_title: "#feedback-title",
       footer_text: ".footer p",
       footer_link_label: ".footer a"
@@ -445,6 +449,7 @@ applyLanguage(currentLanguage);
     setAttributeValue('#prevFormat', 'aria-label', pick(texts.format_prev_label, lang));
     setAttributeValue('#nextFormat', 'aria-label', pick(texts.format_next_label, lang));
     setAttributeValue('#formatModal .modal-close', 'aria-label', pick(texts.format_close_label, lang));
+    setAttributeValue('#labListModal .modal-close', 'aria-label', pick(texts.lab_modal_close_label, lang));
     const bookingLabels = {
       booking_name_label: '#bookingForm .form-row label:nth-child(1)',
       booking_phone_label: '#bookingForm .form-row label:nth-child(2)',
