@@ -222,6 +222,51 @@ renderTimeline();
 updateFormatCarousel();
 
 
+
+const fallbackBodyMap = [
+  { key: "brain", name: { ru: "Мозг и нервная система", en: "Brain and nervous system", et: "Aju ja närvisüsteem" }, x: 50, y: 13, likes: { ru: ["регулярный сон", "стабильная глюкоза", "магний и белок в рационе"], en: ["regular sleep", "stable glucose", "magnesium and protein"], et: ["regulaarne uni", "stabiilne glükoos", "magneesium ja valk"] }, dislikes: { ru: ["хронический стресс", "голодные интервалы", "переизбыток стимуляторов"], en: ["chronic stress", "long fasting gaps", "too many stimulants"], et: ["krooniline stress", "pikad näljapausid", "liiga palju stimulante"] } },
+  { key: "thyroid", name: { ru: "Щитовидная железа", en: "Thyroid", et: "Kilpnääre" }, x: 50, y: 25, likes: { ru: ["достаточный белок", "железо, селен и йод по показаниям", "спокойный режим восстановления"], en: ["enough protein", "iron, selenium and iodine when indicated", "a calm recovery rhythm"], et: ["piisav valk", "raud, seleen ja jood vajadusel", "rahulik taastumisrütm"] }, dislikes: { ru: ["дефицит ферритина", "жесткие диеты", "тканевое воспаление"], en: ["low ferritin", "strict dieting", "tissue inflammation"], et: ["madal ferritiin", "range dieet", "koepõletik"] } },
+  { key: "gut", name: { ru: "ЖКТ", en: "Gut", et: "Seedetrakt" }, x: 50, y: 48, likes: { ru: ["регулярное питание", "клетчатку по переносимости", "желчь, ферменты и спокойствие"], en: ["regular meals", "fiber as tolerated", "bile flow, enzymes and calm"], et: ["regulaarne söömine", "kiudained taluvuse järgi", "sapp, ensüümid ja rahu"] }, dislikes: { ru: ["еда на бегу", "хаотичные перекусы", "подавление симптомов без причины"], en: ["rushed meals", "chaotic snacking", "suppressing symptoms without finding causes"], et: ["kiirustades söömine", "kaootilised snäkid", "sümptomite mahasurumine põhjuseta"] } },
+  { key: "liver", name: { ru: "Печень", en: "Liver", et: "Maks" }, x: 42, y: 40, likes: { ru: ["белок и холин", "нормальный отток желчи", "ритм сна и питания"], en: ["protein and choline", "healthy bile flow", "sleep and meal rhythm"], et: ["valk ja koliin", "hea sapivool", "une ja toidu rütm"] }, dislikes: { ru: ["алкоголь и избыток сахара", "дефицит белка", "постоянное воспаление"], en: ["alcohol and excess sugar", "low protein", "constant inflammation"], et: ["alkohol ja liigne suhkur", "valgu puudus", "pidev põletik"] } },
+  { key: "adrenals", name: { ru: "Надпочечники", en: "Adrenals", et: "Neerupealised" }, x: 58, y: 42, likes: { ru: ["предсказуемый режим", "соль и минералы по потребности", "мягкую нагрузку"], en: ["predictable rhythm", "salt and minerals when needed", "gentle movement"], et: ["etteaimatav rütm", "sool ja mineraalid vajadusel", "pehme koormus"] }, dislikes: { ru: ["жизнь на кофе", "недосып", "тренировки через истощение"], en: ["living on coffee", "sleep deprivation", "training through exhaustion"], et: ["kohvi peal elamine", "unepuudus", "treening läbi kurnatuse"] } },
+  { key: "hormones", name: { ru: "Репродуктивная система", en: "Reproductive system", et: "Reproduktiivsüsteem" }, x: 50, y: 61, likes: { ru: ["достаточную энергию", "жиры и белок", "стабильный цикл восстановления"], en: ["enough energy", "fats and protein", "stable recovery cycle"], et: ["piisav energia", "rasvad ja valk", "stabiilne taastumine"] }, dislikes: { ru: ["низкую калорийность", "хроническую тревогу", "дефициты железа и витамина D"], en: ["low calories", "chronic anxiety", "iron and vitamin D deficiencies"], et: ["liiga vähe kaloreid", "krooniline ärevus", "raua ja D-vitamiini puudus"] } },
+  { key: "mitochondria", name: { ru: "Мышцы и митохондрии", en: "Muscles and mitochondria", et: "Lihased ja mitokondrid" }, x: 39, y: 72, likes: { ru: ["движение без перегруза", "железо и B-витамины", "достаток кислорода и сна"], en: ["movement without overload", "iron and B vitamins", "enough oxygen and sleep"], et: ["liikumine ilma ülekoormuseta", "raud ja B-vitamiinid", "piisav hapnik ja uni"] }, dislikes: { ru: ["сидячий режим", "анемию", "перетренированность"], en: ["sedentary routine", "anemia", "overtraining"], et: ["istuv eluviis", "aneemia", "ületreening"] } }
+];
+
+function bodyPick(value, lang) {
+  if (!value) return undefined;
+  if (Object.prototype.hasOwnProperty.call(value, lang)) return value[lang];
+  return value.ru || value.en || value.et;
+}
+
+function renderBodyMap(items, lang) {
+  const points = document.querySelector("#bodyMapPoints");
+  const card = document.querySelector("#bodyMapCard");
+  if (!points || !card) return;
+  const organs = Array.isArray(items) && items.length ? items : fallbackBodyMap;
+  let activeIndex = 0;
+
+  function renderCard(index) {
+    const item = organs[index] || organs[0];
+    const likes = bodyPick(item.likes, lang) || [];
+    const dislikes = bodyPick(item.dislikes, lang) || [];
+    card.innerHTML = '<p class="eyebrow">' + (lang === 'en' ? 'Body map' : lang === 'et' ? 'Keha kaart' : 'Карта тела') + '</p>' +
+      '<h3>' + (bodyPick(item.name, lang) || item.title || '') + '</h3>' +
+      '<div class="body-map-lists"><div><strong>' + (lang === 'en' ? 'Likes' : lang === 'et' ? 'Meeldib' : 'Любит') + '</strong><ul>' + likes.map((text) => '<li>' + text + '</li>').join('') + '</ul></div>' +
+      '<div><strong>' + (lang === 'en' ? 'Dislikes' : lang === 'et' ? 'Ei armasta' : 'Не любит') + '</strong><ul>' + dislikes.map((text) => '<li>' + text + '</li>').join('') + '</ul></div></div>';
+    points.querySelectorAll('button').forEach((button, buttonIndex) => button.classList.toggle('is-active', buttonIndex === index));
+  }
+
+  points.innerHTML = organs.map((item, index) => {
+    const name = bodyPick(item.name, lang) || item.title || '';
+    return '<button type="button" class="body-point" style="left:' + (item.x || 50) + '%;top:' + (item.y || 50) + '%" aria-label="' + name + '"><span></span></button>';
+  }).join('');
+  points.querySelectorAll('button').forEach((button, index) => button.addEventListener('click', () => { activeIndex = index; renderCard(activeIndex); }));
+  renderCard(activeIndex);
+}
+
+renderBodyMap(fallbackBodyMap, currentLanguage);
+
 const revealTargets = document.querySelectorAll(".section, .questionnaire, .method-band, .booking-band, .patient-stories, .feedback-card, .request-columns article, .method-grid div");
 if ("IntersectionObserver" in window) {
   revealTargets.forEach((element) => element.classList.add("reveal"));
@@ -443,6 +488,9 @@ function revealCmsPage() {
       hero_title: "#hero-title",
       hero_subtitle: ".hero-copy",
       hero_note: ".hero-signature",
+      body_map_eyebrow: "#body-map .section-heading .eyebrow",
+      body_map_title: "#body-map-title",
+      body_map_description: "#body-map .section-heading p:not(.eyebrow)",
       profile_name: ".profile-caption strong",
       profile_role: ".profile-caption span",
       booking_eyebrow: "#booking .booking-copy .eyebrow",
@@ -606,6 +654,11 @@ function revealCmsPage() {
     }).join("");
   }
 
+
+  function applyBodyMap(data, lang) {
+    renderBodyMap(data.bodyMap, lang);
+  }
+
   function applyAnalyses(data, lang) {
     if (!Array.isArray(data.analyses) || !data.analyses.length) return;
     const list = document.querySelector(".lab-list");
@@ -627,6 +680,7 @@ function revealCmsPage() {
     applyRequests(data, lang);
     applyApproach(data, lang);
     applyAnalyses(data, lang);
+    applyBodyMap(data, lang);
     if (typeof updateFeedbackCarousel === "function") updateFeedbackCarousel();
     if (typeof updateFormatCarousel === "function") updateFormatCarousel();
   }
