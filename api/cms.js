@@ -185,6 +185,32 @@ function mapLinks(pages) {
   return links;
 }
 
+function mapBodyMap(pages) {
+  return pages.filter(active).map((page) => ({
+    id: page.id,
+    title: title(page),
+    key: text(page, "Key") || title(page),
+    name: {
+      ru: text(page, "Name RU") || title(page),
+      en: text(page, "Name EN") || text(page, "Name RU") || title(page),
+      et: text(page, "Name ET") || text(page, "Name RU") || title(page)
+    },
+    likes: {
+      ru: splitLines(text(page, "Likes RU")),
+      en: splitLines(text(page, "Likes EN") || text(page, "Likes RU")),
+      et: splitLines(text(page, "Likes ET") || text(page, "Likes RU"))
+    },
+    dislikes: {
+      ru: splitLines(text(page, "Dislikes RU")),
+      en: splitLines(text(page, "Dislikes EN") || text(page, "Dislikes RU")),
+      et: splitLines(text(page, "Dislikes ET") || text(page, "Dislikes RU"))
+    },
+    x: number(page, "Position X") || 50,
+    y: number(page, "Position Y") || 50,
+    order: number(page, "Order")
+  })).sort(byOrder);
+}
+
 function mapQuestionnaire(pages) {
   return pages.filter(active).map((page) => ({
     id: page.id,
@@ -230,7 +256,7 @@ function mapTexts(pages) {
 
 module.exports = async function handler(req, res) {
   try {
-    const [formats, reviews, analyses, links, texts, requests, approach, questionnaire] = await Promise.all([
+    const [formats, reviews, analyses, links, texts, requests, approach, questionnaire, bodyMap] = await Promise.all([
       queryDatabase(env("NOTION_FORMATS_DB_ID")),
       queryDatabase(env("NOTION_REVIEWS_DB_ID")),
       queryDatabase(env("NOTION_ANALYSES_DB_ID")),
@@ -238,7 +264,8 @@ module.exports = async function handler(req, res) {
       queryDatabase(env("NOTION_TEXTS_DB_ID")),
       queryDatabase(env("NOTION_REQUESTS_DB_ID")),
       queryDatabase(env("NOTION_APPROACH_DB_ID")),
-      queryDatabase(env("NOTION_QUESTIONNAIRE_DB_ID"))
+      queryDatabase(env("NOTION_QUESTIONNAIRE_DB_ID")),
+      queryDatabase(env("NOTION_BODYMAP_DB_ID"))
     ]);
     res.setHeader("Cache-Control", "no-store, max-age=0");
     res.status(200).json({
@@ -250,7 +277,8 @@ module.exports = async function handler(req, res) {
       texts: mapTexts(texts),
       requests: mapRequests(requests),
       approach: mapApproach(approach),
-      questionnaire: mapQuestionnaire(questionnaire)
+      questionnaire: mapQuestionnaire(questionnaire),
+      bodyMap: mapBodyMap(bodyMap)
     });
   } catch (error) {
     res.status(500).json({ ok: false, error: error.message });
