@@ -112,6 +112,23 @@ function mapReviews(pages) {
   })).sort(byOrder);
 }
 
+function mapRequests(pages) {
+  return pages.filter(active).map((page) => ({
+    id: page.id,
+    title: {
+      ru: text(page, "Title RU") || title(page),
+      en: text(page, "Title EN") || text(page, "Title RU") || title(page),
+      et: text(page, "Title ET") || text(page, "Title RU") || title(page)
+    },
+    items: {
+      ru: splitLines(text(page, "Items RU")),
+      en: splitLines(text(page, "Items EN") || text(page, "Items RU")),
+      et: splitLines(text(page, "Items ET") || text(page, "Items RU"))
+    },
+    order: number(page, "Order")
+  })).sort(byOrder);
+}
+
 function mapAnalyses(pages) {
   return pages.filter(active).map((page) => ({
     id: page.id,
@@ -166,12 +183,13 @@ function mapTexts(pages) {
 
 module.exports = async function handler(req, res) {
   try {
-    const [formats, reviews, analyses, links, texts] = await Promise.all([
+    const [formats, reviews, analyses, links, texts, requests] = await Promise.all([
       queryDatabase(env("NOTION_FORMATS_DB_ID")),
       queryDatabase(env("NOTION_REVIEWS_DB_ID")),
       queryDatabase(env("NOTION_ANALYSES_DB_ID")),
       queryDatabase(env("NOTION_LINKS_DB_ID")),
-      queryDatabase(env("NOTION_TEXTS_DB_ID"))
+      queryDatabase(env("NOTION_TEXTS_DB_ID")),
+      queryDatabase(env("NOTION_REQUESTS_DB_ID"))
     ]);
     res.setHeader("Cache-Control", "no-store, max-age=0");
     res.status(200).json({
@@ -180,7 +198,8 @@ module.exports = async function handler(req, res) {
       reviews: mapReviews(reviews),
       analyses: mapAnalyses(analyses),
       links: mapLinks(links),
-      texts: mapTexts(texts)
+      texts: mapTexts(texts),
+      requests: mapRequests(requests)
     });
   } catch (error) {
     res.status(500).json({ ok: false, error: error.message });
