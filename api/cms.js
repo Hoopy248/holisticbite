@@ -68,6 +68,12 @@ function active(page) {
   return !page.properties?.Active || checked(page, "Active");
 }
 
+function activeAny(page) {
+  if (page.properties?.Active) return checked(page, "Active");
+  if (page.properties?.Checkbox) return checked(page, "Checkbox");
+  return true;
+}
+
 function mapFormats(pages) {
   return pages.filter(active).map((page) => ({
     id: page.id,
@@ -107,6 +113,24 @@ function mapReviews(pages) {
       ru: text(page, "Caption RU"),
       en: text(page, "Caption EN") || text(page, "Caption RU"),
       et: text(page, "Caption ET") || text(page, "Caption RU")
+    },
+    order: number(page, "Order")
+  })).sort(byOrder);
+}
+
+function mapApproach(pages) {
+  return pages.filter(activeAny).map((page) => ({
+    id: page.id,
+    number: text(page, "Number") || String(number(page, "Number") || ""),
+    title: {
+      ru: text(page, "Title RU") || title(page),
+      en: text(page, "Title EN") || text(page, "Title RU") || title(page),
+      et: text(page, "Title ET") || text(page, "Title RU") || title(page)
+    },
+    text: {
+      ru: text(page, "Text RU"),
+      en: text(page, "Text EN") || text(page, "Text RU"),
+      et: text(page, "Text ET") || text(page, "Text RU")
     },
     order: number(page, "Order")
   })).sort(byOrder);
@@ -183,13 +207,14 @@ function mapTexts(pages) {
 
 module.exports = async function handler(req, res) {
   try {
-    const [formats, reviews, analyses, links, texts, requests] = await Promise.all([
+    const [formats, reviews, analyses, links, texts, requests, approach] = await Promise.all([
       queryDatabase(env("NOTION_FORMATS_DB_ID")),
       queryDatabase(env("NOTION_REVIEWS_DB_ID")),
       queryDatabase(env("NOTION_ANALYSES_DB_ID")),
       queryDatabase(env("NOTION_LINKS_DB_ID")),
       queryDatabase(env("NOTION_TEXTS_DB_ID")),
-      queryDatabase(env("NOTION_REQUESTS_DB_ID"))
+      queryDatabase(env("NOTION_REQUESTS_DB_ID")),
+      queryDatabase(env("NOTION_APPROACH_DB_ID"))
     ]);
     res.setHeader("Cache-Control", "no-store, max-age=0");
     res.status(200).json({
@@ -199,7 +224,8 @@ module.exports = async function handler(req, res) {
       analyses: mapAnalyses(analyses),
       links: mapLinks(links),
       texts: mapTexts(texts),
-      requests: mapRequests(requests)
+      requests: mapRequests(requests),
+      approach: mapApproach(approach)
     });
   } catch (error) {
     res.status(500).json({ ok: false, error: error.message });
