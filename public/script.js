@@ -352,14 +352,38 @@ applyLanguage(currentLanguage);
     if (element && value) element.textContent = value;
   }
 
+  function renderMarquee(value) {
+    const marquee = document.querySelector(".marquee div");
+    if (!marquee || !value) return;
+    const topics = value.split(/[•|]/).map((item) => item.trim()).filter(Boolean);
+    if (!topics.length) return;
+    const doubled = topics.concat(topics);
+    marquee.innerHTML = doubled.map((topic) => '<span>' + topic + '</span>').join("");
+  }
+
   function applyTexts(data, lang) {
     const texts = data.texts || {};
-    setText("#hero-title", pick(texts.hero_title, lang));
-    setText(".hero-signature", pick(texts.hero_note, lang));
-    setText("#booking-title", pick(texts.booking_title, lang));
-    setText("#questionnaire-title", pick(texts.questionnaire_title, lang));
-    setText("#openLabList", pick(texts.analyses_button, lang));
-    setText("#feedback-title", pick(texts.feedback_title, lang));
+    const textTargets = {
+      brand_name: ".brand span",
+      nav_requests: ".nav a:nth-child(1)",
+      nav_approach: ".nav a:nth-child(2)",
+      nav_cases: ".nav a:nth-child(3)",
+      topbar_booking: ".topbar-actions .topbar-action:nth-of-type(1)",
+      topbar_questionnaire: ".topbar-actions .topbar-action:nth-of-type(2)",
+      hero_title: "#hero-title",
+      hero_subtitle: ".hero-copy",
+      hero_note: ".hero-signature",
+      profile_name: ".profile-caption strong",
+      profile_role: ".profile-caption span",
+      booking_title: "#booking-title",
+      questionnaire_title: "#questionnaire-title",
+      analyses_button: "#openLabList",
+      feedback_title: "#feedback-title",
+      footer_text: ".footer p",
+      footer_link_label: ".footer a"
+    };
+    Object.entries(textTargets).forEach(([key, selector]) => setText(selector, pick(texts[key], lang)));
+    renderMarquee(pick(texts.marquee_topics, lang));
   }
 
   function applyLinks(data, lang) {
@@ -455,7 +479,7 @@ applyLanguage(currentLanguage);
 
   async function loadCmsData() {
     try {
-      const response = await fetch("/api/cms", { headers: { Accept: "application/json" } });
+      const response = await fetch("/api/cms?ts=" + Date.now(), { cache: "no-store", headers: { Accept: "application/json" } });
       if (!response.ok) throw new Error("CMS request failed");
       window.__HOLISTICBITE_CMS__ = await response.json();
       applyCmsData();
