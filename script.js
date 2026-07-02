@@ -706,3 +706,18 @@ function revealCmsPage() {
   });
   loadCmsData();
 })();
+
+
+// Body map front/back art switch
+(function(){
+  const visual = document.querySelector('.body-map-visual');
+  const buttons = document.querySelectorAll('[data-body-view]');
+  if (!visual || !buttons.length) return;
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const view = button.getAttribute('data-body-view');
+      visual.classList.toggle('is-back', view === 'back');
+      buttons.forEach((item) => item.classList.toggle('is-active', item === button));
+    });
+  });
+})();

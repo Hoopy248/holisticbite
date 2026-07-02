@@ -173,3 +173,27 @@ h1,h2{line-height:1.08;overflow:visible;padding-block:.08em}.hero-content h1{lin
 .body-map-visual::after{top:72px;bottom:78px;background:linear-gradient(180deg,transparent,rgba(185,154,103,.40),rgba(244,240,234,.18),rgba(185,154,103,.40),transparent)}
 .body-point::before{inset:-16px;border-color:rgba(185,154,103,.10)}
 .body-map-labels span{min-width:104px}
+
+
+/* Body map: watercolor art direction */
+.body-map-visual{min-height:620px;background:radial-gradient(circle at 50% 42%,rgba(244,240,234,.09),transparent 46%),linear-gradient(145deg,rgba(244,240,234,.055),rgba(244,240,234,.025));}
+.body-map-visual::after{display:none}
+.body-view-toggle{position:absolute;left:50%;top:18px;z-index:6;display:flex;gap:6px;transform:translateX(-50%);padding:5px;border:1px solid rgba(244,240,234,.12);border-radius:999px;background:rgba(25,25,31,.72);backdrop-filter:blur(12px);box-shadow:0 14px 30px rgba(0,0,0,.22)}
+.body-view-toggle button{border:0;border-radius:999px;background:transparent;color:rgba(244,240,234,.70);padding:8px 14px;font:800 .72rem/1 var(--font-sans);text-transform:uppercase;letter-spacing:.02em;cursor:pointer}
+.body-view-toggle button.is-active{background:var(--wine);color:var(--ivory)}
+.body-art{position:absolute;left:50%;top:56%;width:min(78%,350px);height:auto;transform:translate(-50%,-50%);z-index:1;filter:drop-shadow(0 28px 48px rgba(0,0,0,.22));transition:opacity .35s ease,transform .45s ease}
+.body-art-back{opacity:0;transform:translate(-47%,-50%) scale(.985);pointer-events:none}
+.body-map-visual.is-back .body-art-front{opacity:0;transform:translate(-53%,-50%) scale(.985);pointer-events:none}
+.body-map-visual.is-back .body-art-back{opacity:1;transform:translate(-50%,-50%) scale(1);pointer-events:auto}
+.body-art-wash{fill:url(#washFront);opacity:.78}.body-art-wash.back{fill:url(#washBack);opacity:.78}.body-art-wash.wine{fill:rgba(118,50,58,.34);opacity:.72}.body-art-line{fill:none;stroke:rgba(244,240,234,.46);stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.body-map-labels{z-index:3}.body-map-labels span{background:rgba(25,25,31,.76);border-color:rgba(185,154,103,.32)}
+.body-map-points{z-index:4}.body-point{background:rgba(28,26,32,.86);border-color:rgba(185,154,103,.46)}
+@media(max-width:640px){.body-map-visual{min-height:520px}.body-art{width:min(88%,320px)}.body-view-toggle{top:14px}.body-view-toggle button{padding:8px 11px}}
+
+
+/* Body map: quieter labels over artwork */
+.body-map-labels span{font-size:.66rem;min-width:82px;padding:4px 8px;color:rgba(244,240,234,.66);background:rgba(25,25,31,.52);border-color:rgba(185,154,103,.18);box-shadow:0 8px 20px rgba(0,0,0,.16)}
+.body-map-visual:hover .body-map-labels span{color:rgba(244,240,234,.84);background:rgba(25,25,31,.72);border-color:rgba(185,154,103,.30)}
+.body-point{width:30px;height:30px}.body-point::before{inset:-10px}.body-point span{width:8px;height:8px}
+.body-art-line{stroke:rgba(244,240,234,.38)}
+.body-art-wash{opacity:.70}.body-art-wash.wine{opacity:.56}
