@@ -304,3 +304,11 @@ h1,h2{line-height:1.08;overflow:visible;padding-block:.08em}.hero-content h1{lin
 .body-point.is-active{background:rgba(70,16,34,.95);border-color:rgba(244,240,234,.64)}
 @media(max-width:980px){.body-map-visual{min-height:680px}.body-statue{width:min(82%,410px)}}
 @media(max-width:640px){.body-map-visual{min-height:560px}.body-statue{width:min(90%,335px);height:calc(100% - 82px)}}
+
+/* Body map entry on the main page */
+.body-map-section{min-height:520px;display:grid;align-items:center}
+.body-map-section .body-map-heading{max-width:900px}
+.body-map-section .body-map-layout{display:none}
+.body-map-entry{margin-top:24px}
+.body-map-section::after{content:"";position:absolute;right:clamp(18px,7vw,120px);bottom:0;width:min(34vw,360px);height:92%;background:url("./assets/body-map-statue-front.png") center bottom/contain no-repeat;opacity:.32;filter:drop-shadow(0 26px 46px rgba(0,0,0,.36));pointer-events:none}
+@media(max-width:760px){.body-map-section{min-height:460px}.body-map-section::after{opacity:.16;width:72vw}.body-map-entry{width:100%}}

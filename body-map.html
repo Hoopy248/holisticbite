@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Карта тела - HolisticBite</title>
+<meta name="description" content="Интерактивная первичная карта наблюдений: обучающий режим, самопроверка, шкалы стресса, энергии, сна и восстановления." />
+<style>
+:root{--graphite:#303038;--deep:#18181e;--wine:#461022;--wine-soft:#5b162c;--gold:#b99a67;--ivory:#f6f1ea;--ivory-soft:rgba(246,241,234,.72);--line:rgba(246,241,234,.14);--paper:#f5efe7;--ink:#202027;--muted:#70666a;--shadow:0 28px 90px rgba(0,0,0,.34)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 75% 12%,rgba(185,154,103,.12),transparent 30%),linear-gradient(135deg,var(--deep),#2b2931 55%,#241d25);color:var(--ivory);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}button,input,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.page{min-height:100vh}.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px clamp(18px,4vw,56px);background:rgba(24,24,30,.82);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}.brand{display:flex;align-items:center;gap:12px;font-weight:900}.brand img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:var(--ivory);border:1px solid rgba(185,154,103,.42)}.top-actions{display:flex;gap:10px;align-items:center}.pill,.button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;border:1px solid rgba(246,241,234,.18);border-radius:999px;padding:9px 16px;background:rgba(246,241,234,.06);color:var(--ivory);font-weight:850}.button.primary{background:var(--wine);border-color:var(--wine);color:var(--ivory)}.button.light{background:var(--ivory);border-color:var(--ivory);color:var(--deep)}.hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(340px,1.1fr);gap:clamp(28px,5vw,74px);align-items:end;padding:clamp(48px,7vw,96px) clamp(18px,5vw,72px) 34px}.eyebrow{margin:0 0 12px;color:var(--gold);font-size:.78rem;font-weight:950;letter-spacing:.05em;text-transform:uppercase}.hero h1{max-width:820px;margin:0;font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(3.1rem,8vw,7.8rem);line-height:.9}.hero p:not(.eyebrow){max-width:660px;margin:18px 0 0;color:var(--ivory-soft);font-size:1.05rem}.hero-panel{display:grid;gap:14px;padding:22px;border:1px solid var(--line);border-radius:10px;background:rgba(246,241,234,.06);box-shadow:var(--shadow)}.mode-tabs,.view-tabs,.gender-tabs{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid rgba(246,241,234,.16);border-radius:999px;background:rgba(246,241,234,.06);color:var(--ivory-soft);padding:10px 14px;font-weight:900}.chip.is-active{background:var(--ivory);border-color:var(--ivory);color:var(--deep)}.workspace{display:grid;grid-template-columns:minmax(320px,560px) minmax(320px,1fr);gap:clamp(22px,4vw,54px);padding:20px clamp(18px,5vw,72px) clamp(70px,7vw,96px)}.body-stage{position:sticky;top:92px;align-self:start;min-height:760px;border:1px solid var(--line);border-radius:12px;background:radial-gradient(circle at 50% 38%,rgba(246,241,234,.10),transparent 34%),linear-gradient(145deg,#202027,#302c33 65%,#211b22);box-shadow:var(--shadow);overflow:hidden}.body-stage::before{content:"";position:absolute;inset:18px;border:1px solid rgba(185,154,103,.16);border-radius:8px;pointer-events:none}.body-img{position:absolute;left:50%;top:52%;height:calc(100% - 96px);max-width:86%;object-fit:contain;object-position:center;transform:translate(-50%,-50%);filter:drop-shadow(0 32px 52px rgba(0,0,0,.42));user-select:none;pointer-events:none}.map-point{position:absolute;left:var(--x);top:var(--y);width:28px;height:28px;display:grid;place-items:center;border:1px solid rgba(185,154,103,.56);border-radius:50%;background:rgba(24,24,30,.78);transform:translate(-50%,-50%);box-shadow:0 12px 26px rgba(0,0,0,.25);z-index:5}.map-point::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(185,154,103,.38);animation:pulse 2.1s ease-out infinite}.map-point.is-active{background:var(--wine);border-color:rgba(246,241,234,.64)}.map-point.is-flagged{box-shadow:0 0 0 5px rgba(70,16,34,.24),0 12px 26px rgba(0,0,0,.25)}@keyframes pulse{70%{box-shadow:0 0 0 14px rgba(185,154,103,0)}}.side{display:grid;gap:18px}.panel{border:1px solid rgba(32,32,39,.10);border-radius:10px;background:rgba(246,241,234,.94);color:var(--ink);box-shadow:0 18px 58px rgba(0,0,0,.20);padding:clamp(20px,3vw,30px)}.panel.dark{background:rgba(246,241,234,.06);color:var(--ivory);border-color:var(--line)}.panel h2,.panel h3{margin:0;font-family:Georgia,"Times New Roman",serif;font-weight:500;line-height:1.05}.panel h2{font-size:clamp(2rem,4vw,3.6rem);color:var(--wine)}.panel h3{font-size:clamp(1.55rem,3vw,2.5rem);color:var(--wine)}.panel p{color:var(--muted)}.panel.dark p{color:var(--ivory-soft)}.learn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.mini-card{border:1px solid rgba(70,16,34,.12);border-radius:8px;background:rgba(255,255,255,.52);padding:16px}.mini-card strong{display:block;margin-bottom:10px;color:var(--ink);text-transform:uppercase}.mini-card ul{display:grid;gap:8px;margin:0;padding:0;list-style:none}.mini-card li{position:relative;padding-left:18px;color:#423b3f}.mini-card li::before{content:"•";position:absolute;left:0;color:var(--wine);font-weight:900}.self-card{display:grid;gap:14px;margin-top:18px}.check-row{display:flex;gap:12px;align-items:flex-start;border:1px solid rgba(70,16,34,.12);border-radius:8px;background:rgba(255,255,255,.48);padding:14px}.check-row input[type=checkbox]{width:20px;height:20px;accent-color:var(--wine);margin-top:2px}.severity{display:grid;gap:6px}.severity input{width:100%;accent-color:var(--wine)}textarea{width:100%;min-height:90px;border:1px solid rgba(32,32,39,.18);border-radius:8px;background:white;color:var(--ink);padding:12px;resize:vertical}.scales{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.scale{display:grid;gap:8px;border:1px solid rgba(246,241,234,.12);border-radius:8px;background:rgba(246,241,234,.055);padding:14px}.scale label{display:flex;justify-content:space-between;gap:12px;color:var(--ivory);font-weight:850}.scale output{color:var(--gold)}.scale input{accent-color:var(--gold)}.summary{display:grid;gap:12px}.summary-box{border-left:3px solid var(--gold);background:rgba(246,241,234,.07);border-radius:8px;padding:16px;color:var(--ivory-soft)}.summary-box strong{color:var(--ivory)}.summary-actions{display:flex;flex-wrap:wrap;gap:10px}.hidden{display:none!important}@media(max-width:1050px){.hero,.workspace{grid-template-columns:1fr}.body-stage{position:relative;top:auto;min-height:680px}}@media(max-width:640px){.topbar{align-items:flex-start;flex-direction:column}.hero h1{font-size:clamp(2.8rem,16vw,4.6rem)}.body-stage{min-height:560px}.body-img{height:calc(100% - 78px)}.learn-grid,.scales{grid-template-columns:1fr}.workspace{padding-inline:14px}.panel{padding:18px}.map-point{width:30px;height:30px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="topbar">
+    <a class="brand" href="./index.html"><img src="./assets/darya-logo.jpg" alt="HolisticBite" /><span>HolisticBite</span></a>
+    <div class="top-actions"><a class="pill" href="./index.html">На сайт</a><a class="button primary" href="./index.html#booking">Записаться</a></div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Первичная карта наблюдений</p>
+      <h1>Интерактивная карта тела</h1>
+      <p>Выберите тело, режим и пройдитесь по системам. Это не диагноз, а способ собрать наблюдения: где есть напряжение, что просит внимания и с чем можно прийти на консультацию уже более подготовленно.</p>
+    </div>
+    <div class="hero-panel" aria-label="Настройки карты">
+      <div>
+        <p class="eyebrow">Тело</p>
+        <div class="gender-tabs">
+          <button class="chip is-active" type="button" data-gender="female">Женщина</button>
+          <button class="chip" type="button" data-gender="male">Мужчина</button>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Вид</p>
+        <div class="view-tabs">
+          <button class="chip is-active" type="button" data-view="front">Спереди</button>
+          <button class="chip" type="button" data-view="back">Сзади</button>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Режим</p>
+        <div class="mode-tabs">
+          <button class="chip is-active" type="button" data-mode="learn">Обучающий</button>
+          <button class="chip" type="button" data-mode="self">Самопроверка</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="workspace">
+    <div class="body-stage" id="bodyStage" aria-label="Карта тела">
+      <img class="body-img" id="bodyImage" src="./assets/body-map-statue-front.png" alt="Карта тела" />
+      <div id="mapPoints"></div>
+    </div>
+
+    <div class="side">
+      <article class="panel" id="organPanel"></article>
+
+      <section class="panel dark" id="scalesPanel">
+        <p class="eyebrow">Общее состояние</p>
+        <h3>Шкалы самонаблюдения</h3>
+        <p>Оцените, как вы ощущаете себя сейчас. Это помогает увидеть фон, на котором проявляются симптомы.</p>
+        <div class="scales" id="scales"></div>
+      </section>
+
+      <section class="panel dark" id="summaryPanel">
+        <p class="eyebrow">Итог</p>
+        <h3>Первичная карта наблюдений</h3>
+        <div class="summary" id="summary"></div>
+        <div class="summary-actions">
+          <button class="button light" type="button" id="copySummary">Скопировать итог</button>
+          <a class="button primary" href="./index.html#booking">Записаться на консультацию</a>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>
+
+<script>
+const state = {
+  gender: "female",
+  view: "front",
+  mode: "learn",
+  active: "brain",
+  checked: {},
+  severity: {},
+  notes: {},
+  scales: {
+    stress: 5,
+    energy: 5,
+    sleep: 5,
+    anxiety: 5,
+    digestion: 5,
+    cycle: 5,
+    libido: 5,
+    recovery: 5
+  }
+};
+
+const bodyImages = {
+  female: {
+    front: "./assets/body-map-statue-front.png",
+    back: "./assets/body-map-statue-back.png"
+  },
+  male: {
+    front: "./assets/body-map-statue-front-men.png",
+    back: "./assets/body-map-statue-back-men.png"
+  }
+};
+
+const organs = [
+  {
+    key: "brain",
+    title: "Мозг и нервная система",
+    front: { x: 50, y: 17 },
+    back: { x: 50, y: 17 },
+    likes: ["регулярный сон", "стабильную глюкозу", "магний, белок и паузы без стимуляции"],
+    dislikes: ["хронический стресс", "голодные интервалы", "переизбыток кофеина и информационного шума"],
+    watch: ["утренняя тревога", "головные боли", "ощущение, что нервная система постоянно включена"]
+  },
+  {
+    key: "thyroid",
+    title: "Щитовидная железа",
+    front: { x: 50, y: 28 },
+    back: { x: 50, y: 28 },
+    likes: ["достаточный белок", "железо, селен и йод по показаниям", "ритм сна и восстановления"],
+    dislikes: ["низкий ферритин", "жесткие диеты", "тканевое воспаление и постоянный стресс"],
+    watch: ["зябкость", "усталость с утра", "скачки веса", "отечность"]
+  },
+  {
+    key: "stress",
+    title: "Стресс-ось и надпочечники",
+    front: { x: 58, y: 46 },
+    back: { x: 58, y: 45 },
+    likes: ["предсказуемый режим", "мягкую физическую нагрузку", "достаток соли и минералов по потребности"],
+    dislikes: ["жизнь на кофе", "недосып", "тренировки через истощение"],
+    watch: ["провалы энергии", "раздражительность", "тяга к сладкому или соленому"]
+  },
+  {
+    key: "liver",
+    title: "Печень и желчь",
+    front: { x: 43, y: 45 },
+    back: { x: 43, y: 45 },
+    likes: ["белок и холин", "нормальный отток желчи", "ритм питания без хаоса"],
+    dislikes: ["алкоголь и избыток сахара", "дефицит белка", "постоянное воспаление"],
+    watch: ["тяжесть после еды", "горечь", "непереносимость жирного", "кожные реакции"]
+  },
+  {
+    key: "gut",
+    title: "ЖКТ",
+    front: { x: 50, y: 55 },
+    back: { x: 50, y: 55 },
+    likes: ["регулярное питание", "клетчатку по переносимости", "спокойное состояние во время еды"],
+    dislikes: ["еда на бегу", "хаотичные перекусы", "подавление симптомов без поиска причины"],
+    watch: ["вздутие", "тяжесть", "запоры или нестабильный стул", "реакции на продукты"]
+  },
+  {
+    key: "hormones",
+    title: "Гормоны, цикл и либидо",
+    front: { x: 50, y: 66 },
+    back: { x: 50, y: 66 },
+    likes: ["достаточную энергию", "жиры и белок", "стабильное восстановление"],
+    dislikes: ["низкую калорийность", "хроническую тревогу", "дефициты железа и витамина D"],
+    watch: ["ПМС", "приливы", "снижение либидо", "нерегулярный цикл или ощущение гормональных качелей"]
+  },
+  {
+    key: "muscles",
+    title: "Мышцы, энергия и митохондрии",
+    front: { x: 42, y: 78 },
+    back: { x: 42, y: 78 },
+    likes: ["движение без перегруза", "железо и витамины группы B", "сон и кислород"],
+    dislikes: ["сидячий режим", "анемию", "перетренированность"],
+    watch: ["слабость", "долгое восстановление", "усталость после простой нагрузки"]
+  }
+];
+
+const scaleConfig = [
+  ["stress", "Стресс", "низкий", "высокий"],
+  ["energy", "Энергия", "низкая", "высокая"],
+  ["sleep", "Сон", "плохой", "глубокий"],
+  ["anxiety", "Тревога", "мало", "много"],
+  ["digestion", "Пищеварение", "тяжело", "комфортно"],
+  ["cycle", "Цикл", "нестабильно", "стабильно"],
+  ["libido", "Либидо", "низкое", "хорошее"],
+  ["recovery", "Восстановление", "слабое", "хорошее"]
+];
+
+const bodyImage = document.querySelector("#bodyImage");
+const mapPoints = document.querySelector("#mapPoints");
+const organPanel = document.querySelector("#organPanel");
+const scales = document.querySelector("#scales");
+const summary = document.querySelector("#summary");
+
+function currentOrg() {
+  return organs.find((organ) => organ.key === state.active) || organs[0];
+}
+
+function renderTabs(group, value) {
+  document.querySelectorAll("[data-" + group + "]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset[group] === value);
+  });
+}
+
+function renderImage() {
+  bodyImage.src = bodyImages[state.gender][state.view];
+  bodyImage.alt = state.gender === "male" ? "Мужская карта тела" : "Женская карта тела";
+}
+
+function renderPoints() {
+  mapPoints.innerHTML = organs.map((organ) => {
+    const pos = organ[state.view];
+    const flagged = state.checked[organ.key] ? " is-flagged" : "";
+    const active = organ.key === state.active ? " is-active" : "";
+    return '<button class="map-point' + active + flagged + '" style="--x:' + pos.x + '%;--y:' + pos.y + '%" type="button" data-organ="' + organ.key + '" aria-label="' + organ.title + '"></button>';
+  }).join("");
+  mapPoints.querySelectorAll("[data-organ]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.active = button.dataset.organ;
+      render();
+    });
+  });
+}
+
+function list(items) {
+  return "<ul>" + items.map((item) => "<li>" + item + "</li>").join("") + "</ul>";
+}
+
+function renderOrgan() {
+  const organ = currentOrg();
+  if (state.mode === "learn") {
+    organPanel.innerHTML =
+      '<p class="eyebrow">Обучающий режим</p>' +
+      '<h2>' + organ.title + '</h2>' +
+      '<p>Нажимайте на точки и смотрите, какие привычки обычно поддерживают систему, а что чаще перегружает ее.</p>' +
+      '<div class="learn-grid">' +
+      '<div class="mini-card"><strong>Любит</strong>' + list(organ.likes) + '</div>' +
+      '<div class="mini-card"><strong>Не любит</strong>' + list(organ.dislikes) + '</div>' +
+      '<div class="mini-card"><strong>На что смотреть</strong>' + list(organ.watch) + '</div>' +
+      '<div class="mini-card"><strong>Важно</strong><ul><li>это не диагноз</li><li>это повод собрать наблюдения</li><li>точнее смотреть вместе с анализами и анамнезом</li></ul></div>' +
+      '</div>';
+    return;
+  }
+
+  const checked = !!state.checked[organ.key];
+  const severity = state.severity[organ.key] || 3;
+  const note = state.notes[organ.key] || "";
+  organPanel.innerHTML =
+    '<p class="eyebrow">Самопроверка</p>' +
+    '<h2>' + organ.title + '</h2>' +
+    '<p>Отметьте, если эта зона сейчас откликается по ощущениям, симптомам или жалобам.</p>' +
+    '<div class="self-card">' +
+    '<label class="check-row"><input type="checkbox" id="organCheck" ' + (checked ? "checked" : "") + ' /><span><strong>Есть жалобы или ощущение дискомфорта</strong><br><small>Например: боль, тяжесть, усталость, нестабильность, тревога, нарушение ритма.</small></span></label>' +
+    '<label class="severity">Выраженность: <strong id="severityValue">' + severity + '/5</strong><input id="severityInput" type="range" min="1" max="5" value="' + severity + '" /></label>' +
+    '<label>Комментарий<textarea id="organNote" placeholder="Что именно беспокоит? Когда усиливается?">' + note + '</textarea></label>' +
+    '</div>';
+
+  document.querySelector("#organCheck").addEventListener("change", (event) => {
+    state.checked[organ.key] = event.target.checked;
+    renderPoints();
+    renderSummary();
+  });
+  document.querySelector("#severityInput").addEventListener("input", (event) => {
+    state.severity[organ.key] = Number(event.target.value);
+    document.querySelector("#severityValue").textContent = event.target.value + "/5";
+    renderSummary();
+  });
+  document.querySelector("#organNote").addEventListener("input", (event) => {
+    state.notes[organ.key] = event.target.value;
+    renderSummary();
+  });
+}
+
+function renderScales() {
+  const visibleScales = scaleConfig.filter(([key]) => !(state.gender === "male" && key === "cycle"));
+  scales.innerHTML = visibleScales.map(([key, title, low, high]) =>
+    '<div class="scale"><label><span>' + title + '</span><output id="out-' + key + '">' + state.scales[key] + '/10</output></label><input type="range" min="1" max="10" value="' + state.scales[key] + '" data-scale="' + key + '" /><small>' + low + ' → ' + high + '</small></div>'
+  ).join("");
+  scales.querySelectorAll("[data-scale]").forEach((input) => {
+    input.addEventListener("input", () => {
+      state.scales[input.dataset.scale] = Number(input.value);
+      document.querySelector("#out-" + input.dataset.scale).textContent = input.value + "/10";
+      renderSummary();
+    });
+  });
+}
+
+function renderSummary() {
+  const selected = organs.filter((organ) => state.checked[organ.key]);
+  const heavy = selected.filter((organ) => (state.severity[organ.key] || 3) >= 4);
+  const lowEnergy = state.scales.energy <= 4 || state.scales.recovery <= 4;
+  const highStress = state.scales.stress >= 7 || state.scales.anxiety >= 7;
+  const digestionLow = state.scales.digestion <= 4;
+  const hormoneSignal = state.gender === "female" ? (state.scales.cycle <= 4 || state.scales.libido <= 4) : state.scales.libido <= 4;
+  const lines = [];
+
+  if (!selected.length) lines.push("Пока зоны с выраженными жалобами не отмечены. Можно пройтись по точкам в режиме самопроверки и отметить то, что откликается.");
+  if (selected.length) lines.push("Отмеченные зоны: " + selected.map((organ) => organ.title).join(", ") + ".");
+  if (heavy.length) lines.push("Больше всего внимания сейчас просят: " + heavy.map((organ) => organ.title).join(", ") + ".");
+  if (highStress) lines.push("Фон стресса/тревоги высокий. Это может усиливать усталость, пищеварительные реакции и гормональные колебания.");
+  if (lowEnergy) lines.push("Энергия или восстановление снижены. В консультации имеет смысл смотреть сон, питание, железо, B-витамины, щитовидную железу и воспалительный фон.");
+  if (digestionLow) lines.push("Пищеварение отмечено как слабая зона. Полезно собрать наблюдения по вздутию, стулу, реакции на продукты и режиму питания.");
+  if (hormoneSignal) lines.push(state.gender === "female" ? "Есть сигнал по циклу/либидо/восстановлению. Это стоит смотреть не отдельно, а вместе с питанием, стрессом, дефицитами и щитовидной железой." : "Есть сигнал по либидо/восстановлению. Это стоит смотреть вместе со сном, стрессом, питанием и дефицитами.");
+
+  summary.innerHTML =
+    '<div class="summary-box"><strong>Это первичная карта наблюдений, не медицинский диагноз.</strong><br>' + lines.join("<br><br>") + '</div>';
+}
+
+function summaryText() {
+  return summary.innerText.trim();
+}
+
+function render() {
+  renderTabs("gender", state.gender);
+  renderTabs("view", state.view);
+  renderTabs("mode", state.mode);
+  renderImage();
+  renderPoints();
+  renderOrgan();
+  renderScales();
+  renderSummary();
+}
+
+document.querySelectorAll("[data-gender]").forEach((button) => button.addEventListener("click", () => {
+  state.gender = button.dataset.gender;
+  if (state.gender === "male") state.scales.cycle = 5;
+  render();
+}));
+document.querySelectorAll("[data-view]").forEach((button) => button.addEventListener("click", () => {
+  state.view = button.dataset.view;
+  render();
+}));
+document.querySelectorAll("[data-mode]").forEach((button) => button.addEventListener("click", () => {
+  state.mode = button.dataset.mode;
+  render();
+}));
+document.querySelector("#copySummary").addEventListener("click", async () => {
+  const text = summaryText();
+  try {
+    await navigator.clipboard.writeText(text);
+    document.querySelector("#copySummary").textContent = "Итог скопирован";
+  } catch (error) {
+    document.querySelector("#copySummary").textContent = "Не удалось скопировать";
+  }
+  setTimeout(() => document.querySelector("#copySummary").textContent = "Скопировать итог", 1800);
+});
+
+render();
+</script>
+</body>
+</html>
