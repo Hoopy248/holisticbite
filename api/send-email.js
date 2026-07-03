@@ -80,7 +80,10 @@ module.exports = async function handler(req, res) {
 
     const result = await response.json().catch(() => ({}));
     if (!response.ok) {
-      res.status(response.status).json({ ok: false, error: result.message || "Email sending failed" });
+      res.status(response.status).json({
+        ok: false,
+        error: result.message || result.error || result.name || JSON.stringify(result) || "Email sending failed"
+      });
       return;
     }
 
