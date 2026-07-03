@@ -310,5 +310,5 @@ h1,h2{line-height:1.08;overflow:visible;padding-block:.08em}.hero-content h1{lin
 .body-map-section .body-map-heading{max-width:900px}
 .body-map-section .body-map-layout{display:none}
 .body-map-entry{margin-top:24px}
-.body-map-section::after{content:"";position:absolute;right:clamp(18px,7vw,120px);bottom:0;width:min(34vw,360px);height:92%;background:url("./assets/body-map-statue-front.png") center bottom/contain no-repeat;opacity:.32;filter:drop-shadow(0 26px 46px rgba(0,0,0,.36));pointer-events:none}
-@media(max-width:760px){.body-map-section{min-height:460px}.body-map-section::after{opacity:.16;width:72vw}.body-map-entry{width:100%}}
+.body-map-section::after{display:none}
+@media(max-width:760px){.body-map-section{min-height:460px}.body-map-entry{width:100%}}
