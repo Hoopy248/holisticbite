@@ -180,7 +180,7 @@
       if (notice) notice.textContent = "Анкета отправлена. Спасибо!";
       nextBtn.textContent = "Отправлено";
     } catch (error) {
-      if (notice) notice.textContent = "Не удалось отправить анкету. Проверьте почту или попробуйте позже.";
+      if (notice) notice.textContent = "Не удалось отправить анкету. Причина: " + (error.message || "попробуйте позже.");
       nextBtn.disabled = false;
     }
   }

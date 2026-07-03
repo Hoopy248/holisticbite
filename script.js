@@ -209,7 +209,7 @@ bookingForm?.addEventListener("submit", async (event) => {
     setSelectedService("Разовая консультация");
     renderSlots();
   } catch (error) {
-    if (formStatus) formStatus.textContent = "Не удалось отправить заявку. Проверьте данные или попробуйте позже.";
+    if (formStatus) formStatus.textContent = "Не удалось отправить заявку. Причина: " + (error.message || "попробуйте позже.");
   } finally {
     if (submitButton) submitButton.disabled = false;
   }
