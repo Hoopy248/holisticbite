@@ -1,5 +1,16 @@
 let currentLanguage = localStorage.getItem("siteLanguage") || "ru";
 
+(function(){
+  const markReady = () => {
+    if (document.body) document.body.classList.add("hb-loaded");
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", markReady, { once: true });
+  } else {
+    markReady();
+  }
+})();
+
 const slotsByDay = {
   0: ["10:00", "12:30", "17:00"],
   1: ["09:30", "13:00", "18:30"],
@@ -203,10 +214,10 @@ bookingForm?.addEventListener("submit", async (event) => {
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось отправить заявку");
-    if (formStatus) formStatus.textContent = "Заявка отправлена. Дарья свяжется с вами по указанным контактам.";
+    if (formStatus) formStatus.textContent = "Заявка отправлена. На вашу почту придет подтверждение, а Дарья свяжется с вами по указанным контактам.";
     bookingForm.reset();
     setupDates();
-    setSelectedService("Разовая консультация");
+    setSelectedService("Разбор состояния");
     renderSlots();
   } catch (error) {
     if (formStatus) formStatus.textContent = "Не удалось отправить заявку. Причина: " + (error.message || "попробуйте позже.");
@@ -216,7 +227,7 @@ bookingForm?.addEventListener("submit", async (event) => {
 });
 
 setupDates();
-setSelectedService("Разовая консультация");
+setSelectedService("Разбор состояния");
 renderSlots();
 renderTimeline();
 updateFormatCarousel();
@@ -705,6 +716,202 @@ function revealCmsPage() {
     if (event.target && event.target.matches('.format-card input[name="formatChoice"]')) window.setTimeout(applyCmsData, 0);
   });
   loadCmsData();
+})();
+
+// Premium hero depth: lightweight 3D projection, no external runtime.
+(function(){
+  const canvas = document.querySelector("#heroDepthCanvas");
+  const hero = document.querySelector(".hero");
+  if (!canvas || !hero) return;
+
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ctx = canvas.getContext("2d", { alpha: true });
+  if (!ctx) return;
+
+  const particles = [];
+  const particleCount = 132;
+  const ribbons = Array.from({ length: 3 }, (_, index) => ({ index, phase: index * 2.1 }));
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let targetX = 0;
+  let targetY = 0;
+  let driftX = 0;
+  let driftY = 0;
+  let frameId = 0;
+
+  for (let i = 0; i < particleCount; i += 1) {
+    const t = i / particleCount;
+    const angle = t * Math.PI * 2;
+    const band = (i % 11) / 11;
+    const radius = 0.42 + Math.sin(i * 1.7) * 0.12;
+    particles.push({
+      angle,
+      band,
+      radius,
+      speed: 0.00065 + (i % 7) * 0.00007,
+      size: 1.2 + (i % 5) * 0.35
+    });
+  }
+
+  function resizeDepthCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = Math.max(1, rect.width);
+    height = Math.max(1, rect.height);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function projectParticle(particle, time) {
+    const spin = particle.angle + time * particle.speed;
+    const tilt = -0.82 + particle.band * 1.64 + driftY * 0.0009;
+    const yaw = spin + driftX * 0.0012;
+    const x3 = Math.cos(yaw) * particle.radius;
+    const y3 = Math.sin(tilt) * 0.52 + Math.sin(yaw * 2.0 + time * .00035) * 0.09;
+    const z3 = Math.sin(yaw) * particle.radius + Math.cos(tilt) * 0.18;
+    const perspective = 1.18 / (1.55 - z3 * 0.48);
+    return {
+      x: width * 0.5 + x3 * width * 0.42 * perspective,
+      y: height * 0.5 + y3 * height * 0.42 * perspective,
+      z: z3,
+      scale: perspective
+    };
+  }
+
+  function drawRibbon(time, ribbon) {
+    const points = [];
+    for (let i = 0; i <= 84; i += 1) {
+      const t = i / 84;
+      const angle = t * Math.PI * 2 + time * (0.00042 + ribbon.index * 0.00007) + ribbon.phase;
+      const tilt = -0.72 + Math.sin(t * Math.PI * 2 + ribbon.phase) * 0.18 + driftY * 0.0007;
+      const radius = 0.30 + ribbon.index * 0.075 + Math.sin(angle * 2.0) * 0.025;
+      const x3 = Math.cos(angle) * radius;
+      const y3 = Math.sin(tilt) * 0.34 + Math.sin(angle * 3.0 + ribbon.phase) * 0.035;
+      const z3 = Math.sin(angle) * radius;
+      const perspective = 1.14 / (1.48 - z3 * 0.52);
+      points.push({
+        x: width * 0.5 + x3 * width * 0.48 * perspective,
+        y: height * 0.5 + y3 * height * 0.48 * perspective,
+        z: z3
+      });
+    }
+
+    ctx.beginPath();
+    points.forEach((point, index) => {
+      if (index === 0) ctx.moveTo(point.x, point.y);
+      else ctx.lineTo(point.x, point.y);
+    });
+    const gradient = ctx.createLinearGradient(width * .18, height * .42, width * .82, height * .58);
+    gradient.addColorStop(0, "rgba(169,141,102,0)");
+    gradient.addColorStop(.38, "rgba(246,241,234," + (0.16 + ribbon.index * 0.03).toFixed(3) + ")");
+    gradient.addColorStop(.62, "rgba(169,141,102," + (0.28 - ribbon.index * 0.04).toFixed(3) + ")");
+    gradient.addColorStop(1, "rgba(169,141,102,0)");
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = 1.2 + ribbon.index * .55;
+    ctx.stroke();
+  }
+
+  function drawDepth(time) {
+    driftX += (targetX - driftX) * 0.055;
+    driftY += (targetY - driftY) * 0.055;
+    hero.style.setProperty("--depth-x", (driftX * 0.026).toFixed(2) + "px");
+    hero.style.setProperty("--depth-y", (driftY * 0.020).toFixed(2) + "px");
+
+    ctx.clearRect(0, 0, width, height);
+    const projected = particles.map((particle) => ({ particle, point: projectParticle(particle, time) }))
+      .sort((a, b) => a.point.z - b.point.z);
+
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ribbons.forEach((ribbon) => drawRibbon(time, ribbon));
+    ctx.lineWidth = 1;
+    for (let i = 0; i < projected.length; i += 1) {
+      const a = projected[i].point;
+      if (i % 2 === 0 && projected[i + 3]) {
+        const b = projected[i + 3].point;
+        const alpha = Math.max(0.04, Math.min(0.22, (a.z + 1.2) * 0.12));
+        ctx.strokeStyle = "rgba(169,141,102," + alpha.toFixed(3) + ")";
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+    }
+
+    projected.forEach(({ particle, point }) => {
+      const depth = Math.max(0, Math.min(1, (point.z + 1) * 0.5));
+      const size = particle.size * point.scale * (0.72 + depth * 0.9);
+      const glow = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, size * 5.5);
+      glow.addColorStop(0, "rgba(246,241,234," + (0.22 + depth * 0.38).toFixed(3) + ")");
+      glow.addColorStop(0.32, "rgba(169,141,102," + (0.16 + depth * 0.22).toFixed(3) + ")");
+      glow.addColorStop(1, "rgba(70,16,34,0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, size * 5.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = depth > 0.58 ? "rgba(246,241,234,.86)" : "rgba(169,141,102,.70)";
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, Math.max(1, size), 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.restore();
+
+    if (!reduceMotion) frameId = window.requestAnimationFrame(drawDepth);
+  }
+
+  function updatePointer(event) {
+    const rect = hero.getBoundingClientRect();
+    targetX = event.clientX - rect.left - rect.width / 2;
+    targetY = event.clientY - rect.top - rect.height / 2;
+    hero.style.setProperty("--tilt-x", ((targetX / rect.width) * 8).toFixed(2) + "deg");
+    hero.style.setProperty("--tilt-y", ((targetY / rect.height) * 8).toFixed(2) + "deg");
+  }
+
+  resizeDepthCanvas();
+  window.addEventListener("resize", resizeDepthCanvas);
+  hero.addEventListener("pointermove", updatePointer);
+  hero.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+    hero.style.setProperty("--tilt-x", "0deg");
+    hero.style.setProperty("--tilt-y", "0deg");
+  });
+  drawDepth(0);
+})();
+
+(function(){
+  const booking = document.querySelector(".booking-band");
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!booking || reduceMotion) return;
+
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let frameId = 0;
+
+  function animateBookingDepth() {
+    currentX += (targetX - currentX) * 0.08;
+    currentY += (targetY - currentY) * 0.08;
+    booking.style.setProperty("--booking-x", currentX.toFixed(2) + "px");
+    booking.style.setProperty("--booking-y", currentY.toFixed(2) + "px");
+    frameId = window.requestAnimationFrame(animateBookingDepth);
+  }
+
+  booking.addEventListener("pointermove", (event) => {
+    const rect = booking.getBoundingClientRect();
+    targetX = event.clientX - rect.left - rect.width / 2;
+    targetY = event.clientY - rect.top - rect.height / 2;
+    if (!frameId) animateBookingDepth();
+  });
+
+  booking.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+  });
 })();
 
 
