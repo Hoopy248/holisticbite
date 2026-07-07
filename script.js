@@ -278,7 +278,8 @@ function renderBodyMap(items, lang) {
 
 renderBodyMap(fallbackBodyMap, currentLanguage);
 
-const revealTargets = document.querySelectorAll(".section, .questionnaire, .method-band, .booking-band, .patient-stories, .feedback-card, .request-columns article, .method-grid div");
+document.documentElement.classList.add("supports-reveal");
+const revealTargets = document.querySelectorAll(".section, .system-note, .questionnaire, .method-band, .booking-band, .body-map-teaser, .patient-stories, .feedback-card, .request-columns article, .method-grid div");
 if ("IntersectionObserver" in window) {
   revealTargets.forEach((element) => element.classList.add("reveal"));
   const revealObserver = new IntersectionObserver((entries) => {

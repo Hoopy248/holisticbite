@@ -599,14 +599,17 @@ main{
   background:var(--wine-deep);
   color:var(--ivory);
   white-space:nowrap;
+  transform:translateZ(0);
 }
 .marquee div{
   display:inline-flex;
+  width:max-content;
   min-width:max-content;
   gap:26px;
   align-items:center;
   padding:15px 0;
-  animation:marquee 42s linear infinite;
+  will-change:transform;
+  animation:marquee 34s linear infinite;
 }
 .marquee span{
   display:inline-flex;
@@ -625,13 +628,32 @@ main{
   border-radius:50%;
 }
 @keyframes marquee{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-50%,0,0)}
 }
 
 .section,.cases,.method-band,.booking-band,.questionnaire,.contact-section{
   padding:clamp(66px,8vw,118px) var(--page-pad);
 }
+.supports-reveal .reveal{
+  opacity:0;
+  transform:translate3d(0,28px,0);
+  filter:blur(10px);
+  transition:
+    opacity .78s var(--ease-premium),
+    transform .86s var(--ease-premium),
+    filter .86s var(--ease-premium);
+}
+.supports-reveal .reveal.is-visible{
+  opacity:1;
+  transform:translate3d(0,0,0);
+  filter:blur(0);
+}
+.supports-reveal .request-columns article:nth-child(2),
+.supports-reveal .method-grid div:nth-child(2){transition-delay:.08s}
+.supports-reveal .request-columns article:nth-child(3),
+.supports-reveal .method-grid div:nth-child(3){transition-delay:.16s}
+.supports-reveal .method-grid div:nth-child(4){transition-delay:.24s}
 .section:not(.patient-stories):not(.feedback){
   background:
     radial-gradient(circle at 12% 8%,rgba(169,141,102,.07),transparent 24%),
@@ -761,27 +783,101 @@ main{
 }
 
 .system-note{
+  position:relative;
   order:3;
-  padding:clamp(48px,6vw,90px) clamp(18px,7vw,92px);
-  background:linear-gradient(180deg,var(--paper),#efe7dc);
-  color:var(--graphite-deep);
+  overflow:hidden;
+  padding:clamp(76px,8vw,128px) clamp(18px,7vw,92px);
+  background:
+    radial-gradient(circle at 24% 10%,rgba(246,241,234,.06),transparent 28%),
+    radial-gradient(circle at 78% 52%,rgba(169,141,102,.12),transparent 34%),
+    linear-gradient(135deg,#18191c 0%,var(--graphite-deep) 52%,#262327 100%);
+  color:var(--ivory);
+}
+.system-note::before,
+.system-note::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+}
+.system-note::before{
+  inset:0;
+  background-image:
+    linear-gradient(rgba(246,241,234,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(246,241,234,.028) 1px,transparent 1px);
+  background-size:84px 84px;
+  opacity:.42;
+  mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.7) 48%,transparent 100%);
+}
+.system-note::after{
+  width:min(58vw,720px);
+  aspect-ratio:1;
+  right:clamp(-300px,-12vw,-120px);
+  top:50%;
+  transform:translateY(-50%);
+  border:1px solid rgba(169,141,102,.34);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 86px rgba(169,141,102,.12),
+    0 0 0 168px rgba(169,141,102,.08),
+    inset 0 0 0 1px rgba(169,141,102,.16);
 }
 .system-note div{
-  max-width:980px;
-  margin:auto;
+  position:relative;
+  z-index:1;
+  max-width:760px;
+  margin:0;
   display:grid;
-  gap:20px;
-  border-block:1px solid rgba(70,16,34,.22);
-  padding:clamp(28px,4vw,52px) 0;
+  gap:28px;
+  padding:0 0 clamp(24px,3vw,38px);
+  border-bottom:1px solid rgba(169,141,102,.56);
+}
+.system-note div::before{
+  content:"Суть моей работы";
+  width:max-content;
+  display:block;
+  padding-bottom:12px;
+  border-bottom:1px solid rgba(169,141,102,.72);
+  color:var(--gold);
+  font-size:.76rem;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.system-note div::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  width:clamp(140px,22vw,260px);
+  height:3px;
+  background:linear-gradient(90deg,var(--gold),rgba(169,141,102,.38));
+  border-radius:999px;
 }
 .system-note p{
-  max-width:820px;
+  max-width:650px;
   margin:0;
-  color:#342d31;
-  font-size:clamp(1.05rem,1.55vw,1.32rem);
-  line-height:1.7;
+  color:rgba(246,241,234,.78);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(1.02rem,1.32vw,1.16rem);
+  line-height:1.72;
+  text-wrap:pretty;
 }
-.system-note p:nth-child(2){margin-left:auto}
+.system-note p:first-child{
+  color:rgba(246,241,234,.9);
+  font-size:clamp(2.05rem,3.35vw,3.55rem);
+  line-height:1.15;
+}
+.system-note p:nth-child(2){
+  max-width:560px;
+  color:rgba(246,241,234,.68);
+}
+.system-note p:nth-child(3){
+  color:var(--gold);
+  font-weight:700;
+}
+.system-note p:nth-child(4){
+  color:rgba(246,241,234,.76);
+}
 
 .booking-band{
   position:relative;
@@ -1376,6 +1472,15 @@ input:focus,select:focus,textarea:focus{
   .hero-panel{min-height:420px}
   .profile-caption{left:24px;right:24px;bottom:24px}
   .marquee div{animation-duration:32s}
+  .system-note{padding-block:58px}
+  .system-note::before{mask-image:linear-gradient(180deg,#000 0%,transparent 100%)}
+  .system-note::after{
+    width:92vw;
+    right:-72vw;
+    opacity:.46;
+  }
+  .system-note div{max-width:100%}
+  .system-note p:first-child{font-size:clamp(2rem,10vw,3rem)}
   .section,.cases,.method-band,.booking-band,.questionnaire,.contact-section{padding-inline:16px}
   .questionnaire{align-items:stretch;flex-direction:column}
   .questionnaire .button{width:100%}
@@ -1410,6 +1515,12 @@ input:focus,select:focus,textarea:focus{
   .hero-panel,
   .booking-form{
     transform:none!important;
+  }
+  .supports-reveal .reveal{
+    opacity:1!important;
+    transform:none!important;
+    filter:none!important;
+    transition:none!important;
   }
   *,*::before,*::after{
     animation-duration:.001ms!important;
