@@ -809,17 +809,19 @@ main{
   mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.7) 48%,transparent 100%);
 }
 .system-note::after{
-  width:min(58vw,720px);
+  width:min(60vw,760px);
   aspect-ratio:1;
-  right:clamp(-300px,-12vw,-120px);
+  right:clamp(-360px,-14vw,-150px);
   top:50%;
   transform:translateY(-50%);
-  border:1px solid rgba(169,141,102,.34);
   border-radius:50%;
-  box-shadow:
-    0 0 0 86px rgba(169,141,102,.12),
-    0 0 0 168px rgba(169,141,102,.08),
-    inset 0 0 0 1px rgba(169,141,102,.16);
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 34.8%, rgba(169,141,102,.34) 34.9% 35.05%, transparent 35.2%),
+    radial-gradient(circle at 50% 50%, transparent 0 47.8%, rgba(169,141,102,.22) 47.9% 48.02%, transparent 48.18%),
+    radial-gradient(circle at 50% 50%, transparent 0 60.8%, rgba(169,141,102,.16) 60.9% 61.02%, transparent 61.18%),
+    radial-gradient(circle at 16% 50%, transparent 0 1.5%, rgba(169,141,102,.5) 1.55% 1.95%, transparent 2.05%),
+    linear-gradient(90deg, transparent 0 16%, rgba(169,141,102,.22) 16.1% 50%, transparent 50.2%);
+  opacity:.9;
 }
 .system-note div{
   position:relative;
@@ -829,10 +831,10 @@ main{
   display:grid;
   gap:28px;
   padding:0 0 clamp(24px,3vw,38px);
-  border-bottom:1px solid rgba(169,141,102,.56);
+  border-bottom:1px solid rgba(169,141,102,.38);
 }
 .system-note div::before{
-  content:"Суть моей работы";
+  content:"\0421 \0443 \0442 \044C \0020 \043C \043E \0435 \0439 \0020 \0440 \0430 \0431 \043E \0442 \044B";
   width:max-content;
   display:block;
   padding-bottom:12px;
@@ -847,10 +849,10 @@ main{
   content:"";
   position:absolute;
   left:0;
-  bottom:-2px;
-  width:clamp(140px,22vw,260px);
-  height:3px;
-  background:linear-gradient(90deg,var(--gold),rgba(169,141,102,.38));
+  bottom:-1px;
+  width:clamp(120px,18vw,220px);
+  height:1px;
+  background:linear-gradient(90deg,rgba(169,141,102,.78),rgba(169,141,102,.22));
   border-radius:999px;
 }
 .system-note p{
