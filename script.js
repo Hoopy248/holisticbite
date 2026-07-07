@@ -452,6 +452,34 @@ function revealCmsPage() {
     if (element && value !== undefined) element.textContent = value;
   }
 
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function setHeroTitle(value) {
+    const element = document.querySelector("#hero-title");
+    if (!element || value === undefined) return;
+    const normalized = String(value || "")
+      .replace("Я смотрю систему", "Я смотрю на систему")
+      .trim();
+    if (!normalized) {
+      element.textContent = "";
+      return;
+    }
+    const lines = normalized.includes("\n")
+      ? normalized.split(/\n+/)
+      : normalized.split(/(?=Я смотрю)/);
+    element.innerHTML = lines
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => '<span class="hero-title-line">' + escapeHtml(line) + '</span>')
+      .join("");
+  }
+
   function setLabelText(selector, value) {
     const element = document.querySelector(selector);
     if (!element || value === undefined) return;
@@ -489,19 +517,15 @@ function revealCmsPage() {
 
   function applyTexts(data, lang) {
     const texts = data.texts || {};
+    const topbarBooking = pick(texts.topbar_booking, lang);
     const textTargets = {
       brand_name: ".brand span",
       nav_requests: ".nav a:nth-child(1)",
       nav_approach: ".nav a:nth-child(2)",
       nav_cases: ".nav a:nth-child(3)",
-      topbar_booking: ".topbar-actions .topbar-action:nth-of-type(1)",
       topbar_questionnaire: ".topbar-actions .topbar-action:nth-of-type(2)",
-      hero_title: "#hero-title",
       hero_subtitle: ".hero-copy",
       hero_note: ".hero-signature",
-      body_map_eyebrow: "#body-map .section-heading .eyebrow",
-      body_map_title: "#body-map-title",
-      body_map_description: "#body-map .section-heading p:not(.eyebrow)",
       profile_name: ".profile-caption strong",
       profile_role: ".profile-caption span",
       booking_eyebrow: "#booking .booking-copy .eyebrow",
@@ -544,6 +568,8 @@ function revealCmsPage() {
       footer_link_label: ".footer a"
     };
     Object.entries(textTargets).forEach(([key, selector]) => setText(selector, pick(texts[key], lang)));
+    setText(".topbar-actions .topbar-action:nth-of-type(1)", topbarBooking === "Запись" ? "Запись на разбор" : topbarBooking);
+    setHeroTitle(pick(texts.hero_title, lang));
     setFormatSelectedBadge(pick(texts.format_selected_badge, lang), lang);
     setAttributeValue('#prevFormat', 'aria-label', pick(texts.format_prev_label, lang));
     setAttributeValue('#nextFormat', 'aria-label', pick(texts.format_next_label, lang));
@@ -568,13 +594,13 @@ function revealCmsPage() {
   function applyLinks(data, lang) {
     const links = data.links || {};
     const storyButtons = document.querySelectorAll(".stories-actions a");
-    if (links.instagram && storyButtons[0]) {
-      storyButtons[0].href = links.instagram.url || storyButtons[0].href;
-      storyButtons[0].textContent = pick(links.instagram.label, lang) || storyButtons[0].textContent;
+    if (links.telegram_blog && storyButtons[0]) {
+      storyButtons[0].href = links.telegram_blog.url || storyButtons[0].href;
+      storyButtons[0].textContent = pick(links.telegram_blog.label, lang) || storyButtons[0].textContent;
     }
-    if (links.telegram_blog && storyButtons[1]) {
-      storyButtons[1].href = links.telegram_blog.url || storyButtons[1].href;
-      storyButtons[1].textContent = pick(links.telegram_blog.label, lang) || storyButtons[1].textContent;
+    if (links.instagram && storyButtons[1]) {
+      storyButtons[1].href = links.instagram.url || storyButtons[1].href;
+      storyButtons[1].textContent = pick(links.instagram.label, lang) || storyButtons[1].textContent;
     }
     const contactButtons = {
       whatsapp_contact: document.querySelector('[data-contact-whatsapp]'),
