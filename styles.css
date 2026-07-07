@@ -610,6 +610,7 @@ main{
   padding:15px 0;
   will-change:transform;
   animation:marquee 34s linear infinite;
+  animation-play-state:running;
 }
 .marquee span{
   display:inline-flex;
@@ -629,7 +630,7 @@ main{
 }
 @keyframes marquee{
   from{transform:translate3d(0,0,0)}
-  to{transform:translate3d(-50%,0,0)}
+  to{transform:translate3d(var(--marquee-distance,-50%),0,0)}
 }
 
 .section,.cases,.method-band,.booking-band,.questionnaire,.contact-section{
@@ -809,19 +810,19 @@ main{
   mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.7) 48%,transparent 100%);
 }
 .system-note::after{
-  width:min(60vw,760px);
+  width:min(56vw,720px);
   aspect-ratio:1;
-  right:clamp(-360px,-14vw,-150px);
+  right:clamp(-340px,-13vw,-150px);
   top:50%;
   transform:translateY(-50%);
   border-radius:50%;
   background:
-    radial-gradient(circle at 50% 50%, transparent 0 34.8%, rgba(169,141,102,.34) 34.9% 35.05%, transparent 35.2%),
-    radial-gradient(circle at 50% 50%, transparent 0 47.8%, rgba(169,141,102,.22) 47.9% 48.02%, transparent 48.18%),
-    radial-gradient(circle at 50% 50%, transparent 0 60.8%, rgba(169,141,102,.16) 60.9% 61.02%, transparent 61.18%),
-    radial-gradient(circle at 16% 50%, transparent 0 1.5%, rgba(169,141,102,.5) 1.55% 1.95%, transparent 2.05%),
-    linear-gradient(90deg, transparent 0 16%, rgba(169,141,102,.22) 16.1% 50%, transparent 50.2%);
-  opacity:.9;
+    radial-gradient(circle at 50% 50%, transparent 0 34.86%, rgba(169,141,102,.3) 34.94% 35.05%, transparent 35.14%),
+    radial-gradient(circle at 50% 50%, transparent 0 47.88%, rgba(169,141,102,.2) 47.96% 48.06%, transparent 48.16%),
+    radial-gradient(circle at 50% 50%, transparent 0 60.9%, rgba(169,141,102,.14) 60.98% 61.08%, transparent 61.18%),
+    radial-gradient(circle at 16% 50%, transparent 0 1.1%, rgba(169,141,102,.64) 1.18% 1.52%, transparent 1.62%);
+  mask-image:linear-gradient(90deg,transparent 0 14%,#000 26% 100%);
+  opacity:.82;
 }
 .system-note div{
   position:relative;
@@ -1507,7 +1508,6 @@ input:focus,select:focus,textarea:focus{
   .depth-ring,
   .depth-glow,
   .depth-slice,
-  .marquee div,
   .submit-button::after,
   .hero-actions .button.primary::after{
     animation:none!important;
@@ -1529,5 +1529,10 @@ input:focus,select:focus,textarea:focus{
     animation-iteration-count:1!important;
     scroll-behavior:auto!important;
     transition-duration:.001ms!important;
+  }
+  .marquee div{
+    animation:marquee 34s linear infinite!important;
+    animation-duration:34s!important;
+    animation-iteration-count:infinite!important;
   }
 }

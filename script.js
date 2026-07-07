@@ -510,11 +510,22 @@ function revealCmsPage() {
     const marquee = document.querySelector(".marquee div");
     if (!marquee || value === undefined) return;
     if (value === "") { marquee.innerHTML = ""; return; }
-    const topics = value.split(/[•|]/).map((item) => item.trim()).filter(Boolean);
+    const topics = value.split(/[\u2022|]/).map((item) => item.trim()).filter(Boolean);
     if (!topics.length) return;
     const doubled = topics.concat(topics);
     marquee.innerHTML = doubled.map((topic) => '<span>' + topic + '</span>').join("");
+    requestAnimationFrame(syncMarqueeTrack);
   }
+
+  function syncMarqueeTrack() {
+    const track = document.querySelector(".marquee div");
+    if (!track) return;
+    const distance = Math.max(track.scrollWidth / 2, window.innerWidth);
+    track.style.setProperty("--marquee-distance", "-" + distance + "px");
+  }
+
+  window.addEventListener("load", syncMarqueeTrack);
+  window.addEventListener("resize", syncMarqueeTrack);
 
   function applyTexts(data, lang) {
     const texts = data.texts || {};
