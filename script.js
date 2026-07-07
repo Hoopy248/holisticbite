@@ -759,8 +759,10 @@ function revealCmsPage() {
 // Premium hero depth: lightweight 3D projection, no external runtime.
 (function(){
   const canvas = document.querySelector("#heroDepthCanvas");
+  const scene = document.querySelector(".hero-depth-scene");
   const hero = document.querySelector(".hero");
-  if (!canvas || !hero) return;
+  if (!canvas || !scene || !hero) return;
+  if (window.getComputedStyle && window.getComputedStyle(scene).display === "none") return;
 
   const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const ctx = canvas.getContext("2d", { alpha: true });
