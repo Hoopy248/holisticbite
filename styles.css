@@ -2676,3 +2676,25 @@ html[lang="et"] .hero-content::before{content:"KLIINILINE TOITUMISTERAAPIA"}
     right:clamp(96px,8vw,152px);
   }
 }
+
+/* Hero cleanup: closer portrait, no extra eyebrow, no heart icon. */
+.hero-content::before{
+  content:""!important;
+  display:none!important;
+  margin:0!important;
+}
+
+.hero-signature::before{
+  content:none!important;
+  display:none!important;
+}
+
+@media(min-width:1181px){
+  .hero-panel{
+    transform:translateX(-72px)!important;
+  }
+
+  .hero:hover .hero-panel{
+    transform:translateX(-72px)!important;
+  }
+}
