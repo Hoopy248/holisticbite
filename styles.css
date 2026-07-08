@@ -2849,3 +2849,57 @@ html[lang="et"] .hero-content::before{content:"KLIINILINE TOITUMISTERAAPIA"}
     grid-template-columns:1fr;
   }
 }
+
+/* Requests block v2: cards in one row, closer to the method section rhythm. */
+#requests .request-columns{
+  max-width:min(1240px,100%);
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(16px,2vw,24px);
+}
+
+#requests .request-columns article,
+#requests .request-columns article:nth-child(2),
+#requests .request-columns article:nth-child(3){
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+  margin-left:0;
+  padding:clamp(26px,2.7vw,34px);
+}
+
+#requests .request-columns article::before{
+  background:
+    radial-gradient(circle at 88% 0%,rgba(82,12,30,.075),transparent 38%),
+    linear-gradient(180deg,rgba(190,161,119,.16),transparent 34%);
+}
+
+#requests .request-columns h3{
+  width:100%;
+  justify-content:space-between;
+  padding-bottom:18px;
+  border-bottom:1px solid rgba(190,161,119,.30);
+}
+
+#requests .request-columns h3::after{
+  width:38px;
+  flex:0 0 38px;
+}
+
+#requests .request-columns ul{
+  grid-template-columns:1fr;
+  gap:0;
+}
+
+#requests .request-columns li{
+  min-height:52px;
+  display:flex;
+  align-items:flex-start;
+  padding-block:11px;
+}
+
+@media(max-width:1080px){
+  #requests .request-columns{
+    grid-template-columns:1fr;
+  }
+}
