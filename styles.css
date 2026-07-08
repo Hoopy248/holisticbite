@@ -2218,3 +2218,191 @@ html[lang="et"] .hero-content::before{content:"KLIINILINE TOITUMISTERAAPIA"}
     padding:18px 20px 20px;
   }
 }
+
+/* Hero balance pass: keep text and portrait in separate visual zones. */
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,54%) minmax(0,46%);
+  align-items:center;
+  column-gap:0;
+  padding-inline:clamp(24px,8.2vw,156px);
+  background:
+    radial-gradient(ellipse at 78% 48%,rgba(86,18,39,.46),transparent 30%),
+    radial-gradient(ellipse at 82% 65%,rgba(169,141,102,.10),transparent 25%),
+    radial-gradient(ellipse at 23% 28%,rgba(246,241,234,.045),transparent 30%),
+    linear-gradient(118deg,#0d1013 0%,#17191d 54%,#211b20 100%);
+}
+
+.hero::before{
+  mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.82) 56%,transparent 100%);
+}
+
+.hero-pattern{
+  left:52%;
+  width:48%;
+  opacity:.66;
+  background:
+    radial-gradient(circle at 62% 50%,transparent 0 30.8%,rgba(169,141,102,.22) 30.9% 31.02%,transparent 31.16%),
+    radial-gradient(circle at 62% 50%,transparent 0 42.4%,rgba(169,141,102,.15) 42.5% 42.62%,transparent 42.78%),
+    radial-gradient(circle at 62% 50%,transparent 0 54.2%,rgba(169,141,102,.10) 54.3% 54.4%,transparent 54.56%),
+    radial-gradient(circle at 38% 30%,rgba(169,141,102,.58) 0 4px,transparent 5px),
+    radial-gradient(circle at 38% 30%,rgba(246,241,234,.55) 0 1px,transparent 2px);
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.64) 22%,#000 100%);
+}
+
+.hero-content{
+  grid-column:1;
+  width:100%;
+  max-width:min(760px,100%);
+  padding-right:clamp(18px,3vw,52px);
+}
+
+.hero h1{
+  max-width:760px;
+  font-size:clamp(3.85rem,5.05vw,5.65rem);
+  line-height:1.04;
+  letter-spacing:-.012em;
+}
+
+.hero-title-line{
+  display:block;
+  max-width:100%;
+  text-wrap:balance;
+}
+
+.hero-title-line:first-child{
+  color:rgba(246,241,234,.98);
+}
+
+.hero-title-line + .hero-title-line{
+  width:auto;
+  max-width:100%;
+  color:var(--gold);
+  font-size:.78em;
+}
+
+.hero-copy{
+  max-width:610px;
+}
+
+.hero-panel{
+  top:clamp(126px,14.5vh,172px);
+  right:clamp(-34px,-1.3vw,-16px);
+  bottom:clamp(-112px,-10vh,-72px);
+  left:56%;
+  width:auto;
+  height:auto;
+}
+
+.hero-panel::before{
+  inset:0 -18% 12% -10%;
+  opacity:.62;
+  background:
+    radial-gradient(circle at 54% 43%,transparent 0 32.5%,rgba(169,141,102,.20) 32.62% 32.76%,transparent 32.9%),
+    radial-gradient(circle at 54% 43%,transparent 0 45.4%,rgba(169,141,102,.13) 45.52% 45.64%,transparent 45.78%),
+    radial-gradient(circle at 54% 43%,transparent 0 58.2%,rgba(169,141,102,.08) 58.32% 58.42%,transparent 58.56%);
+}
+
+.hero-panel::after{
+  inset:8% -16% 10% -12%;
+  opacity:.74;
+  background:radial-gradient(ellipse at 58% 50%,rgba(92,18,42,.48),rgba(70,16,34,.20) 38%,transparent 68%);
+}
+
+.profile-photo{
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  object-fit:contain!important;
+  object-position:right bottom;
+  filter:drop-shadow(-18px 30px 58px rgba(0,0,0,.34)) brightness(.9) contrast(.92) saturate(.94);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.32) 10%,#000 23%,#000 82%,rgba(0,0,0,.88) 100%),linear-gradient(180deg,#000 0%,#000 78%,rgba(0,0,0,.48) 91%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.32) 10%,#000 23%,#000 82%,rgba(0,0,0,.88) 100%),linear-gradient(180deg,#000 0%,#000 78%,rgba(0,0,0,.48) 91%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-composite:intersect;
+}
+
+.profile-caption{
+  left:auto;
+  right:clamp(54px,5.2vw,104px);
+  bottom:clamp(54px,8vh,92px);
+  width:clamp(320px,21vw,360px);
+  transform:none;
+  padding:18px 22px 20px;
+  background:linear-gradient(135deg,rgba(70,16,34,.76),rgba(43,7,20,.68));
+  border-color:rgba(202,169,116,.38);
+}
+
+.profile-caption strong{
+  font-size:clamp(1.55rem,1.7vw,2rem);
+}
+
+.profile-caption span{
+  font-size:.82rem;
+}
+
+.profile-education{
+  min-height:42px;
+  margin-top:12px;
+  padding-inline:18px;
+  font-size:.82rem;
+}
+
+@media(max-width:1280px){
+  .hero{
+    grid-template-columns:minmax(0,56%) minmax(0,44%);
+  }
+  .hero h1{
+    font-size:clamp(3.45rem,5.1vw,5rem);
+  }
+  .hero-panel{
+    left:57%;
+    right:-48px;
+  }
+}
+
+@media(max-width:1180px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+  .hero-content{
+    max-width:min(760px,100%);
+    padding-right:0;
+  }
+  .hero-panel{
+    position:relative;
+    left:auto;
+    right:auto;
+    top:auto;
+    bottom:auto;
+    width:min(560px,100%);
+    height:clamp(500px,68vw,660px);
+    justify-self:end;
+    margin-top:26px;
+  }
+  .profile-caption{
+    right:clamp(22px,7vw,64px);
+    bottom:28px;
+  }
+}
+
+@media(max-width:720px){
+  .hero{
+    padding:44px 16px 52px;
+  }
+  .hero h1{
+    font-size:clamp(2.95rem,12.2vw,4.25rem);
+  }
+  .hero-panel{
+    justify-self:center;
+    width:100%;
+    height:min(110vw,520px);
+  }
+  .profile-caption{
+    right:50%;
+    bottom:18px;
+    width:min(336px,84%);
+    transform:translateX(50%);
+  }
+}
