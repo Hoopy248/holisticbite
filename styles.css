@@ -2698,3 +2698,154 @@ html[lang="et"] .hero-content::before{content:"KLIINILINE TOITUMISTERAAPIA"}
     transform:translateX(-72px)!important;
   }
 }
+
+/* Requests block: replace table-like rows with calm editorial cards. */
+#requests{
+  position:relative;
+  overflow:hidden;
+  padding-top:clamp(86px,8vw,132px);
+  padding-bottom:clamp(86px,8vw,126px);
+  background:
+    radial-gradient(circle at 88% 18%,rgba(82,12,30,.095),transparent 30%),
+    radial-gradient(circle at 10% 86%,rgba(190,161,119,.11),transparent 34%),
+    linear-gradient(135deg,#f7f1e9 0%,#f2ebe2 54%,#e5dbcf 100%)!important;
+}
+
+#requests .section-heading{
+  max-width:none;
+  margin-bottom:clamp(34px,4vw,58px);
+}
+
+#requests-title{
+  max-width:none;
+  white-space:nowrap;
+  font-size:clamp(3rem,4.35vw,5.1rem);
+  line-height:1.02;
+  letter-spacing:0;
+}
+
+#requests .request-columns{
+  max-width:min(1120px,100%);
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+
+#requests .request-columns article{
+  position:relative;
+  min-height:0;
+  display:grid;
+  grid-template-columns:minmax(180px,260px) 1fr;
+  gap:clamp(18px,4vw,54px);
+  align-items:start;
+  padding:clamp(24px,3vw,34px);
+  border:1px solid rgba(48,48,56,.12);
+  border-radius:18px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.42),rgba(255,255,255,.16)),
+    rgba(246,241,234,.34);
+  box-shadow:
+    0 20px 60px rgba(48,36,28,.08),
+    inset 0 1px 0 rgba(255,255,255,.44);
+  overflow:hidden;
+}
+
+#requests .request-columns article::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  pointer-events:none;
+  border-radius:inherit;
+  background:
+    radial-gradient(circle at 92% 10%,rgba(82,12,30,.06),transparent 34%),
+    linear-gradient(90deg,rgba(190,161,119,.18),transparent 30%);
+  opacity:.85;
+}
+
+#requests .request-columns article > *{
+  position:relative;
+  z-index:1;
+}
+
+#requests .request-columns article:nth-child(2){
+  margin-left:clamp(28px,5vw,78px);
+}
+
+#requests .request-columns article:nth-child(3){
+  margin-left:clamp(56px,9vw,138px);
+}
+
+#requests .request-columns article:last-child{
+  border-bottom:1px solid rgba(48,48,56,.12);
+}
+
+#requests .request-columns h3{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  margin:0;
+  color:var(--wine);
+  font-size:clamp(1.28rem,1.8vw,1.65rem);
+  line-height:1.1;
+}
+
+#requests .request-columns h3::after{
+  content:"";
+  display:block;
+  width:54px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(190,161,119,.72),transparent);
+}
+
+#requests .request-columns ul{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(220px,1fr));
+  gap:8px 24px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+#requests .request-columns li{
+  position:relative;
+  padding:10px 0 10px 24px;
+  border-bottom:1px solid rgba(48,48,56,.075);
+  color:var(--graphite);
+  font-size:1.03rem;
+  line-height:1.45;
+}
+
+#requests .request-columns li::before{
+  content:"";
+  position:absolute;
+  left:1px;
+  top:1.16em;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:rgba(82,12,30,.86);
+  box-shadow:0 0 0 5px rgba(82,12,30,.06);
+}
+
+@media(max-width:1180px){
+  #requests-title{
+    font-size:clamp(2.8rem,5.4vw,4.35rem);
+  }
+}
+
+@media(max-width:900px){
+  #requests-title{
+    white-space:normal;
+  }
+
+  #requests .request-columns article,
+  #requests .request-columns article:nth-child(2),
+  #requests .request-columns article:nth-child(3){
+    margin-left:0;
+    grid-template-columns:1fr;
+  }
+
+  #requests .request-columns ul{
+    grid-template-columns:1fr;
+  }
+}
