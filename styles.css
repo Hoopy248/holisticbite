@@ -2664,3 +2664,15 @@ html[lang="et"] .hero-content::before{content:"KLIINILINE TOITUMISTERAAPIA"}
     bottom:22px;
   }
 }
+
+/* Hero right-side balance: nudge portrait and expert card left without changing the composition. */
+@media(min-width:1181px){
+  .hero-panel{
+    left:55.5%;
+    right:clamp(18px,3.2vw,60px);
+  }
+
+  .profile-caption{
+    right:clamp(96px,8vw,152px);
+  }
+}
