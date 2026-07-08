@@ -1566,3 +1566,50 @@ input:focus,select:focus,textarea:focus{
     font-size:.78em;
   }
 }
+
+.hero{
+  background:
+    radial-gradient(ellipse at 82% 34%,rgba(246,241,234,.11),transparent 24%),
+    radial-gradient(ellipse at 72% 86%,rgba(70,16,34,.24),transparent 34%),
+    linear-gradient(115deg,var(--graphite-deep) 0%,var(--graphite) 52%,var(--wine-ash) 100%);
+}
+.hero::before{
+  opacity:.18;
+  background:
+    linear-gradient(90deg,rgba(246,241,234,.045) 1px,transparent 1px),
+    linear-gradient(0deg,rgba(246,241,234,.028) 1px,transparent 1px);
+  background-size:92px 92px;
+  mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.86) 48%,rgba(0,0,0,.28) 78%,transparent 100%);
+}
+.hero-pattern{
+  opacity:.46;
+  background:
+    linear-gradient(122deg,transparent 0 58%,rgba(169,141,102,.08) 58.2%,transparent 58.5% 100%),
+    linear-gradient(302deg,transparent 0 64%,rgba(246,241,234,.055) 64.2%,transparent 64.45% 100%),
+    radial-gradient(ellipse at 84% 22%,rgba(169,141,102,.10),transparent 34%);
+  mask-image:linear-gradient(90deg,transparent 0%,#000 48%,#000 100%);
+}
+.hero-depth-scene{
+  display:none!important;
+}
+.hero-monogram{
+  opacity:.16;
+  -webkit-text-stroke-color:rgba(169,141,102,.12);
+}
+.hero::after{
+  opacity:.42;
+  background:linear-gradient(90deg,transparent,rgba(169,141,102,.72),rgba(169,141,102,.14),transparent);
+}
+
+@media(max-width:720px){
+  .hero{
+    background:
+      radial-gradient(ellipse at 72% 18%,rgba(246,241,234,.10),transparent 32%),
+      radial-gradient(ellipse at 78% 82%,rgba(70,16,34,.24),transparent 36%),
+      linear-gradient(140deg,var(--graphite-deep) 0%,var(--graphite) 66%,var(--wine-ash) 100%);
+  }
+  .hero-pattern{
+    opacity:.24;
+    mask-image:linear-gradient(180deg,#000 0%,transparent 100%);
+  }
+}
