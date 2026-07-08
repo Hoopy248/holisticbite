@@ -686,7 +686,27 @@ function revealCmsPage() {
     if (!Array.isArray(data.approach) || !data.approach.length) return;
     const container = document.querySelector("#method .method-grid");
     if (!container) return;
-    container.innerHTML = data.approach.map((card) => {
+    const cards = data.approach.slice();
+    const hasStrategy = cards.some((card) => {
+      const title = pick(card.title, "ru") || pick(card.title, lang) || "";
+      return title.trim().toLowerCase() === "стратегия";
+    });
+    if (!hasStrategy) {
+      cards.push({
+        number: "4",
+        title: {
+          ru: "Стратегия",
+          en: "Strategy",
+          et: "Strateegia"
+        },
+        text: {
+          ru: "Не список рекомендаций, а выстроенные условия, в которых организм начинает возвращать баланс.",
+          en: "Not a list of recommendations, but structured conditions in which the body begins to return to balance.",
+          et: "Mitte soovituste nimekiri, vaid tingimused, milles keha hakkab tasakaalu tagasi liikuma."
+        }
+      });
+    }
+    container.innerHTML = cards.map((card) => {
       return '<div><span>' + (card.number || '') + '</span><h3>' + (pick(card.title, lang) || '') + '</h3><p>' + (pick(card.text, lang) || '') + '</p></div>';
     }).join("");
   }
