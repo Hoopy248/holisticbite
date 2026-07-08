@@ -2406,3 +2406,130 @@ html[lang="et"] .hero-content::before{content:"KLIINILINE TOITUMISTERAAPIA"}
     transform:translateX(50%);
   }
 }
+
+/* Hero polish pass: same composition, calmer portrait and quieter luxury accents. */
+.hero{
+  background:
+    radial-gradient(ellipse at 79% 49%,rgba(78,16,36,.36),transparent 34%),
+    radial-gradient(ellipse at 83% 66%,rgba(169,141,102,.075),transparent 28%),
+    radial-gradient(ellipse at 23% 28%,rgba(246,241,234,.038),transparent 31%),
+    linear-gradient(118deg,#0d1013 0%,#17191d 54%,#211b20 100%);
+}
+
+.hero-pattern{
+  opacity:.48;
+  background:
+    radial-gradient(circle at 64% 51%,transparent 0 31%,rgba(176,148,108,.145) 31.08% 31.16%,transparent 31.3%),
+    radial-gradient(circle at 64% 51%,transparent 0 42.8%,rgba(176,148,108,.095) 42.88% 42.96%,transparent 43.1%),
+    radial-gradient(circle at 64% 51%,transparent 0 54.8%,rgba(176,148,108,.06) 54.88% 54.94%,transparent 55.08%),
+    radial-gradient(circle at 39% 31%,rgba(176,148,108,.42) 0 3px,transparent 4px),
+    radial-gradient(circle at 39% 31%,rgba(246,241,234,.36) 0 1px,transparent 2px);
+}
+
+.hero-panel{
+  left:58%;
+  right:clamp(-48px,-2vw,-28px);
+  top:clamp(138px,15.4vh,184px);
+  bottom:clamp(-132px,-12vh,-86px);
+}
+
+.hero-panel::before{
+  opacity:.5;
+}
+
+.hero-panel::after{
+  inset:10% -18% 8% -10%;
+  opacity:.58;
+  background:radial-gradient(ellipse at 61% 50%,rgba(82,17,38,.38),rgba(70,16,34,.16) 39%,transparent 71%);
+  filter:blur(2px);
+}
+
+.profile-photo{
+  width:94%;
+  right:-2%;
+  filter:drop-shadow(-14px 32px 52px rgba(0,0,0,.30)) brightness(.86) contrast(.88) saturate(.91);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.24) 12%,#000 26%,#000 82%,rgba(0,0,0,.9) 100%),linear-gradient(180deg,#000 0%,#000 76%,rgba(0,0,0,.42) 90%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.24) 12%,#000 26%,#000 82%,rgba(0,0,0,.9) 100%),linear-gradient(180deg,#000 0%,#000 76%,rgba(0,0,0,.42) 90%,transparent 100%);
+}
+
+.profile-caption{
+  right:clamp(44px,4.6vw,86px);
+  bottom:clamp(40px,6.4vh,74px);
+  width:clamp(312px,19vw,348px);
+  padding:15px 20px 17px;
+  border-color:rgba(190,161,119,.32);
+  background:linear-gradient(135deg,rgba(70,16,34,.68),rgba(43,7,20,.58));
+  box-shadow:0 18px 56px rgba(0,0,0,.28),inset 0 1px 0 rgba(246,241,234,.055);
+}
+
+.profile-caption strong{
+  font-size:clamp(1.42rem,1.48vw,1.82rem);
+}
+
+.profile-caption span{
+  color:rgba(190,161,119,.82);
+}
+
+.profile-education{
+  min-height:38px;
+  margin-top:10px;
+  border-color:rgba(190,161,119,.28);
+}
+
+.hero-title-line:first-child{
+  color:rgba(246,241,234,.96);
+}
+
+.hero-title-line + .hero-title-line{
+  color:rgba(190,161,119,.92);
+}
+
+.hero-copy{
+  line-height:1.8;
+  font-weight:430;
+  color:rgba(246,241,234,.80);
+}
+
+.hero-signature,
+.hero-note-line{
+  color:rgba(190,161,119,.88);
+}
+
+.hero-actions .button.primary{
+  border-color:rgba(190,161,119,.52);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.055),transparent 34%),
+    linear-gradient(135deg,rgba(108,26,47,.96),rgba(73,17,36,.94));
+  box-shadow:0 0 0 1px rgba(246,241,234,.06) inset,0 18px 52px rgba(70,16,34,.30);
+}
+
+.hero-actions .button.secondary{
+  border-color:rgba(190,161,119,.34);
+  background:rgba(246,241,234,.012);
+}
+
+@media(max-width:1280px){
+  .hero-panel{
+    left:59%;
+    right:-58px;
+  }
+}
+
+@media(max-width:1180px){
+  .profile-photo{
+    width:100%;
+    right:0;
+  }
+  .profile-caption{
+    right:clamp(22px,7vw,64px);
+    bottom:24px;
+  }
+}
+
+@media(max-width:720px){
+  .profile-caption{
+    right:50%;
+    bottom:16px;
+    width:min(324px,82%);
+  }
+}
