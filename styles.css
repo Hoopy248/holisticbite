@@ -3154,16 +3154,17 @@ h2,
 /* Hero background: graphite stone texture, no wine mist or orbit artwork. */
 .hero{
   background:
-    linear-gradient(90deg,rgba(12,15,17,.94) 0%,rgba(17,18,22,.88) 46%,rgba(17,18,22,.68) 100%),
-    linear-gradient(180deg,rgba(12,15,17,.72),rgba(12,15,17,.88)),
+    linear-gradient(90deg,rgba(10,12,14,.80) 0%,rgba(15,16,19,.66) 44%,rgba(18,18,20,.36) 100%),
+    radial-gradient(circle at 76% 16%,rgba(246,241,234,.18),transparent 34%),
+    linear-gradient(180deg,rgba(12,15,17,.26),rgba(12,15,17,.54)),
     url("./assets/hero-background.png") center/cover no-repeat!important;
 }
 
 .hero::before{
   background-image:
-    linear-gradient(rgba(246,241,234,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(246,241,234,.025) 1px,transparent 1px)!important;
-  opacity:.34!important;
+    linear-gradient(rgba(246,241,234,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(246,241,234,.018) 1px,transparent 1px)!important;
+  opacity:.20!important;
 }
 
 .hero::after,
