@@ -3183,3 +3183,100 @@ h2,
 .hero-panel::after{
   background:linear-gradient(180deg,transparent 46%,rgba(12,15,17,.44) 76%,rgba(12,15,17,.78))!important;
 }
+
+/* Hero portrait frame: new photo, minimal frame, wine caption without gold outlines. */
+.hero-panel{
+  top:clamp(128px,15vh,178px)!important;
+  right:clamp(80px,7vw,132px)!important;
+  bottom:auto!important;
+  left:auto!important;
+  width:clamp(360px,28vw,500px)!important;
+  height:clamp(540px,64vh,720px)!important;
+  overflow:visible!important;
+  padding:10px!important;
+  border:1px solid rgba(246,241,234,.14)!important;
+  border-radius:10px!important;
+  background:rgba(13,15,18,.42)!important;
+  box-shadow:0 36px 92px rgba(0,0,0,.38)!important;
+}
+
+.hero-panel::before,
+.hero-panel::after{
+  display:none!important;
+}
+
+.profile-photo{
+  position:relative!important;
+  inset:auto!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+  border:0!important;
+  border-radius:6px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  filter:brightness(.92) contrast(.98) saturate(.96)!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  pointer-events:none;
+}
+
+.profile-caption{
+  left:50%!important;
+  right:auto!important;
+  bottom:clamp(-76px,-7vh,-54px)!important;
+  width:min(360px,88%)!important;
+  transform:translateX(-50%)!important;
+  gap:6px!important;
+  padding:18px 22px 20px!important;
+  border:0!important;
+  border-radius:10px!important;
+  background:linear-gradient(135deg,rgba(82,12,30,.94),rgba(45,7,19,.90))!important;
+  backdrop-filter:blur(14px)!important;
+  -webkit-backdrop-filter:blur(14px)!important;
+  box-shadow:0 22px 54px rgba(0,0,0,.34)!important;
+}
+
+.profile-caption strong{
+  font-size:clamp(1.65rem,1.8vw,2.05rem)!important;
+  line-height:1!important;
+}
+
+.profile-caption span{
+  margin-top:2px!important;
+  color:rgba(246,241,234,.86)!important;
+  font-family:var(--font-sans)!important;
+  font-size:clamp(1rem,1.02vw,1.16rem)!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+  line-height:1.25!important;
+}
+
+.profile-education{
+  min-height:40px!important;
+  margin-top:12px!important;
+  border:1px solid rgba(246,241,234,.22)!important;
+  border-radius:8px!important;
+  background:rgba(246,241,234,.055)!important;
+  color:rgba(246,241,234,.84)!important;
+  font-size:.86rem!important;
+}
+
+.profile-education:hover{
+  border-color:rgba(246,241,234,.34)!important;
+  background:rgba(246,241,234,.10)!important;
+}
+
+@media(max-width:1180px){
+  .hero-panel{
+    position:relative!important;
+    top:auto!important;
+    right:auto!important;
+    width:min(520px,100%)!important;
+    height:min(118vw,680px)!important;
+    margin:16px auto 82px!important;
+  }
+}
