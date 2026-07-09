@@ -3187,9 +3187,9 @@ h2,
 /* Hero portrait frame: new photo, minimal frame, wine caption without gold outlines. */
 .hero-panel{
   top:clamp(128px,15vh,178px)!important;
-  right:clamp(80px,7vw,132px)!important;
+  right:auto!important;
   bottom:auto!important;
-  left:auto!important;
+  left:clamp(760px,57vw,980px)!important;
   width:clamp(360px,28vw,500px)!important;
   height:clamp(540px,64vh,720px)!important;
   overflow:visible!important;
@@ -3275,8 +3275,74 @@ h2,
     position:relative!important;
     top:auto!important;
     right:auto!important;
+    left:auto!important;
     width:min(520px,100%)!important;
     height:min(118vw,680px)!important;
     margin:16px auto 82px!important;
   }
+}
+
+/* Final typography lock: Cormorant for display serif, Manrope for interface. */
+body,
+p,
+li,
+a,
+button,
+input,
+textarea,
+select,
+.nav,
+.brand,
+.topbar-action,
+.button,
+.hero-copy,
+.hero-signature,
+.hero-note-line,
+.profile-caption span,
+.profile-education,
+.eyebrow,
+.request-columns li,
+.method-grid p,
+.booking-form,
+.modal-dialog,
+.format-card,
+.feedback-card{
+  font-family:var(--font-sans)!important;
+}
+
+h1,
+h2,
+h3,
+.hero h1,
+.hero-title-line,
+.profile-caption strong,
+#requests-title,
+#feedback-title,
+#stories-title,
+#contact-title,
+.booking-copy h2,
+.method-heading h2,
+.modal-dialog h2{
+  font-family:var(--font-serif)!important;
+}
+
+.hero h1{
+  font-weight:400!important;
+  line-height:.94!important;
+  letter-spacing:-.035em!important;
+  text-wrap:balance;
+}
+
+.profile-caption strong{
+  font-weight:500!important;
+  letter-spacing:-.018em!important;
+}
+
+.eyebrow,
+.hero-note-line,
+.nav a,
+.language-switcher button,
+.profile-caption span{
+  text-transform:uppercase;
+  letter-spacing:.12em!important;
 }
