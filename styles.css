@@ -3310,6 +3310,17 @@ select,
   font-family:var(--font-sans)!important;
 }
 
+/* Hero spacing: keep the portrait clear of the headline. */
+@media(min-width:1181px){
+  .hero-content{
+    max-width:min(50vw,900px)!important;
+  }
+
+  .hero-panel{
+    left:clamp(960px,63vw,1160px)!important;
+  }
+}
+
 h1,
 h2,
 h3,
