@@ -3150,3 +3150,34 @@ h2,
   position:relative;
   z-index:1;
 }
+
+/* Hero background: graphite stone texture, no wine mist or orbit artwork. */
+.hero{
+  background:
+    linear-gradient(90deg,rgba(12,15,17,.94) 0%,rgba(17,18,22,.88) 46%,rgba(17,18,22,.68) 100%),
+    linear-gradient(180deg,rgba(12,15,17,.72),rgba(12,15,17,.88)),
+    url("./assets/hero-background.png") center/cover no-repeat!important;
+}
+
+.hero::before{
+  background-image:
+    linear-gradient(rgba(246,241,234,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(246,241,234,.025) 1px,transparent 1px)!important;
+  opacity:.34!important;
+}
+
+.hero::after,
+.hero-pattern,
+.hero-depth-scene,
+.luxury-orbit,
+.hero-monogram{
+  display:none!important;
+}
+
+.hero-panel::before{
+  background:none!important;
+}
+
+.hero-panel::after{
+  background:linear-gradient(180deg,transparent 46%,rgba(12,15,17,.44) 76%,rgba(12,15,17,.78))!important;
+}
