@@ -2997,3 +2997,83 @@ h2,
 .eyebrow{
   letter-spacing:0!important;
 }
+
+/* Requests atmosphere: photographic graphite background with centered cards. */
+#requests{
+  color:var(--ivory)!important;
+  background:
+    linear-gradient(90deg,rgba(16,17,20,.86) 0%,rgba(25,25,31,.74) 42%,rgba(25,25,31,.50) 100%),
+    linear-gradient(180deg,rgba(25,25,31,.52),rgba(25,25,31,.72)),
+    url("./assets/requests-background.png") center/cover no-repeat!important;
+}
+
+#requests::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 24% 26%,rgba(246,241,234,.08),transparent 26%),
+    linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.28));
+  z-index:0;
+}
+
+#requests > *{
+  position:relative;
+  z-index:1;
+}
+
+#requests .section-heading{
+  width:min(1180px,100%);
+  margin-inline:auto;
+  text-align:center;
+}
+
+#requests-title{
+  color:var(--ivory)!important;
+  text-shadow:0 18px 54px rgba(0,0,0,.34);
+}
+
+#requests .request-columns{
+  width:min(1180px,100%);
+  margin-inline:auto;
+  justify-content:center;
+}
+
+#requests .request-columns article{
+  color:var(--ivory);
+  border-color:rgba(190,161,119,.24);
+  background:
+    linear-gradient(145deg,rgba(25,25,31,.66),rgba(43,7,20,.34)),
+    rgba(25,25,31,.50);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:
+    0 28px 80px rgba(0,0,0,.26),
+    inset 0 1px 0 rgba(246,241,234,.08);
+}
+
+#requests .request-columns article::before{
+  background:
+    radial-gradient(circle at 88% 0%,rgba(190,161,119,.10),transparent 34%),
+    linear-gradient(180deg,rgba(246,241,234,.06),transparent 42%);
+}
+
+#requests .request-columns h3{
+  color:rgba(246,241,234,.96);
+  border-bottom-color:rgba(190,161,119,.30);
+}
+
+#requests .request-columns h3::after{
+  background:linear-gradient(90deg,rgba(190,161,119,.82),transparent);
+}
+
+#requests .request-columns li{
+  color:rgba(246,241,234,.82);
+  border-bottom-color:rgba(246,241,234,.10);
+}
+
+#requests .request-columns li::before{
+  background:rgba(190,161,119,.92);
+  box-shadow:0 0 0 5px rgba(190,161,119,.08);
+}
