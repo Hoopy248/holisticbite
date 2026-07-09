@@ -3098,3 +3098,28 @@ h2,
 .system-note div{
   max-width:760px;
 }
+
+/* Questionnaire block: keep layout, use cropped wine artwork as the background. */
+.questionnaire{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(43,7,20,.90) 0%,rgba(70,16,34,.70) 46%,rgba(70,16,34,.30) 100%),
+    linear-gradient(180deg,rgba(25,25,31,.10),rgba(25,25,31,.34)),
+    url("./assets/questionnaire-background.png") center right/cover no-repeat!important;
+  border-block-color:rgba(190,161,119,.22);
+}
+
+.questionnaire::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(circle at 78% 28%,rgba(246,241,234,.12),transparent 24%);
+  opacity:.82;
+}
+
+.questionnaire > *{
+  position:relative;
+  z-index:1;
+}
