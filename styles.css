@@ -3077,3 +3077,24 @@ h2,
   background:rgba(190,161,119,.92);
   box-shadow:0 0 0 5px rgba(190,161,119,.08);
 }
+
+/* System note background: use the orbit artwork as the primary visual. */
+.system-note{
+  background:
+    linear-gradient(90deg,rgba(17,18,22,.86) 0%,rgba(22,22,27,.68) 44%,rgba(22,18,22,.18) 100%),
+    linear-gradient(180deg,rgba(17,18,22,.14),rgba(17,18,22,.42)),
+    url("./assets/system-note-background.png") center right/cover no-repeat!important;
+}
+
+.system-note::before{
+  opacity:.16!important;
+  mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.45) 48%,transparent 86%)!important;
+}
+
+.system-note::after{
+  display:none!important;
+}
+
+.system-note div{
+  max-width:760px;
+}
