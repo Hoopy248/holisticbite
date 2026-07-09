@@ -3346,3 +3346,71 @@ h3,
   text-transform:uppercase;
   letter-spacing:.12em!important;
 }
+
+/* Final hero alignment and site typography refinement. */
+@media(min-width:1181px){
+  .hero-panel{
+    left:clamp(800px,59vw,1020px)!important;
+  }
+}
+
+.hero-title-line:first-child{
+  white-space:nowrap!important;
+}
+
+.hero-note-line{
+  text-transform:none!important;
+  letter-spacing:.01em!important;
+}
+
+.eyebrow,
+.nav a,
+.language-switcher button,
+.profile-caption span{
+  text-transform:uppercase;
+  letter-spacing:.11em!important;
+}
+
+h1,
+h2,
+h3,
+.hero h1,
+.hero-title-line,
+.profile-caption strong,
+#requests-title,
+#feedback-title,
+#stories-title,
+#contact-title,
+.booking-copy h2,
+.method-heading h2,
+.modal-dialog h2,
+.system-note p:first-child{
+  font-family:var(--font-serif)!important;
+}
+
+body,
+p,
+li,
+a,
+button,
+input,
+textarea,
+select,
+.nav,
+.brand,
+.topbar-action,
+.button,
+.hero-copy,
+.hero-signature,
+.hero-note-line,
+.profile-caption span,
+.profile-education,
+.eyebrow,
+.request-columns li,
+.method-grid p,
+.booking-form,
+.modal-dialog,
+.format-card,
+.feedback-card{
+  font-family:var(--font-sans)!important;
+}
