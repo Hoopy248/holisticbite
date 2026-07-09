@@ -3123,3 +3123,30 @@ h2,
   position:relative;
   z-index:1;
 }
+
+/* Body map teaser: wine stone texture background. */
+.body-map-teaser{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(43,7,20,.86) 0%,rgba(70,16,34,.64) 48%,rgba(25,25,31,.28) 100%),
+    linear-gradient(180deg,rgba(25,25,31,.12),rgba(25,25,31,.42)),
+    url("./assets/body-map-teaser-background.png") center/cover no-repeat!important;
+  border-top-color:rgba(190,161,119,.22);
+  border-bottom-color:rgba(190,161,119,.22);
+}
+
+.body-map-teaser::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 28%,rgba(246,241,234,.10),transparent 26%),
+    radial-gradient(circle at 86% 48%,rgba(190,161,119,.14),transparent 30%);
+}
+
+.body-map-teaser > *{
+  position:relative;
+  z-index:1;
+}
