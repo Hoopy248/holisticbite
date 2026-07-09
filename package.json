@@ -2,9 +2,9 @@
   "name": "holisticbite",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "echo Static site",
+    "build": "echo Static site build",
+    "start": "echo Static site"
   },
   "dependencies": {
     "@gsap/react": "latest",
