@@ -3000,10 +3000,10 @@ h2,
 
 /* Requests atmosphere: photographic graphite background with centered cards. */
 #requests{
-  color:var(--ivory)!important;
+  color:var(--graphite-deep)!important;
   background:
-    linear-gradient(90deg,rgba(16,17,20,.86) 0%,rgba(25,25,31,.74) 42%,rgba(25,25,31,.50) 100%),
-    linear-gradient(180deg,rgba(25,25,31,.52),rgba(25,25,31,.72)),
+    linear-gradient(90deg,rgba(246,241,234,.78) 0%,rgba(232,219,204,.64) 48%,rgba(35,31,29,.18) 100%),
+    linear-gradient(180deg,rgba(246,241,234,.58),rgba(222,207,190,.50)),
     url("./assets/requests-background.png") center/cover no-repeat!important;
 }
 
@@ -3013,8 +3013,8 @@ h2,
   inset:0;
   pointer-events:none;
   background:
-    radial-gradient(circle at 24% 26%,rgba(246,241,234,.08),transparent 26%),
-    linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.28));
+    radial-gradient(circle at 24% 26%,rgba(255,253,248,.22),transparent 28%),
+    linear-gradient(180deg,rgba(255,253,248,.12),rgba(25,25,31,.08));
   z-index:0;
 }
 
@@ -3030,8 +3030,8 @@ h2,
 }
 
 #requests-title{
-  color:var(--ivory)!important;
-  text-shadow:0 18px 54px rgba(0,0,0,.34);
+  color:var(--graphite-deep)!important;
+  text-shadow:0 18px 54px rgba(255,253,248,.24);
 }
 
 #requests .request-columns{
@@ -3041,27 +3041,27 @@ h2,
 }
 
 #requests .request-columns article{
-  color:var(--ivory);
-  border-color:rgba(190,161,119,.24);
+  color:var(--graphite-deep);
+  border-color:rgba(82,12,30,.14);
   background:
-    linear-gradient(145deg,rgba(25,25,31,.66),rgba(43,7,20,.34)),
-    rgba(25,25,31,.50);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
+    linear-gradient(145deg,rgba(255,253,248,.60),rgba(246,241,234,.36)),
+    rgba(246,241,234,.42);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   box-shadow:
-    0 28px 80px rgba(0,0,0,.26),
-    inset 0 1px 0 rgba(246,241,234,.08);
+    0 28px 80px rgba(48,36,28,.12),
+    inset 0 1px 0 rgba(255,253,248,.46);
 }
 
 #requests .request-columns article::before{
   background:
-    radial-gradient(circle at 88% 0%,rgba(190,161,119,.10),transparent 34%),
-    linear-gradient(180deg,rgba(246,241,234,.06),transparent 42%);
+    radial-gradient(circle at 88% 0%,rgba(82,12,30,.055),transparent 34%),
+    linear-gradient(180deg,rgba(255,253,248,.22),transparent 42%);
 }
 
 #requests .request-columns h3{
-  color:rgba(246,241,234,.96);
-  border-bottom-color:rgba(190,161,119,.30);
+  color:var(--wine);
+  border-bottom-color:rgba(82,12,30,.16);
 }
 
 #requests .request-columns h3::after{
@@ -3069,8 +3069,8 @@ h2,
 }
 
 #requests .request-columns li{
-  color:rgba(246,241,234,.82);
-  border-bottom-color:rgba(246,241,234,.10);
+  color:rgba(25,25,31,.78);
+  border-bottom-color:rgba(82,12,30,.10);
 }
 
 #requests .request-columns li::before{
