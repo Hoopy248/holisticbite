@@ -2903,3 +2903,97 @@ html[lang="et"] .hero-content::before{content:"KLIINILINE TOITUMISTERAAPIA"}
     grid-template-columns:1fr;
   }
 }
+
+/* Typography system: editorial serif + clean interface sans. */
+:root{
+  --font-serif:"Cormorant Garamond",Cormorant,Georgia,"Times New Roman",serif;
+  --font-sans:"Manrope",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+.nav,
+.brand,
+.topbar-action,
+.button,
+.language-switcher button,
+.eyebrow,
+.hero-copy,
+.hero-signature,
+.hero-note-line,
+.request-columns li,
+.method-grid p,
+.booking-form,
+.selected-format,
+.modal-dialog,
+.format-card,
+.feedback-card,
+.contact-description{
+  font-family:var(--font-sans)!important;
+}
+
+h1,
+h2,
+.hero h1,
+.hero-title-line,
+.profile-caption strong,
+.profile-caption span,
+.modal-dialog h2,
+.booking-copy h2,
+.method-heading h2,
+#requests-title,
+#feedback-title,
+#stories-title,
+#contact-title{
+  font-family:var(--font-serif)!important;
+}
+
+.hero h1{
+  font-weight:400!important;
+  line-height:.92!important;
+  letter-spacing:-.026em!important;
+  text-rendering:geometricPrecision;
+}
+
+.hero-title-line:first-child{
+  color:var(--ivory)!important;
+  font-weight:400!important;
+}
+
+.hero-title-line + .hero-title-line{
+  color:rgba(190,161,119,.92)!important;
+  font-weight:400!important;
+  letter-spacing:-.03em!important;
+}
+
+h2,
+#requests-title,
+.method-heading h2,
+.booking-copy h2,
+#feedback-title,
+#stories-title,
+#contact-title{
+  font-weight:400!important;
+  letter-spacing:-.02em!important;
+}
+
+.profile-caption strong{
+  font-weight:500!important;
+  letter-spacing:-.012em!important;
+}
+
+.profile-caption span{
+  font-weight:500!important;
+  letter-spacing:.01em!important;
+}
+
+.nav,
+.topbar-action,
+.button,
+.language-switcher button,
+.eyebrow{
+  letter-spacing:0!important;
+}
