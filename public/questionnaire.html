@@ -1,0 +1,203 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Анкета клиента - HolisticBite</title><style>
+:root{--graphite:#303038;--deep:#19191f;--wine:#3f1222;--wine-deep:#240811;--ivory:#f6f1ea;--soft:#e6ded5;--gold:#a98d66;--line:rgba(48,48,56,.16)}*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,var(--deep),var(--graphite));color:var(--ivory);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}.page{min-height:100vh;display:grid;grid-template-columns:minmax(340px,430px) minmax(0,1fr)}aside{display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,4vw,52px);border-right:1px solid rgba(246,241,234,.14);background:rgba(25,25,31,.66)}main{display:grid;place-items:center;padding:clamp(24px,5vw,64px)}.brand{font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:.04em}.title{font-family:Georgia,"Times New Roman",serif;font-size:clamp(3rem,4.6vw,4.6rem);line-height:1.02;margin:22px 0;max-width:8ch}.lead{max-width:310px;color:var(--soft)}.progress{height:6px;border-radius:999px;background:rgba(246,241,234,.12);overflow:hidden;margin-top:26px}.progress span{display:block;height:100%;width:0;background:var(--gold);transition:width .25s ease}.meta{margin-top:12px;color:var(--soft);font-size:.92rem}.card{width:min(860px,100%);border:1px solid rgba(246,241,234,.16);border-radius:10px;background:var(--ivory);color:var(--deep);box-shadow:0 28px 90px rgba(0,0,0,.28);padding:clamp(22px,4vw,42px)}.q-step,.final-step{display:none}.q-step.is-active,.final-step.is-active{display:block}.kicker{color:var(--wine);font-weight:900;text-transform:uppercase;font-size:.82rem}.q-step h2,.final-step h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.9rem,4vw,3.3rem);line-height:1.12;margin:10px 0 12px}.q-step p,.final-step p{color:#6f6865;margin:0 0 22px}.q-step textarea{width:100%;min-height:220px;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font:inherit;resize:vertical;outline:none}.q-step textarea:focus,input:focus{border-color:var(--wine);box-shadow:0 0 0 3px rgba(63,18,34,.12)}.email-grid{display:grid;gap:14px;margin-top:20px}.email-grid label{display:grid;gap:8px;font-weight:850}.email-grid input{min-height:48px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:inherit}.actions{display:flex;justify-content:space-between;gap:12px;margin-top:24px}.button{min-height:48px;border:1px solid transparent;border-radius:999px;padding:12px 20px;font-weight:900;cursor:pointer}.button.primary{background:var(--wine);color:var(--ivory)}.button.secondary{background:transparent;border-color:rgba(63,18,34,.22);color:var(--wine)}.button:disabled{opacity:.35;cursor:default}.notice{margin-top:18px;color:#6f6865;font-size:.92rem}.download{display:inline-flex;margin-top:12px;color:var(--gold);font-weight:900}@media(max-width:980px){.page{grid-template-columns:1fr}aside{display:block;border-right:0;border-bottom:1px solid rgba(246,241,234,.14)}.title{max-width:none;font-size:clamp(2.7rem,10vw,4.4rem)}.lead{max-width:680px}main{padding:18px}.actions{flex-direction:column}.button{width:100%}}body{background:radial-gradient(circle at 82% 12%,rgba(168,141,102,.10),transparent 28%),linear-gradient(135deg,#17171d,#2b2b33 60%,#261f27);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.page{grid-template-columns:minmax(320px,390px) minmax(0,1fr)}aside{background:rgba(23,23,29,.76);box-shadow:20px 0 70px rgba(0,0,0,.16)}.brand{letter-spacing:.02em}.title{max-width:9ch;text-wrap:balance}.lead{max-width:340px;line-height:1.65;text-wrap:pretty}.progress{height:8px;background:rgba(246,241,234,.10)}.progress span{background:linear-gradient(90deg,#876f55,var(--gold))}.card{border-radius:12px;background:#faf9f5;box-shadow:0 26px 76px rgba(0,0,0,.24);border-color:rgba(246,241,234,.20)}.q-step h2,.final-step h2{text-wrap:balance}.q-step p,.final-step p{max-width:68ch;line-height:1.6;text-wrap:pretty;color:#5f5a5c}.q-step textarea{min-height:240px;background:#fff;border-color:rgba(48,48,56,.15);line-height:1.55}.q-step textarea::placeholder,input::placeholder{color:#746d6c}.button:active{transform:translateY(1px)}.button.primary{background:linear-gradient(180deg,#552034,var(--wine));box-shadow:0 12px 28px rgba(63,18,34,.20)}.button.secondary{background:rgba(63,18,34,.045)}.download{color:#c0a27c}.notice{line-height:1.5}@media(max-width:980px){.page{grid-template-columns:1fr}aside{box-shadow:none}.title{max-width:none}.lead{max-width:720px}}@media(max-width:640px){aside,main{padding:18px}.card{padding:20px 16px}.q-step textarea{min-height:260px}.actions{gap:10px}}@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
+</style></head><body class="cms-loading"><script>document.documentElement.classList.add("cms-booting");setTimeout(function(){document.body&&document.body.classList.remove("cms-loading");},1200);</script><div class="page"><aside><div class="brand">HolisticBite</div><h1 class="title">Анкета клиента</h1><p class="lead">Ответьте на вопросы по порядку. В конце укажите почту, и сайт подготовит письмо для отправки Дарье.</p><div class="progress"><span id="progressBar"></span></div><div class="meta" id="progressMeta"></div><a class="download" href="./assets/questionnaire.pdf" download>Скачать PDF-анкету</a></aside><main><form class="card" id="questionnaireForm"><section class="q-step is-active" data-index="0" data-question="Ф.И.О."><div class="kicker">Вопрос 1</div><h2>Ф.И.О.</h2><p>Укажите фамилию, имя и отчество полностью.</p><textarea name="answer-0" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="1" data-question="Телефон и e-mail"><div class="kicker">Вопрос 2</div><h2>Телефон и e-mail</h2><p>Укажите актуальный номер телефона и электронную почту.</p><textarea name="answer-1" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="2" data-question="Возраст"><div class="kicker">Вопрос 3</div><h2>Возраст</h2><p>Полных лет и год рождения.</p><textarea name="answer-2" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="3" data-question="Вес и рост"><div class="kicker">Вопрос 4</div><h2>Вес и рост</h2><p>Вес в кг, рост в см.</p><textarea name="answer-3" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="4" data-question="Окружность талии и бедер"><div class="kicker">Вопрос 5</div><h2>Окружность талии и бедер</h2><p>Укажите значения в сантиметрах.</p><textarea name="answer-4" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="5" data-question="Обычное давление и пульс"><div class="kicker">Вопрос 6</div><h2>Обычное давление и пульс</h2><p>Ваши привычные показатели.</p><textarea name="answer-5" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="6" data-question="Двигательный режим"><div class="kicker">Вопрос 7</div><h2>Двигательный режим</h2><p>Сидячий, малоподвижный или активный образ жизни; как передвигаетесь; спорт - сколько раз в неделю, длительность и вид.</p><textarea name="answer-6" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="7" data-question="Профессия"><div class="kicker">Вопрос 8</div><h2>Профессия</h2><p>Чем вы занимаетесь и какой характер работы.</p><textarea name="answer-7" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="8" data-question="Семейное положение / дети"><div class="kicker">Вопрос 9</div><h2>Семейное положение / дети</h2><p>Укажите семейное положение и наличие детей.</p><textarea name="answer-8" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="9" data-question="Город проживания"><div class="kicker">Вопрос 10</div><h2>Город проживания</h2><p>Город и страна, если актуально.</p><textarea name="answer-9" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="10" data-question="Основные жалобы на состояние здоровья"><div class="kicker">Вопрос 11</div><h2>Основные жалобы на состояние здоровья</h2><p>Боли, недомогания, изменения веса/состояния, основные проявления. Опишите подробно.</p><textarea name="answer-10" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="11" data-question="Хронические заболевания"><div class="kicker">Вопрос 12</div><h2>Хронические заболевания</h2><p>Есть ли хронические заболевания? Уточните какие.</p><textarea name="answer-11" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="12" data-question="Аллергии и непереносимость"><div class="kicker">Вопрос 13</div><h2>Аллергии и непереносимость</h2><p>Аллергические реакции, пищевая или лекарственная непереносимость. Укажите проявления.</p><textarea name="answer-12" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="13" data-question="Семейный анамнез"><div class="kicker">Вопрос 14</div><h2>Семейный анамнез</h2><p>Хронические, психические, генетические заболевания, онкология у близких родственников. Уточните у кого и что именно.</p><textarea name="answer-13" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="14" data-question="Состояние щитовидной железы"><div class="kicker">Вопрос 15</div><h2>Состояние щитовидной железы</h2><p>Норма, изменения на УЗИ, узлы/кисты, гипотиреоз, тиреотоксикоз и другое.</p><textarea name="answer-14" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="15" data-question="Состояние половой системы"><div class="kicker">Вопрос 16</div><h2>Состояние половой системы</h2><p>Диагностированные инфекции, заболевания, хирургические вмешательства.</p><textarea name="answer-15" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="16" data-question="Операции"><div class="kicker">Вопрос 17</div><h2>Операции</h2><p>Были ли операции? Когда и какие.</p><textarea name="answer-16" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="17" data-question="Для женщин"><div class="kicker">Вопрос 18</div><h2>Для женщин</h2><p>Регулярность месячных, возраст начала, роды/аборты/беременности, длительность цикла, ПМС/болезненность, изменения цикла, менопауза, приливы.</p><textarea name="answer-17" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="18" data-question="Половая жизнь"><div class="kicker">Вопрос 19</div><h2>Половая жизнь</h2><p>Регулярная, отсутствует, периодическая; постоянный партнер; снижение либидо.</p><textarea name="answer-18" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="19" data-question="Состояние кожи"><div class="kicker">Вопрос 20</div><h2>Состояние кожи</h2><p>Сухость/жирность, покраснения, шелушения, высыпания, пигментация, папилломы, купероз, синяки под глазами и другое.</p><textarea name="answer-19" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="20" data-question="Состояние ногтей"><div class="kicker">Вопрос 21</div><h2>Состояние ногтей</h2><p>Тонкие, ломкие, слоятся, ребристые, вогнутые, белые пятна, желтые и другое.</p><textarea name="answer-20" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="21" data-question="Состояние волос и кожи головы"><div class="kicker">Вопрос 22</div><h2>Состояние волос и кожи головы</h2><p>Сухие, жирные, тусклые, ломкие, седина, перхоть, себорея, зуд, выпадение волос.</p><textarea name="answer-21" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="22" data-question="Состояние языка"><div class="kicker">Вопрос 23</div><h2>Состояние языка</h2><p>Розовый, отечный, налет, трещины, язвы, воспаленные сосочки и другое.</p><textarea name="answer-22" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="23" data-question="Характер стула"><div class="kicker">Вопрос 24</div><h2>Характер стула</h2><p>Ежедневный/регулярный, запор, раз в 2-3 дня, жидкий, твердый, частый, затрудненный, газообразование.</p><textarea name="answer-23" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="24" data-question="Мочеиспускание"><div class="kicker">Вопрос 25</div><h2>Мочеиспускание</h2><p>Частое, редкое, затрудненное, болезненное, ночное, цвет мочи.</p><textarea name="answer-24" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="25" data-question="Состояния и симптомы"><div class="kicker">Вопрос 26</div><h2>Состояния и симптомы</h2><p>Боли, слабость, упадок сил, головокружение, тремор, потливость, раздражительность, нарушение сна, тревога, утренний привкус во рту. Укажите как давно.</p><textarea name="answer-25" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="26" data-question="Сон"><div class="kicker">Вопрос 27</div><h2>Сон</h2><p>Сколько часов спите? Есть ли бессонница, частые пробуждения, раннее пробуждение, кошмары, чуткий сон.</p><textarea name="answer-26" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="27" data-question="Рабочий график"><div class="kicker">Вопрос 28</div><h2>Рабочий график</h2><p>Сколько часов работаете в день и какой график: ежедневно, 2/2, 5/2 или другое.</p><textarea name="answer-27" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="28" data-question="Профессиональные вредности"><div class="kicker">Вопрос 29</div><h2>Профессиональные вредности</h2><p>Малоподвижность, холод, жара, пыль, химическое воздействие и другое.</p><textarea name="answer-28" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="29" data-question="Курение"><div class="kicker">Вопрос 30</div><h2>Курение</h2><p>Да/нет. Если да - сколько сигарет в день, сколько лет. Если бросили - как давно.</p><textarea name="answer-29" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="30" data-question="Алкоголь"><div class="kicker">Вопрос 31</div><h2>Алкоголь</h2><p>Да/нет. Какой, как часто и количество в мл.</p><textarea name="answer-30" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="31" data-question="Препараты, витамины, БАДы, травы"><div class="kicker">Вопрос 32</div><h2>Препараты, витамины, БАДы, травы</h2><p>Перечислите все названия с дозировками.</p><textarea name="answer-31" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="32" data-question="Вода"><div class="kicker">Вопрос 33</div><h2>Вода</h2><p>Сколько чистой воды выпиваете за день, когда пьете - до еды, после или во время.</p><textarea name="answer-32" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="33" data-question="Количество приемов пищи"><div class="kicker">Вопрос 34</div><h2>Количество приемов пищи</h2><p>Сколько раз в день вы едите?</p><textarea name="answer-33" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="34" data-question="Ощущения после еды"><div class="kicker">Вопрос 35</div><h2>Ощущения после еды</h2><p>Сытость, не наелся, переел, комфорт, тяжесть, боль, тошнота, отрыжка, переполненность и другое.</p><textarea name="answer-34" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="35" data-question="Вес в детстве и пубертате"><div class="kicker">Вопрос 36</div><h2>Вес в детстве и пубертате</h2><p>Недостаток массы тела, нормальный вес или избыточная масса тела.</p><textarea name="answer-35" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="36" data-question="Обычный рацион за один день"><div class="kicker">Вопрос 37</div><h2>Обычный рацион за один день</h2><p>Во сколько проснулись, завтрак/обед/ужин, перекусы, время, продукты, объем, напитки, во сколько легли спать.</p><textarea name="answer-36" placeholder="Ваш ответ"></textarea></section>
+<section class="q-step " data-index="37" data-question="Дата заполнения"><div class="kicker">Вопрос 38</div><h2>Дата заполнения</h2><p>Укажите дату заполнения анкеты.</p><textarea name="answer-37" placeholder="Ваш ответ"></textarea></section><section class="final-step" id="finalStep"><div class="kicker">Финальный шаг</div><h2>Куда отправить анкету?</h2><p>Укажите вашу почту. После нажатия сайт откроет подготовленное письмо на адрес darja.nutritsioloog@gmail.com. Проверьте текст и нажмите отправить в своем почтовом клиенте.</p><div class="email-grid"><label>Ваш e-mail<input id="clientEmail" type="email" required placeholder="name@example.com"/></label><label>Ваше имя<input id="clientNameFinal" type="text" placeholder="Имя"/></label></div><p class="notice">Для полностью автоматической отправки без открытия почты нужен сервер или сервис вроде Formspree/EmailJS.</p></section><div class="actions"><button class="button secondary" type="button" id="prevBtn">Назад</button><button class="button primary" type="button" id="nextBtn">Далее</button></div></form></main></div><script>
+(function(){
+  var form = document.getElementById('questionnaireForm');
+  var finalStep = document.getElementById('finalStep');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var progressBar = document.getElementById('progressBar');
+  var progressMeta = document.getElementById('progressMeta');
+  var targetEmail = 'darja.nutritsioloog@gmail.com';
+  function revealPage(){ document.body.classList.remove('cms-loading'); document.documentElement.classList.add('cms-ready'); }
+  var index = 0;
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.q-step'));
+  var lang = localStorage.getItem('siteLanguage') || document.documentElement.lang || 'ru';
+
+  var defaults = {
+    pageTitle: { ru: 'Анкета клиента', en: 'Client questionnaire', et: 'Kliendiküsimustik' },
+    lead: { ru: 'Ответьте на вопросы по порядку. В конце укажите почту, и сайт подготовит письмо для отправки Дарье.', en: 'Answer the questions in order. At the end, enter your email and the site will prepare a message to send to Darya.', et: 'Vasta küsimustele järjest. Lõpus sisesta oma e-post ja sait valmistab ette kirja Darjale saatmiseks.' },
+    download: { ru: 'Скачать PDF-анкету', en: 'Download PDF form', et: 'Laadi PDF-ankeet alla' },
+    question: { ru: 'Вопрос', en: 'Question', et: 'Küsimus' },
+    of: { ru: 'из', en: 'of', et: '/' },
+    finalKicker: { ru: 'Финальный шаг', en: 'Final step', et: 'Viimane samm' },
+    finalTitle: { ru: 'Куда отправить анкету?', en: 'Where should the questionnaire be sent?', et: 'Kuhu ankeet saata?' },
+    finalText: { ru: 'Укажите вашу почту. После нажатия сайт откроет подготовленное письмо на адрес darja.nutritsioloog@gmail.com. Проверьте текст и нажмите отправить в своем почтовом клиенте.', en: 'Enter your email. After clicking the button, the site will open a prepared message to darja.nutritsioloog@gmail.com. Check the text and send it from your email app.', et: 'Sisesta oma e-post. Pärast nupu vajutamist avab sait ettevalmistatud kirja aadressile darja.nutritsioloog@gmail.com. Kontrolli teksti ja saada see oma e-posti rakendusest.' },
+    emailLabel: { ru: 'Ваш e-mail', en: 'Your email', et: 'Sinu e-post' },
+    nameLabel: { ru: 'Ваше имя', en: 'Your name', et: 'Sinu nimi' },
+    namePlaceholder: { ru: 'Имя', en: 'Name', et: 'Nimi' },
+    notice: { ru: 'Для полностью автоматической отправки без открытия почты нужен сервер или сервис вроде Formspree/EmailJS.', en: 'Fully automatic sending without opening email requires a server or a service like Formspree/EmailJS.', et: 'Täisautomaatseks saatmiseks ilma e-posti avamata on vaja serverit või teenust nagu Formspree/EmailJS.' },
+    prev: { ru: 'Назад', en: 'Back', et: 'Tagasi' },
+    next: { ru: 'Далее', en: 'Next', et: 'Edasi' },
+    prepare: { ru: 'Подготовить письмо', en: 'Prepare email', et: 'Valmista kiri ette' },
+    ready: { ru: 'Готово к отправке', en: 'Ready to send', et: 'Saatmiseks valmis' },
+    mailTitle: { ru: 'Анкета клиента HolisticBite', en: 'HolisticBite client questionnaire', et: 'HolisticBite kliendiankeet' },
+    clientEmail: { ru: 'Email клиента', en: 'Client email', et: 'Kliendi e-post' },
+    clientName: { ru: 'Имя клиента', en: 'Client name', et: 'Kliendi nimi' }
+  };
+
+  function pick(value, fallbackKey) {
+    if (value && Object.prototype.hasOwnProperty.call(value, lang)) return value[lang];
+    if (value && Object.prototype.hasOwnProperty.call(value, 'ru')) return value.ru;
+    return defaults[fallbackKey] ? (defaults[fallbackKey][lang] || defaults[fallbackKey].ru) : '';
+  }
+
+  function textFromCms(texts, key, fallbackKey) {
+    return pick(texts && texts[key], fallbackKey);
+  }
+
+  function setText(selector, value) {
+    var el = document.querySelector(selector);
+    if (el && value !== undefined) el.textContent = value;
+  }
+
+  function setLabelText(label, value) {
+    if (!label || value === undefined) return;
+    var node = Array.prototype.slice.call(label.childNodes).find(function(item){ return item.nodeType === Node.TEXT_NODE && item.nodeValue.trim(); });
+    if (node) node.nodeValue = value;
+    else label.insertBefore(document.createTextNode(value), label.firstChild);
+  }
+
+  function applyUiTexts(texts) {
+    setText('aside .title', textFromCms(texts, 'questionnaire_page_title', 'pageTitle'));
+    document.title = textFromCms(texts, 'questionnaire_page_title', 'pageTitle') + ' - HolisticBite';
+    setText('aside .lead', textFromCms(texts, 'questionnaire_page_lead', 'lead'));
+    setText('aside .download', textFromCms(texts, 'questionnaire_page_download', 'download'));
+    setText('#finalStep .kicker', textFromCms(texts, 'questionnaire_final_kicker', 'finalKicker'));
+    setText('#finalStep h2', textFromCms(texts, 'questionnaire_final_title', 'finalTitle'));
+    setText('#finalStep > p', textFromCms(texts, 'questionnaire_final_text', 'finalText'));
+    var labels = document.querySelectorAll('#finalStep .email-grid label');
+    setLabelText(labels[0], textFromCms(texts, 'questionnaire_email_label', 'emailLabel'));
+    setLabelText(labels[1], textFromCms(texts, 'questionnaire_name_label', 'nameLabel'));
+    var email = document.getElementById('clientEmail');
+    var name = document.getElementById('clientNameFinal');
+    if (email) email.placeholder = textFromCms(texts, 'questionnaire_email_placeholder', null) || 'name@example.com';
+    if (name) name.placeholder = textFromCms(texts, 'questionnaire_name_placeholder', 'namePlaceholder');
+    setText('#finalStep .notice', textFromCms(texts, 'questionnaire_notice', 'notice'));
+    prevBtn.textContent = textFromCms(texts, 'questionnaire_prev_button', 'prev');
+  }
+
+  function renderQuestionSteps(items, texts) {
+    if (!items || !items.length) return;
+    steps.forEach(function(step){ step.remove(); });
+    steps = items.map(function(item, i){
+      var section = document.createElement('section');
+      section.className = 'q-step' + (i === 0 ? ' is-active' : '');
+      section.dataset.index = String(i);
+      var question = pick(item.question, null) || item.title || '';
+      var help = pick(item.help, null) || '';
+      var placeholder = pick(item.placeholder, null) || textFromCms(texts, 'questionnaire_answer_placeholder', null) || (lang === 'en' ? 'Your answer' : lang === 'et' ? 'Sinu vastus' : 'Ваш ответ');
+      section.dataset.question = question;
+      section.innerHTML = '<div class="kicker"></div><h2></h2><p></p><textarea name="answer-' + i + '"></textarea>';
+      section.querySelector('.kicker').textContent = textFromCms(texts, 'questionnaire_question_label', 'question') + ' ' + (i + 1);
+      section.querySelector('h2').textContent = question;
+      section.querySelector('p').textContent = help;
+      section.querySelector('textarea').placeholder = placeholder;
+      form.insertBefore(section, finalStep);
+      return section;
+    });
+    index = 0;
+  }
+
+  function render(texts){
+    steps.forEach(function(step,i){ step.classList.toggle('is-active', i === index && index < steps.length); });
+    finalStep.classList.toggle('is-active', index === steps.length);
+    prevBtn.disabled = index === 0;
+    nextBtn.textContent = index === steps.length ? textFromCms(texts, 'questionnaire_prepare_button', 'prepare') : textFromCms(texts, 'questionnaire_next_button', 'next');
+    var progress = steps.length ? Math.round((index / steps.length) * 100) : 0;
+    progressBar.style.width = progress + '%';
+    progressMeta.textContent = index === steps.length ? textFromCms(texts, 'questionnaire_ready_text', 'ready') : textFromCms(texts, 'questionnaire_question_label', 'question') + ' ' + (index + 1) + ' ' + textFromCms(texts, 'questionnaire_of_label', 'of') + ' ' + steps.length;
+  }
+
+  function collectAnswers(){
+    return steps.map(function(step){
+      var question = step.getAttribute('data-question');
+      var answer = (step.querySelector('textarea') || {}).value || '';
+      return { question: question, answer: answer.trim() };
+    });
+  }
+
+  async function sendMail(texts){
+    var emailInput = document.getElementById("clientEmail");
+    var email = emailInput.value.trim();
+    if(!email){ emailInput.focus(); return; }
+    var name = document.getElementById("clientNameFinal").value.trim();
+    var answers = collectAnswers();
+    var notice = document.querySelector("#finalStep .notice");
+    nextBtn.disabled = true;
+    if (notice) notice.textContent = "Отправляем анкету...";
+
+    try {
+      var response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "questionnaire",
+          email: email,
+          clientName: name,
+          answers: answers
+        })
+      });
+      var result = await response.json().catch(function(){ return {}; });
+      if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось отправить анкету");
+      if (notice) notice.textContent = "Анкета отправлена. Спасибо!";
+      nextBtn.textContent = "Отправлено";
+    } catch (error) {
+      if (notice) notice.textContent = "Не удалось отправить анкету. Причина: " + (error.message || "попробуйте позже.");
+      nextBtn.disabled = false;
+    }
+  }
+
+  function start(cms){
+    var texts = (cms && cms.texts) || {};
+    applyUiTexts(texts);
+    if (cms && Array.isArray(cms.questionnaire) && cms.questionnaire.length) renderQuestionSteps(cms.questionnaire, texts);
+    nextBtn.addEventListener('click', async function(){ if(index < steps.length){ index += 1; render(texts); } else { await sendMail(texts); } });
+    prevBtn.addEventListener('click', function(){ if(index > 0){ index -= 1; render(texts); } });
+    render(texts);
+    revealPage();
+  }
+
+  fetch('/api/cms?ts=' + Date.now(), { cache: 'no-store', headers: { Accept: 'application/json' } })
+    .then(function(response){ return response.ok ? response.json() : null; })
+    .then(start)
+    .catch(function(){ start(null); });
+})();
+</script></body></html>

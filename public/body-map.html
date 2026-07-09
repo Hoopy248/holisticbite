@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Карта сигналов тела - HolisticBite</title>
+<meta name="description" content="Интерактивная карта сигналов тела: обучающий режим и мягкая самопроверка для первичной карты наблюдений." />
+<style>
+:root{
+  --graphite:#303038;
+  --deep:#18181e;
+  --wine:#461022;
+  --wine-soft:#64162e;
+  --gold:#b99a67;
+  --ivory:#f6f1ea;
+  --ivory-soft:rgba(246,241,234,.74);
+  --paper:#f5efe7;
+  --ink:#202027;
+  --muted:#6f6669;
+  --line:rgba(246,241,234,.14);
+  --paper-line:rgba(32,32,39,.12);
+  --shadow:0 30px 90px rgba(0,0,0,.32);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 84% 12%,rgba(185,154,103,.12),transparent 28%),
+    linear-gradient(135deg,var(--deep),#292830 58%,#241d25);
+  color:var(--ivory);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.5;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.page{min-height:100vh}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:14px clamp(18px,4vw,56px);
+  background:rgba(24,24,30,.82);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(16px);
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}
+.brand img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:var(--ivory);border:1px solid rgba(185,154,103,.42)}
+.top-actions{display:flex;gap:10px;align-items:center}
+.pill,.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  border:1px solid rgba(246,241,234,.18);
+  border-radius:999px;
+  padding:9px 16px;
+  background:rgba(246,241,234,.06);
+  color:var(--ivory);
+  font-weight:850;
+}
+.button.primary{background:var(--wine);border-color:var(--wine);color:var(--ivory)}
+.button.light{background:var(--ivory);border-color:var(--ivory);color:var(--deep)}
+.eyebrow{
+  margin:0 0 12px;
+  color:var(--gold);
+  font-size:.78rem;
+  font-weight:950;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:22px;
+  padding:clamp(42px,6vw,78px) clamp(18px,5vw,72px) 18px;
+}
+.hero h1{
+  max-width:1080px;
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:500;
+  font-size:clamp(3.2rem,7vw,6.4rem);
+  line-height:.92;
+}
+.hero p:not(.eyebrow){
+  max-width:760px;
+  margin:18px 0 0;
+  color:var(--ivory-soft);
+  font-size:1.06rem;
+}
+.hero-panel{
+  width:min(100%,1040px);
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:rgba(246,241,234,.06);
+  box-shadow:0 18px 58px rgba(0,0,0,.20);
+}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.chip{
+  border:1px solid rgba(246,241,234,.18);
+  border-radius:999px;
+  background:rgba(246,241,234,.06);
+  color:var(--ivory-soft);
+  padding:10px 14px;
+  font-weight:900;
+}
+.chip.is-active{background:var(--ivory);border-color:var(--ivory);color:var(--deep)}
+.workspace{
+  display:grid;
+  grid-template-columns:minmax(320px,560px) minmax(340px,1fr);
+  gap:clamp(22px,4vw,54px);
+  padding:18px clamp(18px,5vw,72px) clamp(70px,7vw,96px);
+}
+.body-stage{
+  position:sticky;
+  top:92px;
+  align-self:start;
+  min-height:760px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(246,241,234,.10),transparent 36%),
+    linear-gradient(145deg,#202027,#302c33 66%,#211b22);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.body-stage::before{
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:1px solid rgba(185,154,103,.16);
+  border-radius:8px;
+  pointer-events:none;
+}
+.body-img{
+  position:absolute;
+  left:50%;
+  top:52%;
+  height:calc(100% - 86px);
+  max-width:86%;
+  object-fit:contain;
+  object-position:center;
+  transform:translate(-50%,-50%);
+  filter:drop-shadow(0 34px 52px rgba(0,0,0,.42));
+  user-select:none;
+  pointer-events:none;
+}
+.map-point{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(185,154,103,.58);
+  border-radius:50%;
+  background:rgba(24,24,30,.80);
+  transform:translate(-50%,-50%);
+  box-shadow:0 12px 26px rgba(0,0,0,.28);
+  z-index:5;
+}
+.map-point::after{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 0 0 rgba(185,154,103,.36);
+  animation:pulse 2.1s ease-out infinite;
+}
+.map-point.is-active{background:var(--wine);border-color:rgba(246,241,234,.68)}
+.map-point.is-flagged{box-shadow:0 0 0 5px rgba(70,16,34,.25),0 12px 26px rgba(0,0,0,.28)}
+.point-label{
+  position:absolute;
+  left:calc(var(--x) + 22px);
+  top:var(--y);
+  transform:translateY(-50%);
+  z-index:4;
+  max-width:145px;
+  padding:7px 12px;
+  border:1px solid rgba(185,154,103,.28);
+  border-radius:999px;
+  background:rgba(24,24,30,.78);
+  color:var(--ivory);
+  font-size:.78rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.02em;
+  pointer-events:none;
+}
+@keyframes pulse{70%{box-shadow:0 0 0 14px rgba(185,154,103,0)}}
+.side{display:grid;gap:18px;align-content:start}
+.panel{
+  border:1px solid rgba(32,32,39,.10);
+  border-radius:10px;
+  background:rgba(246,241,234,.95);
+  color:var(--ink);
+  box-shadow:0 18px 58px rgba(0,0,0,.20);
+  padding:clamp(20px,3vw,30px);
+}
+.panel.dark{
+  background:rgba(246,241,234,.065);
+  color:var(--ivory);
+  border-color:var(--line);
+}
+.panel h2,.panel h3{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:500;
+  line-height:1.05;
+}
+.panel h2{font-size:clamp(2rem,4vw,3.6rem);color:var(--wine)}
+.panel h3{font-size:clamp(1.55rem,3vw,2.5rem);color:var(--wine)}
+.panel.dark h3{color:var(--ivory)}
+.panel p{color:var(--muted)}
+.panel.dark p{color:var(--ivory-soft)}
+.signal-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:18px 0 0;
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(70,16,34,.14);
+  background:rgba(70,16,34,.06);
+  color:var(--wine);
+  font-size:.82rem;
+  font-weight:850;
+}
+.learn-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-top:20px;
+}
+.mini-card{
+  border:1px solid rgba(70,16,34,.12);
+  border-radius:8px;
+  background:rgba(255,255,255,.52);
+  padding:16px;
+}
+.mini-card strong{
+  display:block;
+  margin-bottom:10px;
+  color:var(--ink);
+  text-transform:uppercase;
+  font-size:.86rem;
+}
+.mini-card ul{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.mini-card li{position:relative;padding-left:18px;color:#423b3f}
+.mini-card li::before{content:"•";position:absolute;left:0;color:var(--wine);font-weight:900}
+.check-list{display:grid;gap:10px;margin-top:18px}
+.check-row{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  border:1px solid rgba(70,16,34,.12);
+  border-radius:8px;
+  background:rgba(255,255,255,.50);
+  padding:14px;
+}
+.check-row input[type=checkbox]{
+  width:20px;
+  height:20px;
+  accent-color:var(--wine);
+  margin-top:2px;
+  flex:0 0 auto;
+}
+.severity{display:grid;gap:7px;margin-top:16px}
+.severity input{width:100%;accent-color:var(--wine)}
+textarea{
+  width:100%;
+  min-height:90px;
+  border:1px solid rgba(32,32,39,.18);
+  border-radius:8px;
+  background:white;
+  color:var(--ink);
+  padding:12px;
+  resize:vertical;
+}
+.scales{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.scale{
+  display:grid;
+  gap:8px;
+  border:1px solid rgba(246,241,234,.12);
+  border-radius:8px;
+  background:rgba(246,241,234,.055);
+  padding:14px;
+}
+.scale label{display:flex;justify-content:space-between;gap:12px;color:var(--ivory);font-weight:850}
+.scale output{color:var(--gold)}
+.scale input{accent-color:var(--gold)}
+.summary{display:grid;gap:12px}
+.summary-box{
+  border-left:3px solid var(--gold);
+  background:rgba(246,241,234,.07);
+  border-radius:8px;
+  padding:16px;
+  color:var(--ivory-soft);
+}
+.summary-box strong{color:var(--ivory)}
+.summary-actions{display:flex;flex-wrap:wrap;gap:10px}
+.mode-learn #scalesPanel,
+.mode-learn #summaryPanel{display:none}
+.mode-self #learningHint{display:none}
+@media(max-width:1100px){
+  .workspace{grid-template-columns:1fr}
+  .body-stage{position:relative;top:auto;min-height:720px}
+}
+@media(max-width:820px){
+  .hero-panel{grid-template-columns:1fr}
+  .hero h1{font-size:clamp(2.9rem,14vw,4.8rem)}
+  .learn-grid,.scales{grid-template-columns:1fr}
+  .point-label{display:none}
+}
+@media(max-width:640px){
+  .topbar{align-items:flex-start;flex-direction:column}
+  .workspace{padding-inline:14px}
+  .body-stage{min-height:590px}
+  .body-img{height:calc(100% - 70px)}
+  .panel{padding:18px}
+}
+
+/* Premium audit consolidation */
+body{
+  background:
+    radial-gradient(circle at 82% 10%,rgba(168,144,112,.09),transparent 26%),
+    linear-gradient(135deg,#17171d,#292a31 58%,#261f27);
+  font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.topbar{
+  min-height:74px;
+  background:rgba(23,23,29,.90);
+  box-shadow:0 12px 34px rgba(0,0,0,.16);
+}
+.hero{padding-top:clamp(38px,6vw,68px)}
+.hero h1{
+  max-width:980px;
+  font-size:clamp(3rem,6.5vw,5.8rem);
+  line-height:.98;
+  text-wrap:balance;
+}
+.hero p:not(.eyebrow){
+  max-width:780px;
+  color:rgba(246,241,234,.82);
+  line-height:1.68;
+  text-wrap:pretty;
+}
+.hero-panel,.panel,.body-stage,.scale,.mini-card,.check-row{
+  border-radius:10px;
+}
+.workspace{
+  grid-template-columns:minmax(300px,520px) minmax(360px,1fr);
+}
+.body-stage{
+  min-height:720px;
+  background:
+    radial-gradient(circle at 50% 34%,rgba(246,241,234,.10),transparent 30%),
+    radial-gradient(circle at 50% 78%,rgba(70,16,34,.13),transparent 34%),
+    linear-gradient(145deg,#202027,#302c33 62%,#211b22);
+}
+.body-img{height:calc(100% - 108px)}
+.map-point{
+  width:30px;
+  height:30px;
+  backdrop-filter:blur(6px);
+}
+.point-label{
+  background:rgba(24,24,30,.72);
+  color:rgba(246,241,234,.84);
+}
+.panel{
+  background:rgba(248,247,243,.97);
+  box-shadow:0 20px 62px rgba(0,0,0,.18);
+}
+.panel.dark{
+  background:rgba(246,241,234,.07);
+}
+.panel h2,.panel h3{text-wrap:balance}
+.panel p{line-height:1.62;text-wrap:pretty}
+.button:active,.chip:active{transform:translateY(1px)}
+@media(max-width:1100px){
+  .workspace{grid-template-columns:1fr}
+  .body-stage{position:relative;top:auto;min-height:680px}
+}
+@media(max-width:640px){
+  .topbar{gap:12px}
+  .top-actions{display:grid;grid-template-columns:1fr;width:100%}
+  .pill,.button{width:100%}
+  .hero{padding-inline:16px}
+  .workspace{padding:16px 16px 56px}
+  .body-stage{min-height:540px}
+  .body-img{height:calc(100% - 82px)}
+  .map-point{width:34px;height:34px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.001ms!important;
+  }
+}
+</style>
+</head>
+<body class="mode-learn">
+<div class="page">
+  <header class="topbar">
+    <a class="brand" href="./index.html"><img src="./assets/darya-logo.jpg" alt="HolisticBite" /><span>HolisticBite</span></a>
+    <div class="top-actions"><a class="pill" href="./index.html">На сайт</a><a class="button primary" href="./index.html#booking">Записаться</a></div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Первичная карта наблюдений</p>
+      <h1>Карта сигналов тела</h1>
+      <p>Выберите тему на карте: энергия, стресс, сон, пищеварение, гормоны, восстановление. В обучающем режиме можно посмотреть связи, а в самопроверке собрать мягкую первичную карту наблюдений перед консультацией.</p>
+    </div>
+    <div class="hero-panel" aria-label="Настройки карты">
+      <div>
+        <p class="eyebrow">Тело</p>
+        <div class="tabs">
+          <button class="chip is-active" type="button" data-gender="female">Женщина</button>
+          <button class="chip" type="button" data-gender="male">Мужчина</button>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Вид</p>
+        <div class="tabs">
+          <button class="chip is-active" type="button" data-view="front">Спереди</button>
+          <button class="chip" type="button" data-view="back">Сзади</button>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Режим</p>
+        <div class="tabs">
+          <button class="chip is-active" type="button" data-mode="learn">Обучение</button>
+          <button class="chip" type="button" data-mode="self">Самопроверка</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="workspace">
+    <div class="body-stage" id="bodyStage" aria-label="Карта сигналов тела">
+      <img class="body-img" id="bodyImage" src="./assets/body-map-statue-front.png" alt="Карта сигналов тела" />
+      <div id="mapPoints"></div>
+    </div>
+
+    <div class="side">
+      <article class="panel" id="signalPanel"></article>
+
+      <section class="panel dark" id="scalesPanel">
+        <p class="eyebrow">Фон состояния</p>
+        <h3>Шкалы самонаблюдения</h3>
+        <p>Оцените общий фон за последние 2-4 недели. Это не диагноз, а способ увидеть, какие темы чаще всего требуют внимания.</p>
+        <div class="scales" id="scales"></div>
+      </section>
+
+      <section class="panel dark" id="summaryPanel">
+        <p class="eyebrow">Итог</p>
+        <h3>Первичная карта наблюдений</h3>
+        <div class="summary" id="summary"></div>
+        <div class="summary-actions">
+          <button class="button light" type="button" id="copySummary">Скопировать итог</button>
+          <a class="button primary" href="./index.html#booking">Записаться на консультацию</a>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>
+
+<script>
+const state = {
+  gender: "female",
+  view: "front",
+  mode: "learn",
+  active: "energy",
+  checked: {},
+  severity: {},
+  notes: {},
+  scales: {
+    stress: 5,
+    energy: 5,
+    sleep: 5,
+    anxiety: 5,
+    digestion: 5,
+    cycle: 5,
+    libido: 5,
+    recovery: 5
+  }
+};
+
+const bodyImages = {
+  female: {
+    front: "./assets/body-map-statue-front.png",
+    back: "./assets/body-map-statue-back.png"
+  },
+  male: {
+    front: "./assets/body-map-statue-front-men.png",
+    back: "./assets/body-map-statue-back-men.png"
+  }
+};
+
+const signals = [
+  {
+    key: "energy",
+    title: "Энергия и ресурс",
+    label: "энергия",
+    front: { x: 42, y: 73 },
+    back: { x: 42, y: 73 },
+    systems: ["митохондрии", "железо", "сон", "питание"],
+    likes: ["регулярное питание без больших провалов", "достаток белка", "сон, после которого есть восстановление"],
+    dislikes: ["жизнь на кофе", "дефицит железа и B-витаминов", "тренировки через истощение"],
+    questions: ["утром есть ощущение ресурса?", "энергия падает после еды?", "восстановление после нагрузки стало дольше?"],
+    checks: ["утром уже нет сил", "после еды хочется лечь", "обычные дела ощущаются как перегруз"]
+  },
+  {
+    key: "stress",
+    title: "Стресс и тревога",
+    label: "стресс",
+    front: { x: 58, y: 45 },
+    back: { x: 58, y: 45 },
+    systems: ["нервная система", "кортизол", "глюкоза", "сон"],
+    likes: ["предсказуемый режим", "паузы без стимуляции", "мягкую физическую нагрузку"],
+    dislikes: ["постоянный недосып", "информационный шум", "голодные интервалы на фоне стресса"],
+    questions: ["тревога сильнее утром или вечером?", "есть раздражительность без причины?", "сон прерывается от напряжения?"],
+    checks: ["часто живу в тревоге или внутреннем напряжении", "сложно расслабиться даже в свободное время", "раздражительность стала фоном"]
+  },
+  {
+    key: "sleep",
+    title: "Сон и восстановление",
+    label: "сон",
+    front: { x: 50, y: 17 },
+    back: { x: 50, y: 17 },
+    systems: ["мозг", "мелатонин", "стресс-ось", "восстановление"],
+    likes: ["стабильное время сна", "темноту и снижение света вечером", "ужин без перегруза"],
+    dislikes: ["поздний кофеин", "телефон перед сном", "сон на фоне голода или переедания"],
+    questions: ["просыпаетесь восстановленным?", "есть ночные пробуждения?", "сложно заснуть из-за мыслей?"],
+    checks: ["сон не восстанавливает", "часто просыпаюсь ночью", "утром ощущение тяжелой головы"]
+  },
+  {
+    key: "digestion",
+    title: "ЖКТ и пищеварение",
+    label: "ЖКТ",
+    front: { x: 50, y: 55 },
+    back: { x: 50, y: 55 },
+    systems: ["кишечник", "желчь", "микробиота", "воспаление"],
+    likes: ["ритм питания", "спокойное состояние во время еды", "клетчатку по переносимости"],
+    dislikes: ["еда на бегу", "хаотичные перекусы", "подавление симптомов без поиска причины"],
+    questions: ["есть вздутие или тяжесть?", "стул регулярный?", "есть реакции на продукты?"],
+    checks: ["часто есть вздутие или тяжесть", "стул нестабилен", "есть ощущение, что продукты стали хуже переноситься"]
+  },
+  {
+    key: "metabolism",
+    title: "Метаболизм и вес",
+    label: "метаболизм",
+    front: { x: 43, y: 45 },
+    back: { x: 43, y: 45 },
+    systems: ["печень", "глюкоза", "инсулин", "воспаление"],
+    likes: ["стабильную глюкозу", "достаточный белок", "движение без перегруза"],
+    dislikes: ["качели голода и переедания", "сладкое как единственный способ получить энергию", "хроническое воспаление"],
+    questions: ["вес меняется без понятной причины?", "есть тяга к сладкому?", "есть сонливость после еды?"],
+    checks: ["вес сложно контролировать", "есть тяга к сладкому или постоянный голод", "после еды часто сонливость"]
+  },
+  {
+    key: "hormones",
+    title: "Гормоны, цикл и либидо",
+    label: "гормоны",
+    front: { x: 50, y: 66 },
+    back: { x: 50, y: 66 },
+    systems: ["цикл", "либидо", "щитовидная железа", "дефициты"],
+    likes: ["достаточную калорийность", "жиры и белок", "восстановление и снижение перегруза"],
+    dislikes: ["жесткие диеты", "низкий ферритин", "хроническую тревогу"],
+    questions: ["есть ПМС, приливы или сбои цикла?", "изменилось либидо?", "восстановление стало хуже?"],
+    checks: ["цикл, ПМС или приливы беспокоят", "либидо заметно снизилось", "есть ощущение гормональных качелей"]
+  },
+  {
+    key: "thyroid",
+    title: "Щитовидная железа",
+    label: "щитовидка",
+    front: { x: 50, y: 28 },
+    back: { x: 50, y: 28 },
+    systems: ["ТТГ", "fT3/fT4", "АИТ", "ферритин"],
+    likes: ["достаточный белок", "железо, селен и йод по показаниям", "сон и восстановление"],
+    dislikes: ["низкий ферритин", "жесткие диеты", "тканевое воспаление и постоянный стресс"],
+    questions: ["есть зябкость или отечность?", "утром тяжело включиться?", "вес меняется без явной причины?"],
+    checks: ["часто мерзну или отекаю", "утром тяжело включиться", "есть узлы, АИТ или вопросы по анализам щитовидки"]
+  }
+];
+
+const scaleConfig = [
+  ["stress", "Стресс", "спокойно", "перегруз"],
+  ["energy", "Энергия", "низкая", "высокая"],
+  ["sleep", "Сон", "не восстанавливает", "восстанавливает"],
+  ["anxiety", "Тревога", "мало", "много"],
+  ["digestion", "Пищеварение", "тяжело", "комфортно"],
+  ["cycle", "Цикл", "нестабильно", "стабильно"],
+  ["libido", "Либидо", "низкое", "хорошее"],
+  ["recovery", "Восстановление", "слабое", "хорошее"]
+];
+
+const bodyImage = document.querySelector("#bodyImage");
+const mapPoints = document.querySelector("#mapPoints");
+const signalPanel = document.querySelector("#signalPanel");
+const scales = document.querySelector("#scales");
+const summary = document.querySelector("#summary");
+
+function currentSignal() {
+  return signals.find((signal) => signal.key === state.active) || signals[0];
+}
+
+function renderTabs(group, value) {
+  document.querySelectorAll("[data-" + group + "]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset[group] === value);
+  });
+}
+
+function renderImage() {
+  bodyImage.src = bodyImages[state.gender][state.view];
+  bodyImage.alt = state.gender === "male" ? "Мужская карта сигналов тела" : "Женская карта сигналов тела";
+}
+
+function list(items) {
+  return "<ul>" + items.map((item) => "<li>" + item + "</li>").join("") + "</ul>";
+}
+
+function renderPoints() {
+  mapPoints.innerHTML = signals.map((signal) => {
+    const pos = signal[state.view];
+    const flagged = state.checked[signal.key] ? " is-flagged" : "";
+    const active = signal.key === state.active ? " is-active" : "";
+    return '<button class="map-point' + active + flagged + '" style="--x:' + pos.x + '%;--y:' + pos.y + '%" type="button" data-signal="' + signal.key + '" aria-label="' + signal.title + '"></button>' +
+      '<span class="point-label" style="--x:' + pos.x + '%;--y:' + pos.y + '%">' + signal.label + '</span>';
+  }).join("");
+  mapPoints.querySelectorAll("[data-signal]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.active = button.dataset.signal;
+      render();
+    });
+  });
+}
+
+function renderSignal() {
+  const signal = currentSignal();
+  const tags = signal.systems.map((system) => '<span class="tag">' + system + '</span>').join("");
+
+  if (state.mode === "learn") {
+    signalPanel.innerHTML =
+      '<p class="eyebrow">Обучающий режим</p>' +
+      '<h2>' + signal.title + '</h2>' +
+      '<p>Здесь не ставится диагноз. Это карта связей: что может поддерживать систему, что чаще перегружает ее и какие наблюдения полезно принести на консультацию.</p>' +
+      '<div class="signal-meta">' + tags + '</div>' +
+      '<div class="learn-grid">' +
+      '<div class="mini-card"><strong>Любит</strong>' + list(signal.likes) + '</div>' +
+      '<div class="mini-card"><strong>Не любит</strong>' + list(signal.dislikes) + '</div>' +
+      '<div class="mini-card"><strong>Что заметить</strong>' + list(signal.questions) + '</div>' +
+      '<div class="mini-card"><strong>Формулировка</strong><ul><li>это первичная карта наблюдений</li><li>она помогает подготовиться к консультации</li><li>точнее смотреть вместе с анализами и анамнезом</li></ul></div>' +
+      '</div>';
+    return;
+  }
+
+  const checked = !!state.checked[signal.key];
+  const severity = state.severity[signal.key] || 3;
+  const note = state.notes[signal.key] || "";
+  signalPanel.innerHTML =
+    '<p class="eyebrow">Самопроверка</p>' +
+    '<h2>' + signal.title + '</h2>' +
+    '<p>Отметьте только то, что действительно откликается сейчас. Это не медицинская оценка, а способ собрать наблюдения перед консультацией.</p>' +
+    '<div class="signal-meta">' + tags + '</div>' +
+    '<div class="check-list">' +
+      signal.checks.map((item, index) => {
+        const key = signal.key + "-" + index;
+        return '<label class="check-row"><input type="checkbox" data-check="' + key + '" ' + (state.checked[key] ? "checked" : "") + ' /><span>' + item + '</span></label>';
+      }).join("") +
+    '</div>' +
+    '<label class="severity">Насколько тема выражена сейчас: <strong id="severityValue">' + severity + '/5</strong><input id="severityInput" type="range" min="1" max="5" value="' + severity + '" /></label>' +
+    '<label class="severity">Комментарий<textarea id="signalNote" placeholder="Что именно беспокоит? Когда усиливается? Что уже пробовали?">' + note + '</textarea></label>';
+
+  signalPanel.querySelectorAll("[data-check]").forEach((input) => {
+    input.addEventListener("change", () => {
+      state.checked[input.dataset.check] = input.checked;
+      state.checked[signal.key] = signalPanel.querySelectorAll("[data-check]:checked").length > 0;
+      renderPoints();
+      renderSummary();
+    });
+  });
+  document.querySelector("#severityInput").addEventListener("input", (event) => {
+    state.severity[signal.key] = Number(event.target.value);
+    document.querySelector("#severityValue").textContent = event.target.value + "/5";
+    renderSummary();
+  });
+  document.querySelector("#signalNote").addEventListener("input", (event) => {
+    state.notes[signal.key] = event.target.value;
+    renderSummary();
+  });
+}
+
+function renderScales() {
+  const visibleScales = scaleConfig.filter(([key]) => !(state.gender === "male" && key === "cycle"));
+  scales.innerHTML = visibleScales.map(([key, title, low, high]) =>
+    '<div class="scale"><label><span>' + title + '</span><output id="out-' + key + '">' + state.scales[key] + '/10</output></label><input type="range" min="1" max="10" value="' + state.scales[key] + '" data-scale="' + key + '" /><small>' + low + ' -> ' + high + '</small></div>'
+  ).join("");
+  scales.querySelectorAll("[data-scale]").forEach((input) => {
+    input.addEventListener("input", () => {
+      state.scales[input.dataset.scale] = Number(input.value);
+      document.querySelector("#out-" + input.dataset.scale).textContent = input.value + "/10";
+      renderSummary();
+    });
+  });
+}
+
+function selectedSignals() {
+  return signals.filter((signal) => state.checked[signal.key]);
+}
+
+function renderSummary() {
+  const selected = selectedSignals();
+  const heavy = selected.filter((signal) => (state.severity[signal.key] || 3) >= 4);
+  const lowEnergy = state.scales.energy <= 4 || state.scales.recovery <= 4;
+  const highStress = state.scales.stress >= 7 || state.scales.anxiety >= 7;
+  const digestionLow = state.scales.digestion <= 4;
+  const hormoneSignal = state.gender === "female" ? (state.scales.cycle <= 4 || state.scales.libido <= 4) : state.scales.libido <= 4;
+  const lines = [];
+
+  if (!selected.length) lines.push("Пока ни одна тема не отмечена как актуальная. Можно пройтись по точкам на карте и выбрать только то, что действительно откликается.");
+  if (selected.length) lines.push("Актуальные темы: " + selected.map((signal) => signal.title).join(", ") + ".");
+  if (heavy.length) lines.push("Больше всего внимания сейчас просят: " + heavy.map((signal) => signal.title).join(", ") + ".");
+  if (highStress) lines.push("Фон стресса/тревоги высокий. Это может усиливать усталость, пищеварительные реакции, сон и гормональные колебания.");
+  if (lowEnergy) lines.push("Энергия или восстановление снижены. На консультации стоит посмотреть сон, питание, железо, B-витамины, щитовидную железу и воспалительный фон.");
+  if (digestionLow) lines.push("Пищеварение отмечено как слабая зона. Полезно собрать наблюдения по вздутию, стулу, реакциям на продукты и режиму питания.");
+  if (hormoneSignal) lines.push(state.gender === "female" ? "Есть сигнал по циклу/либидо/восстановлению. Это лучше смотреть вместе с питанием, стрессом, дефицитами и щитовидной железой." : "Есть сигнал по либидо/восстановлению. Это лучше смотреть вместе со сном, стрессом, питанием и дефицитами.");
+
+  summary.innerHTML =
+    '<div class="summary-box"><strong>Это первичная карта наблюдений, не медицинский диагноз.</strong><br>' + lines.join("<br><br>") + '</div>';
+}
+
+function summaryText() {
+  return summary.innerText.trim();
+}
+
+function render() {
+  document.body.classList.toggle("mode-learn", state.mode === "learn");
+  document.body.classList.toggle("mode-self", state.mode === "self");
+  renderTabs("gender", state.gender);
+  renderTabs("view", state.view);
+  renderTabs("mode", state.mode);
+  renderImage();
+  renderPoints();
+  renderSignal();
+  if (state.mode === "self") {
+    renderScales();
+    renderSummary();
+  }
+}
+
+document.querySelectorAll("[data-gender]").forEach((button) => button.addEventListener("click", () => {
+  state.gender = button.dataset.gender;
+  if (state.gender === "male") state.scales.cycle = 5;
+  render();
+}));
+document.querySelectorAll("[data-view]").forEach((button) => button.addEventListener("click", () => {
+  state.view = button.dataset.view;
+  render();
+}));
+document.querySelectorAll("[data-mode]").forEach((button) => button.addEventListener("click", () => {
+  state.mode = button.dataset.mode;
+  render();
+}));
+document.querySelector("#copySummary").addEventListener("click", async () => {
+  const button = document.querySelector("#copySummary");
+  const text = summaryText();
+  try {
+    await navigator.clipboard.writeText(text);
+    button.textContent = "Итог скопирован";
+  } catch (error) {
+    button.textContent = "Не удалось скопировать";
+  }
+  setTimeout(() => button.textContent = "Скопировать итог", 1800);
+});
+
+render();
+</script>
+</body>
+</html>
