@@ -11,6 +11,292 @@ let currentLanguage = localStorage.getItem("siteLanguage") || "ru";
   }
 })();
 
+// Impeccable polish controls: accessible format picker + editorial horizontal reviews.
+(function () {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const mobileMedia = window.matchMedia("(max-width: 760px)");
+
+  const formatDefinitions = [
+    {
+      title: "Разовая консультация",
+      price: "6000 рублей",
+      priceEn: "60 euro",
+      priceEt: "60 eurot"
+    },
+    {
+      title: "Дистанционное ведение",
+      price: "10000 рублей",
+      priceEn: "100 euro",
+      priceEt: "100 eurot"
+    },
+    {
+      title: "Разбор анализов",
+      price: "4000 рублей",
+      priceEn: "40 euro",
+      priceEt: "40 eurot"
+    }
+  ];
+
+  function currentLanguage() {
+    return document.documentElement.lang || "ru";
+  }
+
+  function priceForInput(input) {
+    const lang = currentLanguage();
+    if (lang === "en") return input.dataset.priceEn || input.dataset.price || "";
+    if (lang === "et") return input.dataset.priceEt || input.dataset.price || "";
+    return input.dataset.price || "";
+  }
+
+  function activeFormatCards() {
+    return Array.from(document.querySelectorAll("#formatTrack .format-card")).filter((card) => !card.hidden);
+  }
+
+  function syncSelectedFormatFromChecked() {
+    const checked = document.querySelector('#formatTrack .format-card input[name="formatChoice"]:checked') ||
+      document.querySelector('#formatTrack .format-card input[name="formatChoice"]');
+    const title = document.querySelector("#selectedFormatTitle");
+    const price = document.querySelector("#selectedFormatPrice");
+    const service = document.querySelector("#service");
+    if (!checked) return;
+    if (title) title.textContent = checked.value;
+    if (price) price.textContent = priceForInput(checked);
+    if (service) service.value = checked.value;
+  }
+
+  function chooseFormat(index) {
+    const cards = activeFormatCards();
+    const card = cards[Math.max(0, Math.min(index, cards.length - 1))];
+    if (!card) return;
+    const input = card.querySelector('input[name="formatChoice"]');
+    if (!input) return;
+    input.checked = true;
+    window.updateFormatCarousel?.();
+    syncSelectedFormatFromChecked();
+  }
+
+  window.updateFormatCarousel = function updateFormatCarouselPolished() {
+    const cards = Array.from(document.querySelectorAll("#formatTrack .format-card"));
+    cards.forEach((card, index) => {
+      const input = card.querySelector('input[name="formatChoice"]');
+      const definition = formatDefinitions[index];
+      if (!definition || !input) {
+        card.hidden = true;
+        card.setAttribute("aria-hidden", "true");
+        return;
+      }
+
+      card.hidden = false;
+      card.removeAttribute("aria-hidden");
+      card.setAttribute("role", "radio");
+      card.setAttribute("aria-checked", input.checked ? "true" : "false");
+      card.tabIndex = input.checked ? 0 : -1;
+      input.value = definition.title;
+      input.dataset.price = definition.price;
+      input.dataset.priceEn = definition.priceEn;
+      input.dataset.priceEt = definition.priceEt;
+
+      const title = card.querySelector(".format-title");
+      const strong = card.querySelector("strong");
+      if (title) title.textContent = definition.title;
+      if (strong) strong.textContent = priceForInput(input);
+    });
+
+    const track = document.querySelector("#formatTrack");
+    if (track) track.setAttribute("role", "radiogroup");
+    syncSelectedFormatFromChecked();
+  };
+
+  function initFormatPicker() {
+    const track = document.querySelector("#formatTrack");
+    const modal = document.querySelector("#formatModal");
+    if (!track) return;
+
+    window.updateFormatCarousel?.();
+
+    track.addEventListener("click", (event) => {
+      const card = event.target.closest(".format-card");
+      if (!card || card.hidden) return;
+      chooseFormat(activeFormatCards().indexOf(card));
+    });
+
+    track.addEventListener("keydown", (event) => {
+      const cards = activeFormatCards();
+      const current = cards.findIndex((card) => card.getAttribute("aria-checked") === "true");
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+        event.preventDefault();
+        chooseFormat((current + 1) % cards.length);
+        cards[(current + 1) % cards.length]?.focus();
+      }
+      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        event.preventDefault();
+        chooseFormat((current - 1 + cards.length) % cards.length);
+        cards[(current - 1 + cards.length) % cards.length]?.focus();
+      }
+      if (event.key === " " || event.key === "Enter") {
+        event.preventDefault();
+        const focused = document.activeElement.closest?.(".format-card");
+        if (focused) chooseFormat(cards.indexOf(focused));
+      }
+    });
+
+    const applyButton = document.querySelector("#applyFormatChoice");
+    applyButton?.addEventListener("click", () => {
+      syncSelectedFormatFromChecked();
+      if (modal) {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+    });
+
+    document.addEventListener("change", (event) => {
+      if (event.target && event.target.matches('#formatTrack input[name="formatChoice"]')) {
+        window.setTimeout(() => window.updateFormatCarousel?.(), 0);
+      }
+    });
+  }
+
+  function resetFeedbackButton(selector) {
+    const oldButton = document.querySelector(selector);
+    if (!oldButton) return null;
+    const newButton = oldButton.cloneNode(true);
+    oldButton.replaceWith(newButton);
+    return newButton;
+  }
+
+  function createFeedbackProgress(carousel) {
+    let progress = carousel.querySelector(".feedback-progress");
+    if (progress) return progress;
+    progress = document.createElement("div");
+    progress.className = "feedback-progress";
+    progress.innerHTML = [
+      '<span class="feedback-progress__label">Истории</span>',
+      '<span class="feedback-progress__bar" aria-hidden="true"><span></span></span>',
+      '<span class="feedback-counter" aria-live="polite">01 / 01</span>'
+    ].join("");
+    carousel.appendChild(progress);
+    return progress;
+  }
+
+  function initFeedbackSequence() {
+    const section = document.querySelector("#feedback");
+    const carousel = document.querySelector(".feedback-carousel");
+    const viewport = document.querySelector(".feedback-viewport");
+    const track = document.querySelector("#feedbackTrack");
+    if (!section || !carousel || !viewport || !track) return;
+
+    const prevButton = resetFeedbackButton("#prevFeedback");
+    const nextButton = resetFeedbackButton("#nextFeedback");
+    const progress = createFeedbackProgress(carousel);
+
+    let activeIndex = 0;
+    let maxTravel = 0;
+    let scrollRange = 0;
+
+    function slides() {
+      return Array.from(track.querySelectorAll(".feedback-card"));
+    }
+
+    function updateProgress(progressValue) {
+      const allSlides = slides();
+      const total = Math.max(1, allSlides.length);
+      activeIndex = Math.max(0, Math.min(total - 1, Math.round(progressValue * (total - 1))));
+      progress.style.setProperty("--feedback-progress", Math.max(1 / total, progressValue || 0).toFixed(3));
+      const counter = progress.querySelector(".feedback-counter");
+      if (counter) counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+      if (prevButton) prevButton.disabled = activeIndex <= 0;
+      if (nextButton) nextButton.disabled = activeIndex >= total - 1;
+    }
+
+    function measure() {
+      const allSlides = slides();
+      maxTravel = Math.max(0, track.scrollWidth - viewport.clientWidth);
+      scrollRange = mobileMedia.matches || reduceMotion.matches ? 0 : Math.max(window.innerHeight * 1.6, maxTravel * 0.85);
+      section.style.minHeight = scrollRange ? `${window.innerHeight + scrollRange}px` : "";
+      updateProgress(0);
+    }
+
+    function updateFromPageScroll() {
+      if (mobileMedia.matches || reduceMotion.matches) return;
+      const rect = section.getBoundingClientRect();
+      const progressValue = scrollRange ? Math.max(0, Math.min(1, -rect.top / scrollRange)) : 0;
+      track.style.transform = `translate3d(${-maxTravel * progressValue}px,0,0)`;
+      updateProgress(progressValue);
+    }
+
+    function scrollToSlide(index) {
+      const allSlides = slides();
+      const total = Math.max(1, allSlides.length);
+      const target = Math.max(0, Math.min(total - 1, index));
+      if (mobileMedia.matches || reduceMotion.matches) {
+        allSlides[target]?.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", inline: "center", block: "nearest" });
+        updateProgress(total === 1 ? 0 : target / (total - 1));
+        return;
+      }
+      window.scrollTo({
+        top: section.offsetTop + (total === 1 ? 0 : (target / (total - 1)) * scrollRange),
+        behavior: reduceMotion.matches ? "auto" : "smooth"
+      });
+    }
+
+    prevButton?.addEventListener("click", () => scrollToSlide(activeIndex - 1));
+    nextButton?.addEventListener("click", () => scrollToSlide(activeIndex + 1));
+
+    section.tabIndex = 0;
+    section.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        scrollToSlide(activeIndex + 1);
+      }
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        scrollToSlide(activeIndex - 1);
+      }
+    });
+
+    viewport.addEventListener("scroll", () => {
+      if (!mobileMedia.matches && !reduceMotion.matches) return;
+      const max = Math.max(1, viewport.scrollWidth - viewport.clientWidth);
+      updateProgress(viewport.scrollLeft / max);
+    }, { passive: true });
+
+    if (window.MutationObserver) {
+      new MutationObserver(() => {
+        window.setTimeout(() => window.updateFeedbackCarousel?.(), 0);
+      }).observe(track, { childList: true });
+    }
+
+    window.updateFeedbackCarousel = function updateFeedbackCarouselPolished() {
+      measure();
+      updateFromPageScroll();
+    };
+
+    window.addEventListener("resize", window.updateFeedbackCarousel, { passive: true });
+    window.addEventListener("scroll", updateFromPageScroll, { passive: true });
+    mobileMedia.addEventListener?.("change", window.updateFeedbackCarousel);
+    reduceMotion.addEventListener?.("change", window.updateFeedbackCarousel);
+    window.updateFeedbackCarousel();
+  }
+
+  function initPolish() {
+    initFormatPicker();
+    initFeedbackSequence();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPolish);
+  } else {
+    initPolish();
+  }
+
+  window.addEventListener("cms:updated", () => {
+    window.setTimeout(() => {
+      window.updateFormatCarousel?.();
+      window.updateFeedbackCarousel?.();
+    }, 0);
+  });
+})();
+
 // Premium studio interactions: custom cursor, magnetic CTAs, tilt cards, pinned story section.
 (function(){
   const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
