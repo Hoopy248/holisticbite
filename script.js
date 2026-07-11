@@ -1155,16 +1155,7 @@ function revealCmsPage() {
   }
 
   async function loadCmsData() {
-    try {
-      const response = await fetch("/api/cms?ts=" + Date.now(), { cache: "no-store", headers: { Accept: "application/json" } });
-      if (!response.ok) throw new Error("CMS request failed");
-      window.__HOLISTICBITE_CMS__ = await response.json();
-      applyCmsData();
-      revealCmsPage();
-    } catch (error) {
-      console.info("Notion CMS is unavailable; using static content.", error);
-      revealCmsPage();
-    }
+    revealCmsPage();
   }
 
   document.querySelectorAll(".language-switcher button").forEach((button) => {
