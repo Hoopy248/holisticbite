@@ -3,6 +3,15 @@
   const root = doc.documentElement;
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  function loadFinalVelvetFix() {
+    if (doc.getElementById("velvet-fix-css")) return;
+    const link = doc.createElement("link");
+    link.id = "velvet-fix-css";
+    link.rel = "stylesheet";
+    link.href = "./velvet-fix.css?v=20260711";
+    doc.head.appendChild(link);
+  }
+
   function markVisible() {
     const items = doc.querySelectorAll(".velvet-reveal");
     if (!items.length) return;
@@ -239,6 +248,7 @@
   }
 
   function boot() {
+    loadFinalVelvetFix();
     root.classList.add("velvet-ready");
     duplicateMarquee();
     markVisible();
