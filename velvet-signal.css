@@ -9,7 +9,7 @@
   --vs-ivory: #f5eee6;
   --vs-muted: #bdb2a9;
   --vs-line: rgba(169, 133, 82, 0.18);
-  --vs-serif: "Bodoni Moda", "Cormorant Garamond", Georgia, serif;
+  --vs-serif: "Cormorant Garamond", "Bodoni Moda", Georgia, serif;
   --vs-sans: "Manrope", Arial, sans-serif;
 }
 
@@ -177,8 +177,8 @@ body.velvet-page a {
   padding: clamp(132px, 14vh, 180px) 0 72px;
   isolation: isolate;
   background:
-    linear-gradient(90deg, rgba(17, 16, 19, 0.64), rgba(17, 16, 19, 0.48) 44%, rgba(17, 16, 19, 0.18) 74%),
-    url("./assets/hero-background.png") center / cover no-repeat,
+    radial-gradient(circle at 80% 42%, rgba(90, 16, 38, 0.18), transparent 34%),
+    linear-gradient(104deg, #111013 0%, #151519 52%, #2b2a2d 52.18%, #19181c 100%),
     var(--vs-black);
 }
 
@@ -1420,5 +1420,350 @@ body.velvet-page a {
   .velvet-reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Deployment hardening: keep the live site on the approved Velvet Signal layer.
+   The legacy stylesheet still contains older light experiments, so these final
+   rules intentionally win over stale section/card overrides. */
+html,
+body.velvet-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+  background: var(--vs-black) !important;
+  color: var(--vs-ivory) !important;
+}
+
+body.velvet-page .topbar.velvet-nav {
+  position: fixed !important;
+  inset: 0 0 auto 0 !important;
+  width: 100% !important;
+  height: 78px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(169, 133, 82, 0.16) !important;
+  background: rgba(17, 16, 19, 0.86) !important;
+  backdrop-filter: blur(18px) !important;
+  box-shadow: none !important;
+}
+
+body.velvet-page .topbar-inner {
+  width: min(1440px, calc(100% - 96px)) !important;
+  height: 100% !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 32px !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+body.velvet-page .brand,
+body.velvet-page .nav,
+body.velvet-page .topbar-actions,
+body.velvet-page .language-switcher {
+  position: static !important;
+  display: flex !important;
+  align-items: center !important;
+  transform: none !important;
+}
+
+body.velvet-page .nav {
+  gap: clamp(22px, 3vw, 56px) !important;
+  margin: 0 auto !important;
+}
+
+body.velvet-page .nav a,
+body.velvet-page .language-switcher button,
+body.velvet-page .nav-button {
+  color: rgba(245, 238, 230, 0.78) !important;
+  font-family: var(--vs-sans) !important;
+  letter-spacing: 0 !important;
+  white-space: nowrap !important;
+}
+
+body.velvet-page .velvet-hero,
+body.velvet-page .symptoms-section,
+body.velvet-page .system-note,
+body.velvet-page .approach-section,
+body.velvet-page .body-map-teaser,
+body.velvet-page .questionnaire-section,
+body.velvet-page .booking-section,
+body.velvet-page .cases-section,
+body.velvet-page .feedback-section,
+body.velvet-page .cinematic-pause,
+body.velvet-page .contact-section {
+  color: var(--vs-ivory) !important;
+}
+
+body.velvet-page .approach-section {
+  background:
+    radial-gradient(circle at 10% 8%, rgba(90, 16, 38, 0.18), transparent 32%),
+    linear-gradient(120deg, var(--vs-black), var(--vs-graphite-2) 58%, rgba(75, 13, 32, 0.28)) !important;
+}
+
+body.velvet-page .approach-layout {
+  display: grid !important;
+  grid-template-columns: minmax(320px, 0.9fr) minmax(520px, 1.1fr) !important;
+  align-items: start !important;
+  gap: clamp(44px, 7vw, 112px) !important;
+}
+
+body.velvet-page .method-grid,
+body.velvet-page .process-sequence {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 18px !important;
+  width: 100% !important;
+}
+
+body.velvet-page .method-card,
+body.velvet-page .process-sequence > div {
+  min-width: 0 !important;
+  width: min(100%, 720px) !important;
+  padding: 30px 34px 30px 96px !important;
+  color: var(--vs-ivory) !important;
+  background: linear-gradient(90deg, rgba(68, 65, 70, 0.24), rgba(17, 16, 19, 0.08)) !important;
+  border: 1px solid rgba(169, 133, 82, 0.16) !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+body.velvet-page .method-card:nth-child(even),
+body.velvet-page .process-sequence > div:nth-child(even) {
+  transform: translateX(42px) !important;
+}
+
+body.velvet-page .method-card h3,
+body.velvet-page .process-sequence > div h3,
+body.velvet-page .method-card p,
+body.velvet-page .process-sequence > div p {
+  color: inherit !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  white-space: normal !important;
+  word-break: normal !important;
+}
+
+body.velvet-page .symptoms-section {
+  background:
+    linear-gradient(rgba(17, 16, 19, 0.48), rgba(17, 16, 19, 0.7)),
+    url("./assets/requests-background.png") center / cover no-repeat,
+    var(--vs-graphite) !important;
+}
+
+body.velvet-page .request-columns,
+body.velvet-page .symptom-fragments {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(240px, 1fr)) !important;
+  justify-content: center !important;
+  gap: 24px !important;
+  width: min(1180px, 100%) !important;
+  margin: clamp(36px, 5vw, 70px) auto 0 !important;
+}
+
+body.velvet-page .request-column,
+body.velvet-page .symptom-fragment {
+  min-width: 0 !important;
+  color: var(--vs-ivory) !important;
+  background: linear-gradient(145deg, rgba(43, 42, 45, 0.78), rgba(75, 13, 32, 0.2)) !important;
+  border: 1px solid rgba(169, 133, 82, 0.2) !important;
+  border-radius: 0 !important;
+}
+
+body.velvet-page .request-column h3,
+body.velvet-page .symptom-fragment h3,
+body.velvet-page .request-column li,
+body.velvet-page .symptom-fragment li {
+  color: inherit !important;
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  word-break: normal !important;
+}
+
+@media (max-width: 980px) {
+  body.velvet-page .topbar-inner {
+    width: calc(100% - 40px) !important;
+  }
+
+  body.velvet-page .approach-layout,
+  body.velvet-page .request-columns,
+  body.velvet-page .symptom-fragments {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.velvet-page .method-card:nth-child(even),
+  body.velvet-page .process-sequence > div:nth-child(even) {
+    transform: none !important;
+  }
+}
+
+/* Hero correction: match the approved Velvet Signal / Fashion Confidence direction.
+   The live site was still carrying the marble experiment and a reduced portrait. */
+body.velvet-page .velvet-hero {
+  min-height: 100vh !important;
+  padding: clamp(132px, 13vh, 176px) 0 72px !important;
+  background:
+    radial-gradient(circle at 80% 42%, rgba(90, 16, 38, 0.18), transparent 34%),
+    linear-gradient(104deg, #111013 0%, #151519 52%, #2b2a2d 52.18%, #19181c 100%) !important;
+}
+
+body.velvet-page .velvet-hero::after {
+  background:
+    linear-gradient(90deg, rgba(17, 16, 19, 0.22), transparent 46%),
+    linear-gradient(0deg, rgba(17, 16, 19, 0.28), transparent 24%),
+    repeating-linear-gradient(90deg, rgba(245, 238, 230, 0.025) 0 1px, transparent 1px 112px) !important;
+  opacity: 0.82 !important;
+}
+
+body.velvet-page .hero-copy {
+  width: min(820px, 52vw) !important;
+  z-index: 5 !important;
+}
+
+body.velvet-page .hero-copy h1 {
+  font-family: var(--vs-serif) !important;
+  font-size: clamp(86px, 7.55vw, 148px) !important;
+  line-height: 0.9 !important;
+  letter-spacing: -0.038em !important;
+}
+
+body.velvet-page .hero-copy h1 span:first-child {
+  white-space: nowrap !important;
+}
+
+body.velvet-page .hero-copy .gold-line {
+  color: #b4976b !important;
+}
+
+body.velvet-page .hero-copy > p:not(.hero-note):not(.hero-caption) {
+  color: rgba(245, 238, 230, 0.74) !important;
+  font-weight: 400 !important;
+}
+
+body.velvet-page .hero-visual {
+  inset: 78px 0 0 auto !important;
+  width: 50.5vw !important;
+  min-width: 760px !important;
+  clip-path: polygon(9.5% 0, 100% 0, 100% 100%, 0 100%) !important;
+  background:
+    radial-gradient(circle at 58% 42%, rgba(90, 16, 38, 0.26), transparent 45%),
+    linear-gradient(108deg, rgba(17, 16, 19, 0.06), rgba(17, 16, 19, 0.54) 16%, rgba(43, 42, 45, 0.72) 100%) !important;
+}
+
+body.velvet-page .hero-split {
+  background:
+    linear-gradient(104deg, rgba(17, 16, 19, 0), rgba(17, 16, 19, 0.42) 18%, rgba(17, 16, 19, 0.05)),
+    radial-gradient(circle at 54% 44%, rgba(90, 16, 38, 0.22), transparent 44%) !important;
+}
+
+body.velvet-page .hero-split::before {
+  border-left: 0 !important;
+}
+
+body.velvet-page .profile-photo.velvet-portrait {
+  right: clamp(0px, 1.8vw, 34px) !important;
+  bottom: -5vh !important;
+  width: min(760px, 46vw) !important;
+  height: calc(100vh - 74px) !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: 52% 30% !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: -32px 42px 110px rgba(0, 0, 0, 0.34) !important;
+  filter: brightness(0.84) contrast(0.94) saturate(0.9) !important;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 10%, #000 100%),
+    linear-gradient(180deg, #000 0%, #000 82%, transparent 100%) !important;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 10%, #000 100%),
+    linear-gradient(180deg, #000 0%, #000 82%, transparent 100%) !important;
+  mask-composite: intersect !important;
+  -webkit-mask-composite: source-in !important;
+}
+
+body.velvet-page .expert-label {
+  right: clamp(44px, 7vw, 124px) !important;
+  bottom: clamp(44px, 8vh, 92px) !important;
+  width: min(360px, 28vw) !important;
+  padding: 22px 26px !important;
+  background: rgba(75, 13, 32, 0.9) !important;
+  border: 0 !important;
+  box-shadow: 0 28px 84px rgba(0, 0, 0, 0.42) !important;
+}
+
+body.velvet-page .expert-label strong {
+  font-family: var(--vs-serif) !important;
+  font-size: 42px !important;
+  line-height: 0.95 !important;
+}
+
+body.velvet-page .expert-label span {
+  font-family: var(--vs-sans) !important;
+  font-size: 16px !important;
+  line-height: 1.18 !important;
+  letter-spacing: 0.06em !important;
+}
+
+@media (max-width: 1280px) {
+  body.velvet-page .hero-copy {
+    width: min(700px, 51vw) !important;
+  }
+
+  body.velvet-page .hero-copy h1 {
+    font-size: clamp(72px, 7vw, 116px) !important;
+  }
+
+  body.velvet-page .hero-visual {
+    width: 50vw !important;
+    min-width: 560px !important;
+  }
+
+  body.velvet-page .profile-photo.velvet-portrait {
+    width: min(640px, 48vw) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .velvet-hero {
+    background:
+      radial-gradient(circle at 74% 58%, rgba(90, 16, 38, 0.2), transparent 42%),
+      linear-gradient(180deg, #111013, #2b2a2d 100%) !important;
+  }
+
+  body.velvet-page .hero-copy {
+    width: min(100% - 48px, 680px) !important;
+  }
+
+  body.velvet-page .hero-copy h1 span:first-child {
+    white-space: normal !important;
+  }
+
+  body.velvet-page .hero-visual {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 640px !important;
+    clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 100%) !important;
+  }
+
+  body.velvet-page .profile-photo.velvet-portrait {
+    right: 2vw !important;
+    bottom: -34px !important;
+    width: min(640px, 106vw) !important;
+    height: 680px !important;
+  }
+
+  body.velvet-page .expert-label {
+    right: 24px !important;
+    bottom: 34px !important;
+    width: min(330px, calc(100% - 48px)) !important;
   }
 }
