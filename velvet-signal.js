@@ -247,6 +247,68 @@
     requestAnimationFrame(raf);
   }
 
+  function initVelvetMotion() {
+    const hero = doc.querySelector(".velvet-hero");
+    const canHover = window.matchMedia("(pointer: fine)").matches;
+
+    if (hero && !prefersReduced && canHover) {
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let rafId = 0;
+
+      function render() {
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+        hero.style.setProperty("--hero-x", `${currentX.toFixed(2)}px`);
+        hero.style.setProperty("--hero-y", `${currentY.toFixed(2)}px`);
+        rafId = requestAnimationFrame(render);
+      }
+
+      hero.addEventListener("pointermove", (event) => {
+        const rect = hero.getBoundingClientRect();
+        targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 24;
+        targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 16;
+        if (!rafId) rafId = requestAnimationFrame(render);
+      });
+
+      hero.addEventListener("pointerleave", () => {
+        targetX = 0;
+        targetY = 0;
+      });
+    }
+
+    const revealItems = doc.querySelectorAll(
+      ".request-card, .approach-step, .format-card, .feedback-card, .questionnaire-card, .booking-panel, .contact-card, .lab-list-button"
+    );
+
+    if (!revealItems.length) return;
+    revealItems.forEach((item, index) => {
+      item.classList.add("motion-reveal");
+      item.style.setProperty("--motion-delay", `${Math.min(index % 4, 3) * 80}ms`);
+    });
+
+    if (prefersReduced || !("IntersectionObserver" in window)) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+      return;
+    }
+
+    root.classList.add("motion-ready");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.14, rootMargin: "0px 0px -6% 0px" }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+  }
+
   function boot() {
     loadFinalVelvetFix();
     root.classList.add("velvet-ready");
@@ -256,6 +318,7 @@
     initModals();
     initFormatPicker();
     initFeedbackSequence();
+    initVelvetMotion();
   }
 
   if (doc.readyState === "loading") {
