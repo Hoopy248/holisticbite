@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HolisticBite - клинический нутрициолог</title>
+    <meta
+      name="description"
+      content="Дарья Повалихина, клинический нутрициолог. Системная работа с симптомами, анализами, дефицитами, питанием и образом жизни."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./velvet-signal.css" />
+    <link rel="stylesheet" href="./velvet-fix.css" />
+  </head>
+  <body class="velvet-page">
+    <header class="topbar velvet-nav">
+      <div class="topbar-inner">
+        <a class="brand" href="#hero" aria-label="HolisticBite">
+          <img src="./assets/darya-logo.jpg" alt="" class="brand-logo" />
+          <span data-text="brand_name">HolisticBite</span>
+        </a>
+        <nav class="nav" aria-label="Основная навигация">
+          <a href="#requests" data-text="nav_requests">Запросы</a>
+          <a href="#method" data-text="nav_approach">Подход</a>
+          <a href="#feedback" data-text="nav_cases">Кейсы</a>
+        </nav>
+        <div class="topbar-actions">
+          <div class="language-switcher" aria-label="Язык сайта">
+            <button type="button" data-lang="ru" class="active">RU</button>
+            <button type="button" data-lang="et">ET</button>
+            <button type="button" data-lang="en">EN</button>
+          </div>
+          <a class="nav-button primary" href="#booking" data-text="topbar_booking">Запись</a>
+          <a class="nav-button secondary" href="#questionnaire" data-text="topbar_questionnaire">Анкета</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero velvet-hero" id="hero" aria-labelledby="hero-title">
+        <div class="hero-copy velvet-reveal">
+          <h1 id="hero-title">
+            <span data-text="hero_title">Вы чувствуете симптомы.</span>
+            <span class="gold-line">Я смотрю на систему.</span>
+          </h1>
+          <p data-text="hero_subtitle">
+            Разбираю, почему тело оказалось в этом состоянии и как вернуть ему регуляцию через питание,
+            закрытие дефицитов и образ жизни.
+          </p>
+          <p class="hero-note" data-text="hero_note">С уважением к телу, психике и реальности</p>
+          <div class="hero-actions">
+            <a class="button primary magnetic" href="#booking">Разобрать свой случай</a>
+          </div>
+          <p class="hero-caption">разбор причин и логики симптомов</p>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-split"></div>
+          <img class="profile-photo velvet-portrait" src="./assets/darya-hero-photo.png" alt="" />
+          <div class="expert-label profile-caption">
+            <strong data-text="profile_name">Дарья</strong>
+            <span data-text="profile_role">клинический нутрициолог</span>
+            <button class="expert-link" type="button" id="openEducationModal">Дипломы и обучение</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="marquee velvet-marquee" aria-label="Темы работы">
+        <div>
+          <span>гормоны</span><span>цикл</span><span>мужское здоровье</span><span>беременность</span>
+          <span>ЖКТ</span><span>щитовидная железа</span><span>митохондрия</span><span>метаболизм</span>
+          <span>управление старением</span><span>воспаление</span><span>аутоиммунные заболевания</span>
+          <span>тревога</span><span>усталость</span><span>восстановление</span>
+        </div>
+      </section>
+
+      <section class="section symptoms-section velvet-section" id="requests" aria-labelledby="requests-title">
+        <div class="section-shell">
+          <p class="eyebrow velvet-reveal">Запросы</p>
+          <h2 id="requests-title" class="velvet-heading velvet-reveal">Когда это уже не случайно?</h2>
+          <div class="request-columns symptom-fragments">
+            <article class="request-column symptom-fragment velvet-reveal">
+              <h3>Состояние</h3>
+              <ul>
+                <li>Анализы красивые, но вы разваливаетесь</li>
+                <li>Утром встал - уже устал</li>
+                <li>Жизнь между тревогой и апатией</li>
+              </ul>
+            </article>
+            <article class="request-column symptom-fragment velvet-reveal">
+              <h3>Тело</h3>
+              <ul>
+                <li>Некомфортно в собственном теле</li>
+                <li>Набор веса</li>
+                <li>Вздутие и тяжесть</li>
+                <li>ПМС, приливы</li>
+                <li>Отсутствие либидо</li>
+              </ul>
+            </article>
+            <article class="request-column symptom-fragment velvet-reveal">
+              <h3>Биохимия</h3>
+              <ul>
+                <li>Скрытые дефициты и тканевое воспаление</li>
+                <li>Сбои щитовидной железы (АИТ, узлы, кисты)</li>
+                <li>Нарушение метаболизма</li>
+                <li>Женское здоровье</li>
+                <li>Мужское здоровье</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="system-note velvet-system-note">
+        <div class="section-shell">
+          <p class="eyebrow velvet-reveal">Суть моей работы</p>
+          <div class="system-copy velvet-reveal">
+            <h2>Повторяющиеся или новые симптомы дисбаланса - это признак того, что организм постепенно теряет способность удерживать ресурсное состояние.</h2>
+            <p>Острые состояния можно вылечить. Но причины формируются не в момент обострения, а в том, как вы живете каждый день.</p>
+            <p class="gold-text">И именно это можно изменить.</p>
+            <p>Я помогаю понять, что происходит с организмом и выстроить условия, в которых он сам возвращается к балансу.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section approach-section velvet-section" id="method" aria-labelledby="method-title">
+        <div class="section-shell approach-layout">
+          <div class="approach-intro velvet-reveal">
+            <p class="eyebrow">Подход</p>
+            <h2 id="method-title" class="velvet-heading">Без жестких запретов и универсальных схем</h2>
+            <p>Мы соединяем симптомы, анализы, историю, питание, стресс, сон и образ жизни в одну понятную систему.</p>
+          </div>
+          <div class="method-grid process-sequence">
+            <article class="method-card velvet-reveal">
+              <span>01</span>
+              <h3>Разбираем запрос</h3>
+              <p>Фиксируем, что не устраивает вас сейчас, и четко определяем, к чему мы хотим прийти.</p>
+            </article>
+            <article class="method-card velvet-reveal">
+              <span>02</span>
+              <h3>Ищем причины</h3>
+              <p>Соединяем ваши симптомы с дефицитами, рационом, перенесенными операциями, приемом препаратов и биоритмами.</p>
+            </article>
+            <article class="method-card velvet-reveal">
+              <span>03</span>
+              <h3>Собираем план</h3>
+              <p>План восстановления: питание, режим, движение, минимально необходимая нутритивная поддержка.</p>
+            </article>
+            <article class="method-card velvet-reveal">
+              <span>04</span>
+              <h3>Стратегия</h3>
+              <p>Не список рекомендаций, а выстроенные условия, в которых организм начинает возвращать баланс.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="body-map-teaser velvet-body-map">
+        <div class="section-shell">
+          <div class="body-map-copy velvet-reveal">
+            <p class="eyebrow">Карта тела</p>
+            <h2 class="velvet-heading">Почему организм теряет баланс?</h2>
+            <p>Интерактивная карта наблюдений помогает пройтись по системам тела и заметить связи между симптомами, стрессом, энергией и восстановлением.</p>
+            <a class="button secondary magnetic" href="./body-map.html">Открыть карту тела</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="questionnaire-section velvet-questionnaire" id="questionnaire">
+        <div class="section-shell questionnaire-layout">
+          <div class="questionnaire-copy velvet-reveal">
+            <p class="eyebrow" data-text="questionnaire_eyebrow">Перед консультацией</p>
+            <h2 class="velvet-heading" data-text="questionnaire_title">Анкета клиента</h2>
+            <p data-text="questionnaire_description">
+              Анкету можно выбрать при записи: онлайн для заполнения за один раз или документ, если удобнее возвращаться к вопросам в несколько заходов.
+            </p>
+          </div>
+          <button class="button primary magnetic" type="button" id="openQuestionnaire" data-text="questionnaire_button">Получить анкету</button>
+        </div>
+      </section>
+
+      <section class="booking-section velvet-booking" id="booking" aria-labelledby="booking-title">
+        <div class="section-shell booking-layout">
+          <aside class="booking-intro velvet-reveal">
+            <p class="eyebrow" data-text="booking_eyebrow">Форматы работы</p>
+            <h2 id="booking-title" class="velvet-heading" data-text="booking_title">Запись на консультацию</h2>
+            <p data-text="booking_intro">Выберите формат, посмотрите, что входит в работу нутрициолога, затем укажите удобную дату и время.</p>
+            <button class="lab-list-button" type="button" id="openLabList" data-text="analyses_button">Перечень анализов</button>
+          </aside>
+
+          <div class="booking-panel velvet-reveal">
+            <div class="selected-format">
+              <div>
+                <span data-text="selected_format_label">Выбранный формат</span>
+                <strong id="selectedFormatTitle">Разовая консультация</strong>
+                <p id="selectedFormatPrice">6000 рублей</p>
+              </div>
+              <button class="button secondary" type="button" id="openFormatModal" data-text="choose_format_button">Выбрать формат</button>
+            </div>
+
+            <form id="bookingForm" class="booking-form">
+              <input type="hidden" id="service" name="service" value="Разовая консультация" />
+              <input type="hidden" id="servicePrice" name="servicePrice" value="6000 рублей" />
+
+              <div class="form-row">
+                <label>
+                  <span data-text="booking_name_label">Имя</span>
+                  <input type="text" id="name" name="clientName" autocomplete="name" required />
+                </label>
+                <label>
+                  <span data-text="booking_phone_label">Телефон</span>
+                  <input type="tel" id="phone" name="phone" placeholder="+7 999 000-00-00" autocomplete="tel" required />
+                </label>
+              </div>
+
+              <label>
+                <span data-text="booking_email_label">Email</span>
+                <input type="email" id="email" name="email" placeholder="name@example.com" autocomplete="email" required />
+              </label>
+
+              <fieldset class="choice-fieldset">
+                <legend data-text="contact_choice_title">Комфортная связь по номеру телефона</legend>
+                <label><input type="checkbox" name="contactChannel" value="WhatsApp" /> WhatsApp</label>
+                <label><input type="checkbox" name="contactChannel" value="Telegram" /> Telegram</label>
+              </fieldset>
+
+              <fieldset class="choice-fieldset">
+                <legend data-text="questionnaire_format_legend">Формат анкеты</legend>
+                <label>
+                  <input type="radio" name="questionnaireFormat" value="Онлайн-анкета" checked />
+                  <span data-text="questionnaire_online_option_title">Онлайн-анкета</span>
+                  <small data-text="questionnaire_online_option_text">Если желаете заполнить за один раз. Всего 20 вопросов.</small>
+                </label>
+                <label>
+                  <input type="radio" name="questionnaireFormat" value="Документ-анкета" />
+                  <span data-text="questionnaire_document_option_title">Документ-анкета</span>
+                  <small data-text="questionnaire_document_option_text">Если хотите заполнять анкету в несколько заходов.</small>
+                </label>
+              </fieldset>
+
+              <label>
+                <span data-text="booking_date_label">Дата</span>
+                <input type="date" id="date" name="date" required />
+              </label>
+
+              <div class="time-slots">
+                <span data-text="time_slots_legend">Свободное время</span>
+                <div id="slotGrid" class="slot-grid" role="radiogroup" aria-label="Свободное время"></div>
+              </div>
+
+              <label>
+                <span data-text="booking_request_label">Запрос</span>
+                <textarea id="request" name="message" rows="4" placeholder="Например: хочу разобрать питание, дефициты и усталость"></textarea>
+              </label>
+
+              <button class="button primary magnetic" type="submit" data-text="booking_submit_button">Забронировать</button>
+              <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="cases-section velvet-cases" id="cases">
+        <div class="section-shell cases-copy velvet-reveal">
+          <h2 class="velvet-heading">Больше историй и разборов в Instagram и Telegram</h2>
+          <div class="case-actions">
+            <a class="button primary" href="https://www.instagram.com/holisticbite_nutritionist?igsh=bGVONzFxdDNqbg9t" target="_blank" rel="noreferrer">Истории пациентов</a>
+            <a class="button primary" href="https://t.me/+Zd26m1wUGTZIYTc0" target="_blank" rel="noreferrer">Блог в Telegram</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="feedback-section velvet-feedback" id="feedback" aria-labelledby="feedback-title">
+        <div class="section-shell feedback-shell">
+          <div class="feedback-head velvet-reveal">
+            <p class="eyebrow">Обратная связь</p>
+            <h2 id="feedback-title" class="velvet-heading" data-text="feedback_title">Что меняется после системной работы?</h2>
+          </div>
+          <div class="feedback-carousel" aria-label="Отзывы пациентов">
+            <button class="carousel-button prev" type="button" id="prevFeedback" aria-label="Предыдущий отзыв">‹</button>
+            <div class="feedback-viewport">
+              <div class="feedback-track" id="feedbackTrack">
+                <article class="feedback-card">
+                  <p>Пациентка два года принимала антидепрессанты: ежедневные головные боли, утренняя усталость, депрессивное настроение. Обратилась ко мне «с головой и энергией». На первой консультации отправила её на анализы щитовидной железы - выявили гипертиреоз. После коррекции гормонов, питания и режима: головные боли ушли, обезболивающие больше не нужны, энергия и настроение выровнялись.</p>
+                  <footer><strong>И., 28 лет</strong><span>Перепады настроения, антидепрессанты и гипертиреоз</span></footer>
+                </article>
+                <article class="feedback-card">
+                  <p>После отмены КОК - сбой цикла, гормональные «качели», узел в щитовидной железе, ферритин 5. Поэтапная работа: выравнивание гормонов, поддержка щитовидки, коррекция дефицитов, перестройка питания. Результат: восстановление цикла, стабилизация гормонов и щитовидки, закрытие дефицитов. На фоне восстановленного ресурса - естественная беременность без стимуляций.</p>
+                  <footer><strong>А., 36 лет</strong><span>Отмена КОК, отсутствие месячных, ферритин 5, беременность</span></footer>
+                </article>
+                <article class="feedback-card">
+                  <p>Обратилась к Дарье на фоне длительного бесплодия и подготовки к ЭКО. На разборе выявили выраженные проблемы с пищеварением, перегрузку ЖКТ и необходимость дообследования. Через 5 месяцев сопровождения - стабильный стул, комфорт в животе, ощущение ресурса. В октябре - естественная беременность, без ЭКО и стимуляций.</p>
+                  <footer><strong>И., 34 года</strong><span>Бесплодие и гипотиреоз</span></footer>
+                </article>
+                <article class="feedback-card">
+                  <p>Исходный запрос: кандидоз, жалобы со стороны кишечника, запрос на противокандидный протокол. Работа включала структурированный рацион, поиск скрытых источников сахара и воспаления, дообследования по крови. После внедрения протокола и лечения: улучшение по кишечнику, снижение воспалительной нагрузки, регресс кист в груди по динамике.</p>
+                  <footer><strong>Н., 34</strong><span>Вес, ЖКТ, кандидоз, риск гипотиреоза</span></footer>
+                </article>
+                <article class="feedback-card">
+                  <p>Год назад весил 62 кг при росте 180 и выглядел как скелет. Постоянная изжога, боли в желудке, проблемы со стулом. На разборе у Дарьи выяснилось, что дело не только в желудке: стеатоз печени и анемия. После поэтапной работы с питанием, печенью и железом набрал до 72 кг, ушли боли и изжога, нормализовался стул и сон.</p>
+                  <footer><strong>А., 38</strong><span>Изжога, стеатоз и синдром раздраженного кишечника</span></footer>
+                </article>
+              </div>
+            </div>
+            <button class="carousel-button next" type="button" id="nextFeedback" aria-label="Следующий отзыв">›</button>
+          </div>
+          <div class="feedback-meta">
+            <span class="feedback-counter" id="feedbackCounter">1 / 5</span>
+            <div class="feedback-progress"><span></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cinematic-pause">
+        <p>С уважением к телу, психике и реальности.</p>
+      </section>
+
+      <section class="contact-section velvet-contact" id="contact">
+        <div class="section-shell contact-layout">
+          <div class="velvet-reveal">
+            <p class="eyebrow">Связь</p>
+            <h2 class="velvet-heading">Связь с нутрициологом</h2>
+            <p>Выберите удобный способ связи: можно написать в мессенджер или отправить письмо на почту.</p>
+          </div>
+          <div class="contact-actions velvet-reveal">
+            <a class="button primary" href="https://wa.me/37200000000" target="_blank" rel="noreferrer">WhatsApp</a>
+            <a class="button primary" href="https://t.me/darja_nutritsioloog" target="_blank" rel="noreferrer">Telegram</a>
+            <a class="button secondary" href="mailto:darja.nutritsioloog@gmail.com">Почта</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer velvet-footer">
+      <div class="section-shell">
+        <p data-text="footer_text">Дарья Повалихина, нутрициолог</p>
+        <a href="https://taplink.cc/darja_nutritsioloog" target="_blank" rel="noreferrer" data-text="footer_link_label">taplink.cc/darja_nutritsioloog</a>
+      </div>
+    </footer>
+
+    <div class="modal" id="labListModal" aria-hidden="true">
+      <div class="modal-dialog lab-modal" role="dialog" aria-modal="true" aria-labelledby="labModalTitle">
+        <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
+        <p class="eyebrow" data-text="lab_modal_eyebrow">Перед консультацией</p>
+        <h2 id="labModalTitle" data-text="lab_modal_title">Перечень анализов</h2>
+        <p data-text="lab_modal_note">Для полноты картины желательны свежие данные анализов из списка. МРТ, УЗИ и сведения об операциях, если они были, можно приложить за последние 3 года.</p>
+        <ul class="lab-list">
+          <li>Общий анализ крови (гемограмма) с 5-компонентной дифференцировкой лейкоцитов</li>
+          <li>Холестерол</li>
+          <li>ЛПВП - холестерол</li>
+          <li>ЛПНП - холестерол</li>
+          <li>Триглицериды</li>
+          <li>Витамин Д</li>
+          <li>Альбумин</li>
+          <li>Общий белок</li>
+          <li>Глюкоза</li>
+          <li>Инсулин</li>
+          <li>АЛТ</li>
+          <li>АСТ</li>
+          <li>Билирубин (прямой и коньюгированный)</li>
+          <li>Витамин Б12 (кобаламин)</li>
+          <li>Витамин Б9 (фолиевая кислота)</li>
+          <li>Ферритин</li>
+          <li>Железо</li>
+          <li>ТТГ</li>
+          <li>fT3</li>
+          <li>fT4</li>
+          <li>МРТ, УЗИ, сведения об операциях при наличии</li>
+        </ul>
+        <p class="lab-deadline" data-text="lab_modal_deadline">Все вышеуказанные материалы необходимо предоставить не позднее чем за сутки до консультации.</p>
+      </div>
+    </div>
+
+    <div class="modal" id="formatModal" aria-hidden="true">
+      <div class="modal-dialog format-modal" role="dialog" aria-modal="true" aria-labelledby="formatModalTitle">
+        <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
+        <p class="eyebrow" data-text="format_modal_eyebrow">Форматы работы</p>
+        <h2 id="formatModalTitle" data-text="format_modal_title">Выберите формат</h2>
+        <div class="format-controls">
+          <button class="carousel-button prev" type="button" id="prevFormat" aria-label="Предыдущие форматы">‹</button>
+          <div class="format-viewport">
+            <div class="format-track" id="formatTrack">
+              <label class="format-card">
+                <input type="radio" name="formatChoice" value="Разовая консультация" data-price="6000 рублей" data-price-en="60 euro" data-price-et="60 euro" data-price-ru="6000 рублей" data-price-eur="60 euro" checked />
+                <span class="format-badge" data-text="format_selected_badge">Выбрано</span>
+                <span class="format-title">Разовая консультация</span>
+                <span class="format-text">60-75 минут по телефону или Google Meet. Разбор анкеты, анализов, ранее проведенных исследований, жалоб и ответы на вопросы.</span>
+                <span class="format-list-title">В ходе консультации формируется:</span>
+                <ul class="format-list">
+                  <li>направление работы по вашей проблеме</li>
+                  <li>рекомендации по питанию, физической нагрузке и образу жизни</li>
+                  <li>схема нутрицевтической коррекции</li>
+                  <li>помощь в выборе препаратов</li>
+                </ul>
+                <strong>6000 рублей</strong>
+              </label>
+              <label class="format-card">
+                <input type="radio" name="formatChoice" value="Дистанционное ведение" data-price="10000 рублей" data-price-en="100 euro" data-price-et="100 euro" data-price-ru="10000 рублей" data-price-eur="100 euro" />
+                <span class="format-badge" data-text="format_selected_badge">Выбрано</span>
+                <span class="format-title">Дистанционное ведение</span>
+                <span class="format-text">Консультация 60-75 минут и поддержка в течение месяца: вы пишете вопросы, я отвечаю в рабочее время.</span>
+                <span class="format-list-title">В ходе работы формируется протокол:</span>
+                <ul class="format-list">
+                  <li>направление работы по вашей проблеме</li>
+                  <li>рекомендации по питанию, физической нагрузке и образу жизни</li>
+                  <li>схема нутрицевтической коррекции</li>
+                  <li>помощь в выборе препаратов</li>
+                </ul>
+                <strong>10000 рублей</strong>
+              </label>
+              <label class="format-card">
+                <input type="radio" name="formatChoice" value="Разбор анализов" data-price="4000 рублей" data-price-en="40 euro" data-price-et="40 euro" data-price-ru="4000 рублей" data-price-eur="40 euro" />
+                <span class="format-badge" data-text="format_selected_badge">Выбрано</span>
+                <span class="format-title">Разбор анализов</span>
+                <span class="format-text">Разбираем результаты ваших анализов и интерпретацию с учетом симптомов, жалоб и анамнеза.</span>
+                <strong>4000 рублей</strong>
+              </label>
+            </div>
+          </div>
+          <button class="carousel-button next" type="button" id="nextFormat" aria-label="Следующие форматы">›</button>
+        </div>
+        <button class="button primary modal-apply" type="button" id="applyFormatChoice" data-text="format_apply_button">Выбрать</button>
+      </div>
+    </div>
+
+    <div class="modal" id="questionnaireModal" aria-hidden="true">
+      <div class="modal-dialog questionnaire-modal" role="dialog" aria-modal="true" aria-labelledby="questionnaireModalTitle">
+        <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
+        <p class="eyebrow" data-text="questionnaire_modal_eyebrow">Анкета клиента</p>
+        <h2 id="questionnaireModalTitle" data-text="questionnaire_modal_title">Как вам удобнее заполнить анкету?</h2>
+        <div class="questionnaire-options">
+          <a class="questionnaire-option" href="./questionnaire.html" target="_blank" rel="noreferrer">
+            <strong data-text="questionnaire_online_title">Анкета онлайн</strong>
+            <span data-text="questionnaire_online_text">Откроется онлайн-анкета с вопросами по порядку и окном для ответа.</span>
+          </a>
+          <a class="questionnaire-option" href="./assets/questionnaire.pdf" download>
+            <strong data-text="questionnaire_download_title">Скачать документ</strong>
+            <span data-text="questionnaire_download_text">Скачайте PDF-анкету и заполните в удобном темпе.</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="educationModal" aria-hidden="true">
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="educationModalTitle">
+        <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
+        <p class="eyebrow">Экспертность</p>
+        <h2 id="educationModalTitle">Дипломы и обучение</h2>
+        <p>
+          Здесь можно разместить дипломы, сертификаты и дополнительное обучение Дарьи. Блок оставлен
+          лаконичным, чтобы не перегружать hero и показать подтверждение экспертности по запросу.
+        </p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="./script.js"></script>
+    <script src="./velvet-signal.js"></script>
+  </body>
+</html>
