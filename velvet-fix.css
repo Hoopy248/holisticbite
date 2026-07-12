@@ -1055,3 +1055,48 @@ body.velvet-page .profile-photo.velvet-portrait {
     clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%) !important;
   }
 }
+
+/* Hero atmosphere: remove draft-like stripes and replace them with matte editorial depth. */
+body.velvet-page .velvet-hero {
+  background:
+    radial-gradient(ellipse at 27% 41%, rgba(120, 116, 108, 0.2) 0%, rgba(68, 65, 70, 0.08) 32%, transparent 62%),
+    radial-gradient(ellipse at 50% 45%, rgba(90, 16, 38, 0.16) 0%, rgba(90, 16, 38, 0.05) 31%, transparent 60%),
+    linear-gradient(101deg, #141416 0%, #1c1b1f 53%, #111013 53.1%, #171519 100%) !important;
+}
+
+body.velvet-page .velvet-hero::after {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(245, 238, 230, 0.055) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 43% 72%, rgba(176, 138, 87, 0.045) 0 1px, transparent 1.7px),
+    linear-gradient(90deg, rgba(17, 16, 19, 0.2), transparent 42%),
+    linear-gradient(0deg, rgba(17, 16, 19, 0.36), transparent 30%) !important;
+  background-size: 4px 4px, 7px 7px, 100% 100%, 100% 100% !important;
+  opacity: 0.62 !important;
+  mix-blend-mode: soft-light !important;
+}
+
+body.velvet-page .velvet-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 22% 58%, rgba(245, 238, 230, 0.08), transparent 34%),
+    linear-gradient(101deg, transparent 0 49%, rgba(176, 138, 87, 0.035) 49.2% 50.1%, transparent 50.4%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.18), transparent 26%, transparent 72%, rgba(0, 0, 0, 0.28));
+}
+
+body.velvet-page .hero-copy,
+body.velvet-page .hero-visual {
+  z-index: 3 !important;
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .velvet-hero {
+    background:
+      radial-gradient(ellipse at 42% 18%, rgba(120, 116, 108, 0.18), transparent 56%),
+      radial-gradient(ellipse at 70% 67%, rgba(90, 16, 38, 0.13), transparent 56%),
+      linear-gradient(180deg, #151519, #111013 48%, #1c1b1f 100%) !important;
+  }
+}
