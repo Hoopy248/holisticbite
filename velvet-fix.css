@@ -1348,3 +1348,121 @@ body.velvet-page .symptom-fragment li::before {
     margin-bottom: 40px !important;
   }
 }
+
+/* Hero split cleanup: remove the dead middle strip and let the portrait plane start at the diagonal. */
+body.velvet-page .velvet-hero {
+  --hero-copy-left: clamp(52px, 8vw, 158px) !important;
+  background:
+    radial-gradient(ellipse at 29% 47%, rgba(245, 238, 230, 0.052), transparent 35%),
+    radial-gradient(ellipse at 64% 48%, rgba(90, 16, 38, 0.13), transparent 48%),
+    linear-gradient(104deg, #111013 0%, #17161a 51%, #111013 100%) !important;
+}
+
+body.velvet-page .velvet-hero::before {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.2), transparent 24%, transparent 72%, rgba(0, 0, 0, 0.2)),
+    radial-gradient(ellipse at 45% 58%, rgba(90, 16, 38, 0.07), transparent 42%) !important;
+}
+
+body.velvet-page .velvet-hero::after {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(245, 238, 230, 0.04) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 43% 72%, rgba(176, 138, 87, 0.032) 0 1px, transparent 1.7px),
+    linear-gradient(0deg, rgba(17, 16, 19, 0.34), transparent 30%) !important;
+  background-size: 5px 5px, 8px 8px, 100% 100% !important;
+  opacity: 0.52 !important;
+}
+
+body.velvet-page .hero-copy {
+  width: min(800px, 50vw) !important;
+  margin-left: var(--hero-copy-left) !important;
+}
+
+body.velvet-page .hero-copy h1 {
+  width: min(800px, 50vw) !important;
+  max-width: 800px !important;
+}
+
+body.velvet-page .hero-copy h1 span:first-child {
+  width: min(760px, 49vw) !important;
+  max-width: 760px !important;
+}
+
+body.velvet-page .hero-copy .gold-line {
+  width: min(650px, 43vw) !important;
+  max-width: 650px !important;
+}
+
+body.velvet-page .hero-copy > p:not(.hero-note):not(.hero-caption),
+body.velvet-page .hero-actions {
+  width: min(650px, 43vw) !important;
+}
+
+body.velvet-page .hero-visual {
+  width: min(58vw, 1100px) !important;
+  min-width: 780px !important;
+  clip-path: polygon(13% 0, 100% 0, 100% 100%, 0 100%) !important;
+  background: transparent !important;
+}
+
+body.velvet-page .hero-split {
+  background:
+    linear-gradient(90deg, rgba(17, 16, 19, 0.28), rgba(17, 16, 19, 0.04) 18%, rgba(17, 16, 19, 0) 42%),
+    linear-gradient(0deg, rgba(17, 16, 19, 0.25), transparent 34%) !important;
+}
+
+body.velvet-page .profile-photo.velvet-portrait {
+  object-position: 50% 50% !important;
+}
+
+@media (min-width: 1500px) {
+  body.velvet-page .hero-visual {
+    width: min(57vw, 1110px) !important;
+    min-width: 840px !important;
+    clip-path: polygon(13.5% 0, 100% 0, 100% 100%, 0 100%) !important;
+  }
+}
+
+@media (max-width: 1280px) {
+  body.velvet-page .velvet-hero {
+    --hero-copy-left: 34px !important;
+  }
+
+  body.velvet-page .hero-copy,
+  body.velvet-page .hero-copy h1 {
+    width: min(600px, 50vw) !important;
+  }
+
+  body.velvet-page .hero-copy h1 span:first-child {
+    width: min(560px, 48vw) !important;
+  }
+
+  body.velvet-page .hero-copy .gold-line,
+  body.velvet-page .hero-copy > p:not(.hero-note):not(.hero-caption),
+  body.velvet-page .hero-actions {
+    width: min(500px, 43vw) !important;
+  }
+
+  body.velvet-page .hero-visual {
+    width: 54vw !important;
+    min-width: 560px !important;
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .hero-copy,
+  body.velvet-page .hero-copy h1,
+  body.velvet-page .hero-copy h1 span:first-child,
+  body.velvet-page .hero-copy .gold-line,
+  body.velvet-page .hero-copy > p:not(.hero-note):not(.hero-caption),
+  body.velvet-page .hero-actions {
+    width: min(100% - 44px, 680px) !important;
+    max-width: 680px !important;
+  }
+
+  body.velvet-page .hero-visual {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
