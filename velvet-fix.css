@@ -652,3 +652,199 @@ html.motion-ready .motion-reveal.is-visible {
     transform: none !important;
   }
 }
+
+/* Hero composition revision: image lives behind a clean diagonal plane, closer to Fashion Confidence. */
+body.velvet-page .velvet-hero {
+  min-height: 100vh !important;
+  padding: clamp(126px, 12vh, 164px) 0 64px !important;
+  overflow: hidden !important;
+  background:
+    linear-gradient(90deg, rgba(17, 16, 19, 0.98) 0%, rgba(19, 18, 21, 0.98) 52%, rgba(17, 16, 19, 0.96) 100%) !important;
+}
+
+body.velvet-page .velvet-hero::after {
+  background:
+    linear-gradient(90deg, rgba(17, 16, 19, 0.3), transparent 45%),
+    repeating-linear-gradient(90deg, rgba(245, 238, 230, 0.018) 0 1px, transparent 1px 112px) !important;
+  opacity: 0.72 !important;
+}
+
+body.velvet-page .hero-copy {
+  width: min(760px, 50vw) !important;
+  margin-left: max(54px, calc((100vw - 1440px) / 2 + 54px)) !important;
+  padding-top: clamp(18px, 4.5vh, 56px) !important;
+  z-index: 6 !important;
+}
+
+body.velvet-page .hero-copy h1 {
+  max-width: 720px !important;
+  font-size: clamp(78px, 6.8vw, 132px) !important;
+  line-height: 0.9 !important;
+  letter-spacing: -0.038em !important;
+}
+
+body.velvet-page .hero-copy h1 span:first-child {
+  max-width: 650px !important;
+  white-space: normal !important;
+}
+
+body.velvet-page .hero-copy .gold-line {
+  max-width: 560px !important;
+  color: #b79a70 !important;
+}
+
+body.velvet-page .hero-copy > p:not(.hero-note):not(.hero-caption) {
+  width: min(620px, 100%) !important;
+}
+
+body.velvet-page .hero-visual {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: auto !important;
+  width: min(50vw, 920px) !important;
+  min-width: 660px !important;
+  height: 100% !important;
+  z-index: 3 !important;
+  overflow: hidden !important;
+  clip-path: polygon(13% 0, 100% 0, 100% 100%, 0 100%) !important;
+  background: #111013 !important;
+  box-shadow: -42px 0 90px rgba(0, 0, 0, 0.42) !important;
+}
+
+body.velvet-page .hero-split {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  background:
+    linear-gradient(90deg, rgba(17, 16, 19, 0.26), rgba(17, 16, 19, 0) 28%),
+    linear-gradient(0deg, rgba(17, 16, 19, 0.28), transparent 34%) !important;
+  pointer-events: none !important;
+}
+
+body.velvet-page .hero-split::before,
+body.velvet-page .hero-split::after {
+  display: none !important;
+}
+
+body.velvet-page .profile-photo.velvet-portrait {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: 52% 50% !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  mask-image: linear-gradient(90deg, transparent 0%, black 11%, black 100%), linear-gradient(0deg, transparent 0%, black 15%, black 100%) !important;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 11%, black 100%), linear-gradient(0deg, transparent 0%, black 15%, black 100%) !important;
+  mask-composite: intersect !important;
+  -webkit-mask-composite: source-in !important;
+  filter: saturate(0.9) contrast(0.96) brightness(0.88) !important;
+}
+
+body.velvet-page .expert-label {
+  right: clamp(44px, 5vw, 92px) !important;
+  bottom: clamp(42px, 6.5vh, 74px) !important;
+  width: min(290px, 24vw) !important;
+  min-height: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: linear-gradient(90deg, rgba(59, 9, 24, 0.66), rgba(75, 13, 32, 0.52)) !important;
+  backdrop-filter: blur(8px) !important;
+  box-shadow: none !important;
+  text-align: left !important;
+  display: grid !important;
+  gap: 8px !important;
+  transform: translate3d(var(--card-drift-x, 0), var(--card-drift-y, 0), 0) !important;
+}
+
+body.velvet-page .expert-label strong {
+  padding: 18px 22px 0 !important;
+  color: #f4eadc !important;
+  font-size: clamp(34px, 2.5vw, 46px) !important;
+  font-weight: 400 !important;
+  line-height: 0.9 !important;
+}
+
+body.velvet-page .expert-label span {
+  display: none !important;
+}
+
+body.velvet-page .expert-link {
+  width: auto !important;
+  margin: 0 22px 18px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: rgba(244, 234, 220, 0.78) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-align: left !important;
+  box-shadow: none !important;
+}
+
+body.velvet-page .expert-link::after {
+  content: "→";
+  margin-left: 12px;
+  color: #b08a57;
+}
+
+@media (max-width: 1280px) {
+  body.velvet-page .hero-copy {
+    width: min(680px, 49vw) !important;
+    margin-left: 40px !important;
+  }
+
+  body.velvet-page .hero-copy h1 {
+    font-size: clamp(68px, 6.3vw, 104px) !important;
+  }
+
+  body.velvet-page .hero-visual {
+    width: 51vw !important;
+    min-width: 560px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .velvet-hero {
+    padding: 84px 0 0 !important;
+    background: linear-gradient(180deg, #111013, #19181c 100%) !important;
+  }
+
+  body.velvet-page .hero-copy {
+    width: min(100% - 48px, 680px) !important;
+    margin: 0 auto !important;
+    padding: 42px 0 34px !important;
+  }
+
+  body.velvet-page .hero-copy h1 {
+    font-size: clamp(54px, 15vw, 82px) !important;
+  }
+
+  body.velvet-page .hero-visual {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 620px !important;
+    clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%) !important;
+  }
+
+  body.velvet-page .profile-photo.velvet-portrait {
+    object-position: 52% 42% !important;
+  }
+
+  body.velvet-page .expert-label {
+    right: 22px !important;
+    bottom: 28px !important;
+    width: min(280px, calc(100% - 44px)) !important;
+  }
+}
