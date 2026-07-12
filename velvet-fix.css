@@ -1741,3 +1741,26 @@ body.velvet-page .expert-link {
     width: auto !important;
   }
 }
+
+/* Hero portrait scale pass: show more of the portrait, closer to the supplied crop reference. */
+body.velvet-page .profile-photo.velvet-portrait {
+  inset: auto 0 0 auto !important;
+  width: 92% !important;
+  height: 94% !important;
+  object-fit: cover !important;
+  object-position: 50% 35% !important;
+}
+
+body.velvet-page .expert-label {
+  left: clamp(34px, 5.2vw, 92px) !important;
+  bottom: clamp(42px, 6vh, 72px) !important;
+  width: min(300px, 22vw) !important;
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .profile-photo.velvet-portrait {
+    width: 100% !important;
+    height: 96% !important;
+    object-position: 50% 34% !important;
+  }
+}
