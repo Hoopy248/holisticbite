@@ -1908,6 +1908,82 @@ body.velvet-page .system-accordion .system-copy .gold-text {
   color: rgba(176, 138, 87, 0.95) !important;
 }
 
+/* Body map teaser: tighter cinematic block with the updated crimson texture. */
+body.velvet-page .velvet-body-map {
+  min-height: 0 !important;
+  padding: clamp(58px, 6.2vw, 92px) 0 clamp(62px, 6.8vw, 104px) !important;
+  background:
+    linear-gradient(90deg, rgba(17, 16, 19, 0.88) 0%, rgba(42, 7, 17, 0.42) 38%, rgba(17, 16, 19, 0.62) 100%),
+    radial-gradient(circle at 16% 50%, rgba(90, 16, 38, 0.42), transparent 44%),
+    url("./assets/body-map-crimson-texture.png") center / cover no-repeat,
+    #18060c !important;
+  overflow: hidden !important;
+}
+
+body.velvet-page .velvet-body-map .section-shell {
+  width: min(1460px, calc(100% - clamp(48px, 7vw, 112px))) !important;
+  min-height: clamp(390px, 34vw, 520px) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+body.velvet-page .velvet-body-map .body-map-copy {
+  width: min(1120px, 100%) !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+body.velvet-page .velvet-body-map .eyebrow {
+  margin-bottom: clamp(18px, 2vw, 30px) !important;
+}
+
+body.velvet-page .velvet-body-map .velvet-heading {
+  max-width: none !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  font-size: clamp(72px, 6.6vw, 124px) !important;
+  line-height: 0.88 !important;
+  letter-spacing: -0.055em !important;
+  text-wrap: nowrap !important;
+}
+
+body.velvet-page .velvet-body-map .body-map-copy p:not(.eyebrow) {
+  width: min(690px, 100%) !important;
+  margin: clamp(24px, 2.5vw, 36px) 0 clamp(26px, 2.8vw, 40px) !important;
+  color: rgba(245, 238, 230, 0.78) !important;
+  font-size: clamp(18px, 1.25vw, 22px) !important;
+  line-height: 1.55 !important;
+}
+
+body.velvet-page .velvet-body-map .button {
+  min-width: 0 !important;
+}
+
+@media (max-width: 1320px) {
+  body.velvet-page .velvet-body-map .velvet-heading {
+    white-space: normal !important;
+    text-wrap: balance !important;
+    width: min(900px, 100%) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  body.velvet-page .velvet-body-map {
+    padding: 56px 0 64px !important;
+    background-position: 58% center !important;
+  }
+
+  body.velvet-page .velvet-body-map .section-shell {
+    width: min(100% - 34px, 560px) !important;
+    min-height: 0 !important;
+  }
+
+  body.velvet-page .velvet-body-map .velvet-heading {
+    font-size: clamp(48px, 14vw, 72px) !important;
+    line-height: 0.95 !important;
+  }
+}
+
 @media (max-width: 760px) {
   body.velvet-page .velvet-system-note {
     padding: 42px 0 !important;
