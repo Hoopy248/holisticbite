@@ -2038,3 +2038,87 @@ body.velvet-page .velvet-contact .contact-actions {
     padding: 24px 0 0 !important;
   }
 }
+
+/* Feedback: keep the cinematic editorial feel, but bring the scale back into reading range. */
+body.velvet-page .velvet-feedback {
+  padding-block: clamp(72px, 7vw, 116px) !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-shell {
+  width: min(1420px, calc(100% - clamp(44px, 7vw, 112px))) !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-head {
+  margin-bottom: clamp(34px, 4.4vw, 60px) !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-head .velvet-heading {
+  max-width: min(940px, 100%) !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-carousel {
+  width: min(100%, 1280px) !important;
+  margin: clamp(34px, 4vw, 54px) auto 0 !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-viewport {
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-track {
+  align-items: stretch !important;
+  gap: clamp(22px, 2vw, 32px) !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-card {
+  flex: 0 0 clamp(420px, 40vw, 600px) !important;
+  min-height: clamp(360px, 30vw, 460px) !important;
+  padding: clamp(34px, 3.3vw, 52px) clamp(34px, 3.5vw, 56px) !important;
+  overflow: hidden !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-card p {
+  max-width: 29ch !important;
+  font-size: clamp(24px, 1.85vw, 34px) !important;
+  line-height: 1.17 !important;
+  letter-spacing: -0.028em !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-card footer {
+  margin-top: clamp(24px, 2.6vw, 38px) !important;
+  padding-top: 16px !important;
+  border-top: 1px solid rgba(245, 238, 230, 0.12) !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-card footer strong {
+  font-size: 15px !important;
+}
+
+body.velvet-page .velvet-feedback .feedback-card footer span {
+  max-width: 44ch !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .velvet-feedback .feedback-shell {
+    width: min(100% - 34px, 760px) !important;
+  }
+
+  body.velvet-page .velvet-feedback .feedback-viewport {
+    overflow-x: auto !important;
+  }
+
+  body.velvet-page .velvet-feedback .feedback-card {
+    flex-basis: min(84vw, 460px) !important;
+    min-height: 360px !important;
+    padding: 30px 28px !important;
+  }
+
+  body.velvet-page .velvet-feedback .feedback-card p {
+    max-width: 28ch !important;
+    font-size: clamp(22px, 7vw, 28px) !important;
+    line-height: 1.18 !important;
+  }
+}
