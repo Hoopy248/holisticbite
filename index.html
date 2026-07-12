@@ -29,7 +29,7 @@
           <a href="#hero">Обо мне</a>
           <a href="#method" data-text="nav_approach">Подход</a>
           <a href="#booking">Услуги</a>
-          <a href="#questionnaire">Пациентам</a>
+          <a href="#booking">Пациентам</a>
           <a href="https://t.me/+Zd26m1wUGTZIYTc0" target="_blank" rel="noreferrer">Блог</a>
           <a href="#contact">Контакты</a>
           <a href="#feedback" data-text="nav_cases">Кейсы</a>
@@ -41,7 +41,7 @@
             <button type="button" data-lang="en">EN</button>
           </div>
           <a class="nav-button primary" href="#booking" data-text="topbar_booking">Запись</a>
-          <a class="nav-button secondary" href="#questionnaire" data-text="topbar_questionnaire">Анкета</a>
+          <button class="nav-button secondary" type="button" data-open-questionnaire data-text="topbar_questionnaire">Анкета</button>
         </div>
       </div>
     </header>
@@ -181,19 +181,6 @@
         </div>
       </section>
 
-      <section class="questionnaire-section velvet-questionnaire" id="questionnaire">
-        <div class="section-shell questionnaire-layout">
-          <div class="questionnaire-copy velvet-reveal">
-            <p class="eyebrow" data-text="questionnaire_eyebrow">Перед консультацией</p>
-            <h2 class="velvet-heading" data-text="questionnaire_title">Анкета клиента</h2>
-            <p data-text="questionnaire_description">
-              Анкету можно выбрать при записи: онлайн для заполнения за один раз или документ, если удобнее возвращаться к вопросам в несколько заходов.
-            </p>
-          </div>
-          <button class="button primary magnetic" type="button" id="openQuestionnaire" data-text="questionnaire_button">Получить анкету</button>
-        </div>
-      </section>
-
       <section class="booking-section velvet-booking" id="booking" aria-labelledby="booking-title">
         <div class="section-shell booking-layout">
           <aside class="booking-intro velvet-reveal">
@@ -239,19 +226,13 @@
                 <label><input type="checkbox" name="contactChannel" value="Telegram" /> Telegram</label>
               </fieldset>
 
-              <fieldset class="choice-fieldset">
-                <legend data-text="questionnaire_format_legend">Формат анкеты</legend>
-                <label>
-                  <input type="radio" name="questionnaireFormat" value="Онлайн-анкета" checked />
-                  <span data-text="questionnaire_online_option_title">Онлайн-анкета</span>
-                  <small data-text="questionnaire_online_option_text">Если желаете заполнить за один раз. Всего 20 вопросов.</small>
-                </label>
-                <label>
-                  <input type="radio" name="questionnaireFormat" value="Документ-анкета" />
-                  <span data-text="questionnaire_document_option_title">Документ-анкета</span>
-                  <small data-text="questionnaire_document_option_text">Если хотите заполнять анкету в несколько заходов.</small>
-                </label>
-              </fieldset>
+              <div class="booking-questionnaire-cta">
+                <div>
+                  <span data-text="questionnaire_title">Анкета клиента</span>
+                  <p data-text="questionnaire_description">Анкету можно выбрать при записи: онлайн для заполнения за один раз или документ, если удобнее возвращаться к вопросам в несколько заходов.</p>
+                </div>
+                <button class="button secondary" type="button" data-open-questionnaire data-text="questionnaire_button">Получить анкету</button>
+              </div>
 
               <label>
                 <span data-text="booking_date_label">Дата</span>

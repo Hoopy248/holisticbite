@@ -1633,46 +1633,38 @@ body.velvet-page .booking-form .choice-fieldset label:has(input[name="contactCha
   background: rgba(90, 16, 38, 0.24) !important;
 }
 
-body.velvet-page .booking-form .choice-fieldset:has(input[name="questionnaireFormat"]) {
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-}
-
-body.velvet-page .booking-form .choice-fieldset label:has(input[name="questionnaireFormat"]) {
+body.velvet-page .booking-questionnaire-cta {
   display: grid !important;
-  grid-template-columns: 20px minmax(0, 1fr) !important;
-  grid-template-areas:
-    "control title"
-    "control text" !important;
-  column-gap: 14px !important;
-  row-gap: 5px !important;
-  align-items: start !important;
-  min-height: 116px !important;
-  padding: 18px !important;
-  border: 1px solid rgba(245, 238, 230, 0.1) !important;
-  background: rgba(255, 248, 237, 0.025) !important;
-}
-
-body.velvet-page .booking-form .choice-fieldset label:has(input[name="questionnaireFormat"]:checked) {
-  border-color: rgba(176, 138, 87, 0.48) !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: clamp(18px, 2vw, 30px) !important;
+  align-items: center !important;
+  padding: 22px 24px !important;
+  border: 1px solid rgba(176, 138, 87, 0.2) !important;
   background:
-    linear-gradient(135deg, rgba(90, 16, 38, 0.26), rgba(255, 248, 237, 0.03)) !important;
+    linear-gradient(135deg, rgba(255, 248, 237, 0.035), rgba(90, 16, 38, 0.1)) !important;
 }
 
-body.velvet-page .booking-form .choice-fieldset input[name="questionnaireFormat"] {
-  grid-area: control !important;
-}
-
-body.velvet-page .booking-form .choice-fieldset label:has(input[name="questionnaireFormat"]) > span {
-  grid-area: title !important;
+body.velvet-page .booking-questionnaire-cta span {
+  display: block !important;
   color: #b08a57 !important;
-  line-height: 1.15 !important;
+  font-family: "Manrope", sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
 }
 
-body.velvet-page .booking-form .choice-fieldset label:has(input[name="questionnaireFormat"]) > small {
-  grid-area: text !important;
-  margin: 0 !important;
-  color: rgba(245, 238, 230, 0.66) !important;
-  font-size: 14px !important;
+body.velvet-page .booking-questionnaire-cta p {
+  max-width: 520px !important;
+  margin: 8px 0 0 !important;
+  color: rgba(245, 238, 230, 0.68) !important;
+  font-size: 15px !important;
+  line-height: 1.55 !important;
+}
+
+body.velvet-page .booking-questionnaire-cta .button {
+  min-width: 190px !important;
+  white-space: nowrap !important;
 }
 
 body.velvet-page .slot-grid label {
@@ -1687,7 +1679,7 @@ body.velvet-page .slot-grid label:has(input:checked) {
 
 @media (max-width: 760px) {
   body.velvet-page .booking-form .choice-fieldset:has(input[name="contactChannel"]),
-  body.velvet-page .booking-form .choice-fieldset:has(input[name="questionnaireFormat"]) {
+  body.velvet-page .booking-questionnaire-cta {
     grid-template-columns: 1fr !important;
   }
 }

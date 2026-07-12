@@ -445,7 +445,7 @@ const bookingForm = document.querySelector("#bookingForm");
 const formStatus = document.querySelector("#formStatus");
 const timeline = document.querySelector("#timeline");
 const serviceCards = document.querySelectorAll("[data-service-card]");
-const openQuestionnaire = document.querySelector("#openQuestionnaire");
+const openQuestionnaireControls = document.querySelectorAll("[data-open-questionnaire]");
 const questionnaireModal = document.querySelector("#questionnaireModal");
 const closeModalControls = document.querySelectorAll("[data-close-modal]");
 const openLabList = document.querySelector("#openLabList");
@@ -570,7 +570,7 @@ window.addEventListener("resize", () => { updateFormatCarousel(); updateFeedback
 prevFeedback?.addEventListener("click", () => { feedbackPage = Math.max(0, feedbackPage - 1); updateFeedbackCarousel(); });
 nextFeedback?.addEventListener("click", () => { feedbackPage += 1; updateFeedbackCarousel(); });
 dateInput?.addEventListener("change", renderSlots);
-openQuestionnaire?.addEventListener("click", () => setQuestionnaireModal(true));
+openQuestionnaireControls.forEach((control) => control.addEventListener("click", () => setQuestionnaireModal(true)));
 openLabList?.addEventListener("click", () => setLabListModal(true));
 closeModalControls.forEach((control) => control.addEventListener("click", () => setQuestionnaireModal(false)));
 closeLabControls.forEach((control) => control.addEventListener("click", () => setLabListModal(false)));
@@ -597,7 +597,6 @@ bookingForm?.addEventListener("submit", async (event) => {
     contactChannels: data.getAll("contactChannel"),
     service: data.get("service"),
     price: selectedInput ? selectedInput.dataset.price : selectedFormatPrice?.textContent,
-    questionnaireFormat: data.get("questionnaireFormat"),
     date: friendlyDate,
     slot: data.get("slot"),
     message: data.get("message")
@@ -935,7 +934,7 @@ function revealCmsPage() {
       nav_requests: ".nav a:nth-child(1)",
       nav_approach: ".nav a:nth-child(2)",
       nav_cases: ".nav a:nth-child(3)",
-      topbar_questionnaire: ".topbar-actions .topbar-action:nth-of-type(2)",
+      topbar_questionnaire: "[data-text='topbar_questionnaire']",
       hero_subtitle: ".hero-copy",
       hero_note: ".hero-signature",
       profile_name: ".profile-caption strong",
@@ -950,23 +949,17 @@ function revealCmsPage() {
       format_modal_title: "#formatModalTitle",
       format_modal_eyebrow: "#formatModal .eyebrow",
       contact_choice_title: ".contact-choice p",
-      questionnaire_format_legend: ".questionnaire-choice legend",
-      questionnaire_online_option_title: ".questionnaire-choice label:nth-of-type(1) strong",
-      questionnaire_online_option_text: ".questionnaire-choice label:nth-of-type(1) small",
-      questionnaire_document_option_title: ".questionnaire-choice label:nth-of-type(2) strong",
-      questionnaire_document_option_text: ".questionnaire-choice label:nth-of-type(2) small",
       time_slots_legend: "#bookingForm fieldset:not(.questionnaire-choice) legend",
       booking_submit_button: "#bookingForm .submit-button",
-      questionnaire_eyebrow: "#questionnaire .eyebrow",
-      questionnaire_title: "#questionnaire-title",
-      questionnaire_description: "#questionnaire p:not(.eyebrow)",
-      questionnaire_button: "#openQuestionnaire",
+      questionnaire_title: ".booking-questionnaire-cta [data-text='questionnaire_title']",
+      questionnaire_description: ".booking-questionnaire-cta [data-text='questionnaire_description']",
+      questionnaire_button: "[data-text='questionnaire_button']",
       questionnaire_modal_eyebrow: "#questionnaireModal .eyebrow",
       questionnaire_modal_title: "#questionnaireModalTitle",
-      questionnaire_online_title: "#questionnaireModal .modal-option:nth-child(1) strong",
-      questionnaire_online_text: "#questionnaireModal .modal-option:nth-child(1) span",
-      questionnaire_download_title: "#questionnaireModal .modal-option:nth-child(2) strong",
-      questionnaire_download_text: "#questionnaireModal .modal-option:nth-child(2) span",
+      questionnaire_online_title: "#questionnaireModal .questionnaire-option:nth-child(1) strong",
+      questionnaire_online_text: "#questionnaireModal .questionnaire-option:nth-child(1) span",
+      questionnaire_download_title: "#questionnaireModal .questionnaire-option:nth-child(2) strong",
+      questionnaire_download_text: "#questionnaireModal .questionnaire-option:nth-child(2) span",
       analyses_button: "#openLabList",
       lab_modal_eyebrow: "#labListModal .eyebrow",
       lab_modal_title: "#labListTitle",
