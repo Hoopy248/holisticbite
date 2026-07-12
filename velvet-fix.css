@@ -1540,3 +1540,154 @@ body.velvet-page .symptom-fragment li {
     min-height: auto !important;
   }
 }
+
+/* Booking form repair: keep inputs broad, but make choices readable and intentional. */
+body.velvet-page .booking-panel {
+  overflow: visible !important;
+}
+
+body.velvet-page .booking-form {
+  gap: clamp(18px, 2vw, 26px) !important;
+}
+
+body.velvet-page .booking-form input[type="checkbox"],
+body.velvet-page .booking-form input[type="radio"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  margin: 2px 0 0 !important;
+  padding: 0 !important;
+  border: 1px solid rgba(176, 138, 87, 0.52) !important;
+  background: rgba(255, 248, 237, 0.05) !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+
+body.velvet-page .booking-form input[type="checkbox"] {
+  border-radius: 4px !important;
+}
+
+body.velvet-page .booking-form input[type="radio"] {
+  border-radius: 999px !important;
+}
+
+body.velvet-page .booking-form input[type="checkbox"]:checked {
+  background:
+    linear-gradient(135deg, transparent 0 38%, #fff8ed 39% 50%, transparent 51%),
+    linear-gradient(45deg, transparent 0 46%, #fff8ed 47% 58%, transparent 59%),
+    #6f1029 !important;
+  border-color: rgba(176, 138, 87, 0.82) !important;
+}
+
+body.velvet-page .booking-form input[type="radio"]:checked {
+  background:
+    radial-gradient(circle, #fff8ed 0 30%, transparent 33%),
+    #6f1029 !important;
+  border-color: rgba(176, 138, 87, 0.86) !important;
+}
+
+body.velvet-page .booking-form input[type="checkbox"]:focus-visible,
+body.velvet-page .booking-form input[type="radio"]:focus-visible {
+  outline: 2px solid rgba(176, 138, 87, 0.78) !important;
+  outline-offset: 3px !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset {
+  gap: 14px !important;
+  padding: 24px !important;
+  border-color: rgba(176, 138, 87, 0.22) !important;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 237, 0.035), rgba(90, 16, 38, 0.07)),
+    rgba(17, 16, 19, 0.24) !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset legend {
+  padding: 0 10px !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset label {
+  min-width: 0 !important;
+  color: rgba(245, 238, 230, 0.82) !important;
+  cursor: pointer !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset:has(input[name="contactChannel"]) {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset label:has(input[name="contactChannel"]) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  min-height: 48px !important;
+  padding: 12px 14px !important;
+  border: 1px solid rgba(245, 238, 230, 0.1) !important;
+  background: rgba(255, 248, 237, 0.025) !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset label:has(input[name="contactChannel"]:checked) {
+  border-color: rgba(176, 138, 87, 0.42) !important;
+  background: rgba(90, 16, 38, 0.24) !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset:has(input[name="questionnaireFormat"]) {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset label:has(input[name="questionnaireFormat"]) {
+  display: grid !important;
+  grid-template-columns: 20px minmax(0, 1fr) !important;
+  grid-template-areas:
+    "control title"
+    "control text" !important;
+  column-gap: 14px !important;
+  row-gap: 5px !important;
+  align-items: start !important;
+  min-height: 116px !important;
+  padding: 18px !important;
+  border: 1px solid rgba(245, 238, 230, 0.1) !important;
+  background: rgba(255, 248, 237, 0.025) !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset label:has(input[name="questionnaireFormat"]:checked) {
+  border-color: rgba(176, 138, 87, 0.48) !important;
+  background:
+    linear-gradient(135deg, rgba(90, 16, 38, 0.26), rgba(255, 248, 237, 0.03)) !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset input[name="questionnaireFormat"] {
+  grid-area: control !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset label:has(input[name="questionnaireFormat"]) > span {
+  grid-area: title !important;
+  color: #b08a57 !important;
+  line-height: 1.15 !important;
+}
+
+body.velvet-page .booking-form .choice-fieldset label:has(input[name="questionnaireFormat"]) > small {
+  grid-area: text !important;
+  margin: 0 !important;
+  color: rgba(245, 238, 230, 0.66) !important;
+  font-size: 14px !important;
+}
+
+body.velvet-page .slot-grid label {
+  border-radius: 0 !important;
+  min-height: 46px !important;
+}
+
+body.velvet-page .slot-grid label:has(input:checked) {
+  border-color: rgba(176, 138, 87, 0.54) !important;
+  background: #6f1029 !important;
+}
+
+@media (max-width: 760px) {
+  body.velvet-page .booking-form .choice-fieldset:has(input[name="contactChannel"]),
+  body.velvet-page .booking-form .choice-fieldset:has(input[name="questionnaireFormat"]) {
+    grid-template-columns: 1fr !important;
+  }
+}
