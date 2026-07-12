@@ -1764,3 +1764,68 @@ body.velvet-page .expert-label {
     object-position: 50% 34% !important;
   }
 }
+
+/* Hero cleanup: keep only the diagonal split, remove internal fade seams, and make the expert label wider/slimmer. */
+body.velvet-page .hero-split {
+  display: none !important;
+}
+
+body.velvet-page .profile-photo.velvet-portrait {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: 50% 36% !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  mask-composite: initial !important;
+  -webkit-mask-composite: initial !important;
+}
+
+body.velvet-page .expert-label {
+  left: clamp(34px, 5vw, 88px) !important;
+  right: auto !important;
+  bottom: clamp(38px, 5.4vh, 66px) !important;
+  width: min(390px, 30vw) !important;
+  min-height: 0 !important;
+  padding: 16px 30px 18px !important;
+  gap: 5px !important;
+  text-align: center !important;
+}
+
+body.velvet-page .expert-label strong {
+  padding: 0 !important;
+  font-size: clamp(34px, 2.25vw, 42px) !important;
+  line-height: 0.95 !important;
+  text-align: center !important;
+}
+
+body.velvet-page .expert-label .expert-role {
+  display: block !important;
+  margin: 2px 0 0 !important;
+  font-size: clamp(12px, 0.82vw, 14px) !important;
+  line-height: 1.12 !important;
+  letter-spacing: 0.075em !important;
+  text-align: center !important;
+}
+
+body.velvet-page .expert-link {
+  margin: 8px auto 0 !important;
+  padding: 0 !important;
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .profile-photo.velvet-portrait {
+    object-position: 50% 34% !important;
+  }
+
+  body.velvet-page .expert-label {
+    left: 22px !important;
+    right: 22px !important;
+    bottom: 26px !important;
+    width: auto !important;
+    padding: 16px 24px 18px !important;
+  }
+}
