@@ -2122,3 +2122,66 @@ body.velvet-page .velvet-feedback .feedback-card footer span {
     line-height: 1.18 !important;
   }
 }
+
+/* Section bridge: soften the hard cut from request cards into the work-essence scene. */
+body.velvet-page .symptoms-section {
+  padding-bottom: clamp(112px, 11vw, 178px) !important;
+}
+
+body.velvet-page .symptoms-section::after {
+  height: clamp(180px, 17vw, 260px) !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(17, 16, 19, 0) 0%,
+      rgba(17, 16, 19, 0.54) 42%,
+      rgba(17, 16, 19, 0.94) 78%,
+      #111013 100%
+    ) !important;
+}
+
+body.velvet-page .velvet-system-note {
+  margin-top: clamp(-118px, -8vw, -72px) !important;
+  padding-top: clamp(118px, 10vw, 168px) !important;
+  background:
+    linear-gradient(
+      180deg,
+      #111013 0%,
+      rgba(17, 16, 19, 0.82) 11%,
+      rgba(17, 16, 19, 0.28) 34%,
+      rgba(17, 16, 19, 0.34) 72%,
+      rgba(17, 16, 19, 0.92) 100%
+    ),
+    url("./assets/system-note-background.png") center / cover no-repeat,
+    #171517 !important;
+}
+
+body.velvet-page .velvet-system-note::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: clamp(130px, 12vw, 210px) !important;
+  pointer-events: none !important;
+  background:
+    radial-gradient(ellipse at 55% 0%, rgba(90, 16, 38, 0.18), transparent 54%),
+    linear-gradient(180deg, #111013 0%, rgba(17, 16, 19, 0.72) 42%, rgba(17, 16, 19, 0) 100%) !important;
+  z-index: 0 !important;
+}
+
+body.velvet-page .velvet-system-note .section-shell {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+@media (max-width: 760px) {
+  body.velvet-page .symptoms-section {
+    padding-bottom: 112px !important;
+  }
+
+  body.velvet-page .velvet-system-note {
+    margin-top: -76px !important;
+    padding-top: 104px !important;
+  }
+}
