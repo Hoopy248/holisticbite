@@ -1836,11 +1836,10 @@ body.velvet-page .velvet-system-note {
 }
 
 body.velvet-page .system-accordion {
-  width: min(940px, 100%) !important;
+  width: min(880px, 100%) !important;
   margin: 0 !important;
-  border-top: 1px solid rgba(176, 138, 87, 0.28) !important;
-  border-bottom: 1px solid rgba(176, 138, 87, 0.22) !important;
-  background: linear-gradient(100deg, rgba(17, 16, 19, 0.72), rgba(75, 13, 32, 0.18)) !important;
+  border: 0 !important;
+  background: transparent !important;
 }
 
 body.velvet-page .system-accordion > summary {
@@ -1848,8 +1847,8 @@ body.velvet-page .system-accordion > summary {
   grid-template-columns: minmax(0, 1fr) auto !important;
   gap: clamp(22px, 4vw, 58px) !important;
   align-items: center !important;
-  min-height: clamp(108px, 11vw, 148px) !important;
-  padding: clamp(26px, 4vw, 46px) clamp(24px, 4.5vw, 64px) !important;
+  min-height: 0 !important;
+  padding: 0 !important;
   cursor: pointer !important;
   list-style: none !important;
 }
@@ -1872,7 +1871,7 @@ body.velvet-page .system-accordion > summary span:first-child {
 body.velvet-page .system-accordion__toggle {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 12px !important;
+  gap: 0 !important;
   color: rgba(176, 138, 87, 0.92) !important;
   font-family: "Manrope", Arial, sans-serif !important;
   font-size: 12px !important;
@@ -1880,15 +1879,13 @@ body.velvet-page .system-accordion__toggle {
   letter-spacing: 0.13em !important;
   text-transform: uppercase !important;
   white-space: nowrap !important;
+  border-bottom: 1px solid rgba(176, 138, 87, 0.34) !important;
+  padding-bottom: 5px !important;
 }
 
 body.velvet-page .system-accordion__toggle::after {
-  content: "→" !important;
-  display: inline-block !important;
-  color: #b08a57 !important;
-  font-size: 18px !important;
-  line-height: 1 !important;
-  transition: transform 260ms ease !important;
+  content: "" !important;
+  display: none !important;
 }
 
 body.velvet-page .system-accordion[open] .system-accordion__toggle::after {
@@ -1897,7 +1894,7 @@ body.velvet-page .system-accordion[open] .system-accordion__toggle::after {
 
 body.velvet-page .system-accordion .system-copy {
   width: min(820px, calc(100% - clamp(48px, 9vw, 128px))) !important;
-  padding: 0 0 clamp(34px, 5vw, 56px) clamp(24px, 4.5vw, 64px) !important;
+  padding: clamp(26px, 4vw, 42px) 0 0 !important;
 }
 
 body.velvet-page .system-accordion .system-copy h2 {
@@ -1927,11 +1924,11 @@ body.velvet-page .system-accordion .system-copy .gold-text {
   body.velvet-page .system-accordion > summary {
     grid-template-columns: 1fr !important;
     min-height: 0 !important;
-    padding: 26px 22px !important;
+    padding: 0 !important;
   }
 
   body.velvet-page .system-accordion .system-copy {
     width: auto !important;
-    padding: 0 22px 30px !important;
+    padding: 24px 0 0 !important;
   }
 }
