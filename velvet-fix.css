@@ -1691,3 +1691,53 @@ body.velvet-page .slot-grid label:has(input:checked) {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* Final hero portrait/caption tuning: lower the crop and move the expert label onto the left shoulder area. */
+body.velvet-page .profile-photo.velvet-portrait {
+  object-position: 50% 42% !important;
+}
+
+body.velvet-page .expert-label {
+  left: clamp(52px, 7.4vw, 132px) !important;
+  right: auto !important;
+  bottom: clamp(44px, 7vh, 82px) !important;
+  width: min(320px, 25vw) !important;
+  text-align: center !important;
+}
+
+body.velvet-page .expert-label strong {
+  display: block !important;
+  text-align: center !important;
+}
+
+body.velvet-page .expert-label .expert-role {
+  display: block !important;
+  margin: 6px 22px 0 !important;
+  color: rgba(244, 234, 220, 0.82) !important;
+  font-family: "Manrope", Arial, sans-serif !important;
+  font-size: clamp(13px, 0.9vw, 15px) !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.08em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+}
+
+body.velvet-page .expert-link {
+  display: inline-flex !important;
+  justify-content: center !important;
+  margin: 14px auto 18px !important;
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .profile-photo.velvet-portrait {
+    object-position: 50% 39% !important;
+  }
+
+  body.velvet-page .expert-label {
+    left: 22px !important;
+    right: 22px !important;
+    bottom: 28px !important;
+    width: auto !important;
+  }
+}
