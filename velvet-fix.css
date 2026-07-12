@@ -1925,12 +1925,14 @@ body.velvet-page .velvet-body-map .section-shell {
   min-height: clamp(390px, 34vw, 520px) !important;
   display: flex !important;
   align-items: center !important;
+  justify-content: center !important;
 }
 
 body.velvet-page .velvet-body-map .body-map-copy {
-  width: min(1120px, 100%) !important;
+  width: min(1180px, 100%) !important;
   max-width: none !important;
   margin: 0 !important;
+  text-align: center !important;
 }
 
 body.velvet-page .velvet-body-map .eyebrow {
@@ -1949,7 +1951,7 @@ body.velvet-page .velvet-body-map .velvet-heading {
 
 body.velvet-page .velvet-body-map .body-map-copy p:not(.eyebrow) {
   width: min(690px, 100%) !important;
-  margin: clamp(24px, 2.5vw, 36px) 0 clamp(26px, 2.8vw, 40px) !important;
+  margin: clamp(24px, 2.5vw, 36px) auto clamp(26px, 2.8vw, 40px) !important;
   color: rgba(245, 238, 230, 0.78) !important;
   font-size: clamp(18px, 1.25vw, 22px) !important;
   line-height: 1.55 !important;
@@ -1957,6 +1959,38 @@ body.velvet-page .velvet-body-map .body-map-copy p:not(.eyebrow) {
 
 body.velvet-page .velvet-body-map .button {
   min-width: 0 !important;
+  margin-inline: auto !important;
+}
+
+body.velvet-page .velvet-contact .contact-layout {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(30px, 4vw, 56px) !important;
+  text-align: center !important;
+}
+
+body.velvet-page .velvet-contact .contact-layout > .velvet-reveal:first-child {
+  width: min(860px, 100%) !important;
+}
+
+body.velvet-page .velvet-contact .velvet-heading {
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+body.velvet-page .velvet-contact .contact-layout p:not(.eyebrow) {
+  width: min(620px, 100%) !important;
+  margin: 24px auto 0 !important;
+  text-align: center !important;
+}
+
+body.velvet-page .velvet-contact .contact-actions {
+  justify-content: center !important;
+  align-items: center !important;
+  width: min(720px, 100%) !important;
+  margin-inline: auto !important;
 }
 
 @media (max-width: 1320px) {
@@ -1981,6 +2015,10 @@ body.velvet-page .velvet-body-map .button {
   body.velvet-page .velvet-body-map .velvet-heading {
     font-size: clamp(48px, 14vw, 72px) !important;
     line-height: 0.95 !important;
+  }
+
+  body.velvet-page .velvet-contact .contact-actions {
+    width: 100% !important;
   }
 }
 
