@@ -848,3 +848,210 @@ body.velvet-page .expert-link::after {
     width: min(280px, calc(100% - 44px)) !important;
   }
 }
+
+/* Fine tune: match the Fashion Confidence reference text rhythm and steeper diagonal. */
+body.velvet-page .hero-copy {
+  width: min(610px, 46vw) !important;
+  margin-left: max(44px, calc((100vw - 1440px) / 2 + 44px)) !important;
+  padding-top: clamp(10px, 3.2vh, 34px) !important;
+}
+
+body.velvet-page .hero-copy h1 {
+  max-width: 580px !important;
+  font-size: clamp(74px, 6.2vw, 118px) !important;
+  line-height: 0.91 !important;
+  letter-spacing: -0.042em !important;
+}
+
+body.velvet-page .hero-copy h1 span:first-child {
+  display: block !important;
+  width: min(560px, 45vw) !important;
+  max-width: 560px !important;
+  white-space: normal !important;
+}
+
+body.velvet-page .hero-copy .gold-line {
+  display: block !important;
+  width: min(520px, 43vw) !important;
+  max-width: 520px !important;
+  margin-top: 0.02em !important;
+}
+
+body.velvet-page .hero-copy > p:not(.hero-note):not(.hero-caption) {
+  margin-top: clamp(24px, 3.2vh, 34px) !important;
+  width: min(560px, 100%) !important;
+}
+
+body.velvet-page .hero-actions {
+  margin-top: 26px !important;
+}
+
+body.velvet-page .hero-caption {
+  margin-top: 14px !important;
+}
+
+body.velvet-page .hero-visual {
+  width: min(49.5vw, 900px) !important;
+  min-width: 650px !important;
+  clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%) !important;
+}
+
+body.velvet-page .profile-photo.velvet-portrait {
+  object-position: 50% 50% !important;
+}
+
+@media (max-width: 1280px) {
+  body.velvet-page .hero-copy {
+    width: min(560px, 48vw) !important;
+    margin-left: 34px !important;
+  }
+
+  body.velvet-page .hero-copy h1 {
+    font-size: clamp(62px, 6vw, 92px) !important;
+  }
+
+  body.velvet-page .hero-copy h1 span:first-child,
+  body.velvet-page .hero-copy .gold-line {
+    width: min(500px, 47vw) !important;
+  }
+
+  body.velvet-page .hero-visual {
+    width: 52vw !important;
+    min-width: 520px !important;
+    clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .hero-copy {
+    width: min(100% - 44px, 680px) !important;
+    margin: 0 auto !important;
+    padding-top: 42px !important;
+  }
+
+  body.velvet-page .hero-copy h1 {
+    max-width: 100% !important;
+    font-size: clamp(52px, 14.5vw, 82px) !important;
+  }
+
+  body.velvet-page .hero-copy h1 span:first-child,
+  body.velvet-page .hero-copy .gold-line {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body.velvet-page .hero-visual {
+    clip-path: polygon(0 9%, 100% 0, 100% 100%, 0 100%) !important;
+  }
+}
+
+/* Reference match: Fashion Confidence hero text block and steeper editorial split. */
+body.velvet-page .velvet-hero {
+  --hero-copy-left: max(48px, calc((100vw - 1440px) / 2 + 48px));
+}
+
+body.velvet-page .hero-copy {
+  width: min(800px, 53vw) !important;
+  margin-left: var(--hero-copy-left) !important;
+  padding-top: clamp(8px, 2.6vh, 28px) !important;
+  z-index: 4 !important;
+}
+
+body.velvet-page .hero-copy h1 {
+  width: min(800px, 53vw) !important;
+  max-width: 800px !important;
+  font-size: clamp(80px, 7.25vw, 136px) !important;
+  line-height: 0.88 !important;
+  letter-spacing: -0.045em !important;
+}
+
+body.velvet-page .hero-copy h1 span:first-child {
+  display: block !important;
+  width: min(760px, 51vw) !important;
+  max-width: 760px !important;
+  white-space: normal !important;
+  text-wrap: balance !important;
+}
+
+body.velvet-page .hero-copy .gold-line {
+  display: block !important;
+  width: min(640px, 43vw) !important;
+  max-width: 640px !important;
+  margin-top: 0.03em !important;
+  color: #6f1028 !important;
+}
+
+body.velvet-page .hero-copy > p:not(.hero-note):not(.hero-caption) {
+  width: min(680px, 47vw) !important;
+  margin-top: clamp(24px, 3vh, 38px) !important;
+}
+
+body.velvet-page .hero-actions {
+  width: min(680px, 47vw) !important;
+}
+
+body.velvet-page .hero-visual {
+  width: min(45vw, 860px) !important;
+  min-width: 600px !important;
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%) !important;
+}
+
+body.velvet-page .profile-photo.velvet-portrait {
+  object-position: 50% 50% !important;
+}
+
+@media (min-width: 1500px) {
+  body.velvet-page .hero-copy h1 {
+    font-size: clamp(104px, 7vw, 142px) !important;
+  }
+
+  body.velvet-page .hero-visual {
+    width: min(44vw, 880px) !important;
+    clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%) !important;
+  }
+}
+
+@media (max-width: 1280px) {
+  body.velvet-page .hero-copy {
+    width: min(630px, 52vw) !important;
+    margin-left: 36px !important;
+  }
+
+  body.velvet-page .hero-copy h1 {
+    width: min(630px, 52vw) !important;
+    max-width: 630px !important;
+    font-size: clamp(64px, 6.35vw, 96px) !important;
+  }
+
+  body.velvet-page .hero-copy h1 span:first-child {
+    width: min(590px, 50vw) !important;
+  }
+
+  body.velvet-page .hero-copy .gold-line {
+    width: min(500px, 43vw) !important;
+  }
+
+  body.velvet-page .hero-visual {
+    width: 44vw !important;
+    min-width: 500px !important;
+    clip-path: polygon(13% 0, 100% 0, 100% 100%, 0 100%) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .hero-copy,
+  body.velvet-page .hero-copy h1,
+  body.velvet-page .hero-copy h1 span:first-child,
+  body.velvet-page .hero-copy .gold-line,
+  body.velvet-page .hero-copy > p:not(.hero-note):not(.hero-caption),
+  body.velvet-page .hero-actions {
+    width: min(100% - 44px, 680px) !important;
+    max-width: 680px !important;
+  }
+
+  body.velvet-page .hero-visual {
+    width: 100% !important;
+    min-width: 0 !important;
+    clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%) !important;
+  }
+}
