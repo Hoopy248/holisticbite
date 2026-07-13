@@ -2979,3 +2979,725 @@ body.velvet-page .velvet-hero {
     font-size: 11px !important;
   }
 }
+
+/* Audit pass: cohesive section rhythm, stable controls, readable forms. */
+body.velvet-page {
+  overflow-x: hidden !important;
+}
+
+body.velvet-page .topbar.velvet-nav {
+  margin-bottom: 0 !important;
+}
+
+/* Requests: denser, equal editorial cards. */
+body.velvet-page .symptoms-section {
+  padding: clamp(72px, 7vw, 118px) clamp(28px, 6vw, 96px) clamp(78px, 7vw, 120px) !important;
+}
+
+body.velvet-page .symptoms-section .section-heading {
+  max-width: 1280px !important;
+  margin: 0 auto clamp(36px, 4vw, 58px) !important;
+  text-align: center !important;
+}
+
+body.velvet-page .symptoms-section .section-heading .eyebrow {
+  text-align: center !important;
+}
+
+body.velvet-page .symptoms-section .section-heading h2 {
+  white-space: nowrap !important;
+  font-size: clamp(58px, 5.8vw, 112px) !important;
+  line-height: 0.92 !important;
+}
+
+body.velvet-page .request-columns {
+  width: min(1360px, 100%) !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: clamp(20px, 2.1vw, 34px) !important;
+  align-items: stretch !important;
+}
+
+body.velvet-page .request-column,
+body.velvet-page .symptom-fragment {
+  min-height: 520px !important;
+  height: 100% !important;
+  padding: clamp(34px, 3vw, 54px) !important;
+  border: 1px solid rgba(176, 138, 87, 0.28) !important;
+  background-color: rgba(16, 13, 14, 0.74) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.34) !important;
+}
+
+body.velvet-page .request-column:nth-child(1) {
+  background-image: linear-gradient(180deg, rgba(17, 16, 19, 0.18), rgba(17, 16, 19, 0.76)), url("./assets/requests-card-state.png") !important;
+}
+
+body.velvet-page .request-column:nth-child(2) {
+  background-image: linear-gradient(180deg, rgba(17, 16, 19, 0.16), rgba(17, 16, 19, 0.78)), url("./assets/requests-card-body.png") !important;
+}
+
+body.velvet-page .request-column:nth-child(3) {
+  background-image: linear-gradient(180deg, rgba(17, 16, 19, 0.16), rgba(17, 16, 19, 0.78)), url("./assets/requests-card-biochemistry.png") !important;
+}
+
+/* Softer transitions between large visual planes. */
+body.velvet-page .velvet-system-note {
+  margin-top: -1px !important;
+  margin-bottom: -1px !important;
+  min-height: 430px !important;
+  padding: clamp(72px, 8vw, 126px) clamp(28px, 7vw, 132px) !important;
+  background-image:
+    linear-gradient(90deg, rgba(17, 16, 19, 0.94) 0%, rgba(17, 16, 19, 0.84) 42%, rgba(70, 13, 29, 0.58) 100%),
+    url("./assets/system-note-background.png") !important;
+  background-size: cover !important;
+  background-position: center right !important;
+  clip-path: polygon(0 6%, 100% 0, 100% 94%, 0 100%) !important;
+}
+
+body.velvet-page .velvet-system-note .section-shell {
+  width: min(1280px, 100%) !important;
+}
+
+body.velvet-page .velvet-system-note details,
+body.velvet-page .velvet-system-note summary {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+body.velvet-page .velvet-body-map {
+  margin-top: -1px !important;
+  min-height: auto !important;
+  padding: clamp(76px, 7vw, 118px) clamp(28px, 7vw, 128px) !important;
+  text-align: center !important;
+  background-image:
+    linear-gradient(180deg, rgba(33, 6, 15, 0.52), rgba(17, 16, 19, 0.74)),
+    url("./assets/body-map-crimson-texture.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+body.velvet-page .velvet-body-map .body-map-copy {
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+body.velvet-page .velvet-body-map h2 {
+  white-space: nowrap !important;
+  font-size: clamp(48px, 5.5vw, 104px) !important;
+}
+
+body.velvet-page .velvet-body-map p {
+  max-width: 720px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Booking: restore readable choice controls and calm form structure. */
+body.velvet-page .booking-form {
+  gap: 24px !important;
+}
+
+body.velvet-page .booking-form label,
+body.velvet-page .booking-form .time-slots {
+  min-width: 0 !important;
+}
+
+body.velvet-page .booking-form input,
+body.velvet-page .booking-form textarea {
+  color: rgba(250, 244, 235, 0.94) !important;
+}
+
+body.velvet-page .choice-fieldset {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 22px !important;
+  border: 1px solid rgba(176, 138, 87, 0.22) !important;
+}
+
+body.velvet-page .choice-fieldset legend {
+  padding: 0 10px !important;
+}
+
+body.velvet-page .choice-fieldset label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  min-height: 46px !important;
+  color: rgba(250, 244, 235, 0.82) !important;
+  text-align: left !important;
+}
+
+body.velvet-page .booking-form input[type="checkbox"],
+body.velvet-page .booking-form input[type="radio"] {
+  appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  flex: 0 0 18px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(176, 138, 87, 0.54) !important;
+  background: rgba(17, 16, 19, 0.72) !important;
+  display: grid !important;
+  place-items: center !important;
+  margin: 0 !important;
+}
+
+body.velvet-page .booking-form input[type="checkbox"]:checked,
+body.velvet-page .booking-form input[type="radio"]:checked {
+  border-color: rgba(176, 138, 87, 0.9) !important;
+  background: rgba(90, 16, 38, 0.92) !important;
+}
+
+body.velvet-page .booking-form input[type="checkbox"]:checked::after,
+body.velvet-page .booking-form input[type="radio"]:checked::after {
+  content: "" !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: #f6efe5 !important;
+}
+
+body.velvet-page .booking-questionnaire-cta {
+  grid-column: 1 / -1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 22px !important;
+  padding: 22px !important;
+  border: 1px solid rgba(176, 138, 87, 0.24) !important;
+  background: rgba(17, 16, 19, 0.42) !important;
+}
+
+body.velvet-page .booking-questionnaire-cta p {
+  max-width: 620px !important;
+  margin: 8px 0 0 !important;
+}
+
+/* Reviews: smaller editorial frames, stable native horizontal scrolling. */
+body.velvet-page .feedback-section {
+  overflow: hidden !important;
+  padding: clamp(72px, 7vw, 116px) 0 !important;
+}
+
+body.velvet-page .feedback-head {
+  width: min(1280px, calc(100% - 72px)) !important;
+  margin: 0 auto clamp(34px, 4vw, 58px) !important;
+}
+
+body.velvet-page .feedback-head h2 {
+  max-width: 980px !important;
+  font-size: clamp(52px, 5.6vw, 106px) !important;
+  line-height: 0.92 !important;
+}
+
+body.velvet-page .feedback-carousel {
+  display: grid !important;
+  grid-template-columns: 72px minmax(0, 1fr) 72px !important;
+  align-items: center !important;
+  gap: 18px !important;
+  width: min(1500px, calc(100% - 48px)) !important;
+  margin: 0 auto !important;
+}
+
+body.velvet-page .feedback-viewport {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x mandatory !important;
+  scroll-behavior: smooth !important;
+  scrollbar-width: none !important;
+}
+
+body.velvet-page .feedback-viewport::-webkit-scrollbar {
+  display: none !important;
+}
+
+body.velvet-page .feedback-track {
+  width: max-content !important;
+  display: flex !important;
+  gap: clamp(22px, 2vw, 34px) !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+body.velvet-page .feedback-card {
+  flex: 0 0 min(720px, calc(100vw - 170px)) !important;
+  min-height: 430px !important;
+  max-height: none !important;
+  padding: clamp(34px, 3.8vw, 54px) !important;
+  scroll-snap-align: center !important;
+  overflow: hidden !important;
+}
+
+body.velvet-page .feedback-card > p:first-child {
+  font-size: clamp(24px, 2.25vw, 39px) !important;
+  line-height: 1.12 !important;
+}
+
+body.velvet-page .feedback-card footer {
+  margin-top: clamp(24px, 3vw, 42px) !important;
+}
+
+body.velvet-page .carousel-button {
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
+  width: 52px !important;
+  height: 52px !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  margin: 0 auto !important;
+  line-height: 1 !important;
+}
+
+body.velvet-page .carousel-button[disabled] {
+  opacity: 0.32 !important;
+  pointer-events: none !important;
+}
+
+body.velvet-page .feedback-meta {
+  width: min(1380px, calc(100% - 72px)) !important;
+  margin: 22px auto 0 !important;
+  position: relative !important;
+  z-index: 4 !important;
+}
+
+body.velvet-page .feedback-progress span {
+  display: block !important;
+  transform-origin: left center !important;
+}
+
+body.velvet-page .feedback-progress__label {
+  display: none !important;
+}
+
+/* Contact: centered, smaller and quieter. */
+body.velvet-page .velvet-contact .contact-inner {
+  width: min(980px, calc(100% - 56px)) !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  align-items: center !important;
+}
+
+body.velvet-page .velvet-contact h2,
+body.velvet-page .velvet-contact p {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+body.velvet-page .velvet-contact .contact-actions {
+  justify-content: center !important;
+}
+
+@media (max-width: 1100px) {
+  body.velvet-page .request-columns {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.velvet-page .request-column,
+  body.velvet-page .symptom-fragment {
+    min-height: 360px !important;
+  }
+
+  body.velvet-page .symptoms-section .section-heading h2,
+  body.velvet-page .velvet-body-map h2 {
+    white-space: normal !important;
+  }
+}
+
+@media (max-width: 760px) {
+  body.velvet-page .choice-fieldset,
+  body.velvet-page .booking-questionnaire-cta {
+    grid-template-columns: 1fr !important;
+    display: grid !important;
+  }
+
+  body.velvet-page .feedback-carousel {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.velvet-page .carousel-button {
+    display: none !important;
+  }
+
+  body.velvet-page .feedback-card {
+    flex-basis: min(84vw, 560px) !important;
+    min-height: 380px !important;
+  }
+}
+
+/* === Audit stabilization pass: remove visual conflicts from older iterations. === */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body.velvet-page .topbar.velvet-nav {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  width: 100% !important;
+  min-height: 92px !important;
+  margin: 0 !important;
+  padding: 0 clamp(28px, 4.8vw, 76px) !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  background: rgba(17, 16, 19, 0.92) !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(176, 138, 87, 0.18) !important;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.22) !important;
+  backdrop-filter: blur(18px) !important;
+  z-index: 20 !important;
+}
+
+body.velvet-page .topbar.velvet-nav .topbar-inner {
+  width: min(1500px, 100%) !important;
+  min-height: 92px !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(190px, 0.7fr) minmax(520px, 1.2fr) minmax(360px, auto) !important;
+  gap: clamp(24px, 3vw, 58px) !important;
+  align-items: center !important;
+}
+
+body.velvet-page .wordmark-main {
+  font-family: "Cormorant Garamond", serif !important;
+  font-size: clamp(30px, 2.2vw, 42px) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+  color: #b08a57 !important;
+}
+
+body.velvet-page .wordmark-sub {
+  color: rgba(241, 232, 220, 0.7) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.18em !important;
+}
+
+body.velvet-page .nav-links {
+  justify-content: center !important;
+  gap: clamp(20px, 2.1vw, 38px) !important;
+}
+
+body.velvet-page .nav-links a,
+body.velvet-page .language-switcher button,
+body.velvet-page .nav-button {
+  font-size: 12px !important;
+  letter-spacing: 0.16em !important;
+}
+
+body.velvet-page .velvet-requests,
+body.velvet-page .velvet-system-note,
+body.velvet-page .approach-section,
+body.velvet-page .velvet-body-map,
+body.velvet-page .velvet-feedback,
+body.velvet-page .velvet-booking,
+body.velvet-page .velvet-contact {
+  margin-top: -1px !important;
+  border-top: 1px solid rgba(176, 138, 87, 0.08) !important;
+}
+
+body.velvet-page .velvet-system-note {
+  position: relative !important;
+  min-height: auto !important;
+  padding: clamp(72px, 7vw, 118px) 0 clamp(86px, 8vw, 132px) !important;
+  overflow: hidden !important;
+  clip-path: polygon(0 0, 100% clamp(42px, 5vw, 86px), 100% 100%, 0 100%) !important;
+  background-image:
+    linear-gradient(90deg, rgba(17, 16, 19, 0.98) 0%, rgba(17, 16, 19, 0.9) 42%, rgba(42, 12, 22, 0.78) 100%),
+    url("./assets/system-note-background.png") !important;
+  background-size: cover, cover !important;
+  background-position: center, right center !important;
+  background-repeat: no-repeat !important;
+}
+
+body.velvet-page .velvet-system-note::before,
+body.velvet-page .velvet-system-note::after {
+  content: none !important;
+}
+
+body.velvet-page .velvet-system-note .section-shell {
+  width: min(1420px, calc(100% - clamp(40px, 10vw, 180px))) !important;
+  display: grid !important;
+  grid-template-columns: minmax(520px, 0.82fr) minmax(220px, 0.34fr) !important;
+  align-items: center !important;
+  gap: clamp(44px, 7vw, 120px) !important;
+}
+
+body.velvet-page .system-accordion {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+body.velvet-page .system-accordion summary {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: clamp(34px, 6vw, 96px) !important;
+  align-items: center !important;
+  list-style: none !important;
+}
+
+body.velvet-page .system-accordion summary::-webkit-details-marker {
+  display: none !important;
+}
+
+body.velvet-page .system-accordion summary .summary-copy {
+  font-size: clamp(42px, 4.4vw, 78px) !important;
+  line-height: 0.98 !important;
+  max-width: 780px !important;
+}
+
+body.velvet-page .system-accordion summary .summary-action {
+  justify-self: start !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(176, 138, 87, 0.42) !important;
+  padding: 0 0 8px !important;
+  background: transparent !important;
+  color: #b08a57 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+}
+
+body.velvet-page .system-accordion .system-details {
+  width: min(760px, 100%) !important;
+  margin-top: 34px !important;
+  color: rgba(241, 232, 220, 0.72) !important;
+  font-size: 18px !important;
+  line-height: 1.75 !important;
+}
+
+body.velvet-page .velvet-body-map {
+  padding: clamp(64px, 6.5vw, 108px) clamp(28px, 7vw, 120px) !important;
+  text-align: center !important;
+  background-image:
+    linear-gradient(180deg, rgba(17, 16, 19, 0.18), rgba(17, 16, 19, 0.55)),
+    url("./assets/body-map-crimson-texture.png") !important;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+}
+
+body.velvet-page .velvet-body-map .section-shell,
+body.velvet-page .velvet-body-map .body-map-copy {
+  width: min(1120px, 100%) !important;
+  margin-inline: auto !important;
+  display: grid !important;
+  justify-items: center !important;
+  text-align: center !important;
+}
+
+body.velvet-page .velvet-body-map h2 {
+  max-width: none !important;
+  white-space: nowrap !important;
+  font-size: clamp(52px, 5.25vw, 102px) !important;
+  line-height: 0.92 !important;
+}
+
+body.velvet-page .velvet-body-map p:not(.eyebrow) {
+  max-width: 720px !important;
+}
+
+body.velvet-page .booking-questionnaire-cta {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 24px !important;
+  padding: 24px 26px !important;
+  border: 1px solid rgba(176, 138, 87, 0.26) !important;
+  background: rgba(255, 248, 237, 0.035) !important;
+}
+
+body.velvet-page .booking-questionnaire-cta span {
+  display: block !important;
+  margin-bottom: 7px !important;
+  color: #b08a57 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+}
+
+body.velvet-page .booking-questionnaire-cta p {
+  margin: 0 !important;
+  max-width: 640px !important;
+  color: rgba(241, 232, 220, 0.66) !important;
+}
+
+body.velvet-page .choice-fieldset {
+  display: grid !important;
+  gap: 12px !important;
+  padding: 20px 22px !important;
+  border: 1px solid rgba(176, 138, 87, 0.22) !important;
+  background: rgba(255, 248, 237, 0.025) !important;
+}
+
+body.velvet-page .choice-fieldset label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  min-height: 34px !important;
+  text-align: left !important;
+  color: rgba(241, 232, 220, 0.76) !important;
+}
+
+body.velvet-page .choice-fieldset input[type="checkbox"],
+body.velvet-page .choice-fieldset input[type="radio"] {
+  flex: 0 0 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  margin: 0 !important;
+  accent-color: #5a1026 !important;
+}
+
+body.velvet-page .booking-form label,
+body.velvet-page .booking-form legend {
+  color: #b08a57 !important;
+  letter-spacing: 0.15em !important;
+}
+
+body.velvet-page .feedback-stable .feedback-carousel,
+body.velvet-page .velvet-feedback .feedback-carousel {
+  display: grid !important;
+  grid-template-columns: 56px minmax(0, 1fr) 56px !important;
+  gap: clamp(14px, 2vw, 30px) !important;
+  align-items: center !important;
+  width: min(1540px, calc(100% - clamp(34px, 7vw, 120px))) !important;
+  margin: 0 auto !important;
+}
+
+body.velvet-page .feedback-stable .feedback-viewport,
+body.velvet-page .velvet-feedback .feedback-viewport {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x mandatory !important;
+  overscroll-behavior-x: contain !important;
+  padding: 0 0 26px !important;
+  scrollbar-width: none !important;
+}
+
+body.velvet-page .feedback-stable .feedback-viewport::-webkit-scrollbar,
+body.velvet-page .velvet-feedback .feedback-viewport::-webkit-scrollbar {
+  display: none !important;
+}
+
+body.velvet-page .feedback-stable .feedback-track,
+body.velvet-page .velvet-feedback .feedback-track {
+  display: flex !important;
+  gap: clamp(18px, 2vw, 32px) !important;
+  width: max-content !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+body.velvet-page .feedback-stable .feedback-card,
+body.velvet-page .velvet-feedback .feedback-card {
+  flex: 0 0 clamp(420px, 41vw, 620px) !important;
+  min-height: clamp(330px, 31vw, 470px) !important;
+  max-height: none !important;
+  padding: clamp(34px, 3.6vw, 58px) !important;
+  scroll-snap-align: center !important;
+  overflow: hidden !important;
+}
+
+body.velvet-page .feedback-card p {
+  font-size: clamp(20px, 1.55vw, 30px) !important;
+  line-height: 1.14 !important;
+  max-width: 100% !important;
+}
+
+body.velvet-page .feedback-card footer {
+  margin-top: 28px !important;
+  padding-top: 18px !important;
+}
+
+body.velvet-page .feedback-meta {
+  position: relative !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: min(1540px, calc(100% - clamp(34px, 7vw, 120px))) !important;
+  margin: 14px auto 0 !important;
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) !important;
+  gap: 26px !important;
+  align-items: center !important;
+}
+
+body.velvet-page .feedback-progress {
+  overflow: hidden !important;
+}
+
+body.velvet-page .carousel-button {
+  position: static !important;
+  transform: none !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+}
+
+body.velvet-page .carousel-button[disabled] {
+  opacity: 0.28 !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 1180px) {
+  body.velvet-page .topbar.velvet-nav .topbar-inner {
+    grid-template-columns: 1fr auto !important;
+  }
+
+  body.velvet-page .nav-links {
+    grid-column: 1 / -1 !important;
+    order: 3 !important;
+    padding-bottom: 14px !important;
+    overflow-x: auto !important;
+  }
+
+  body.velvet-page .velvet-system-note .section-shell {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 860px) {
+  body.velvet-page .topbar.velvet-nav {
+    min-height: 76px !important;
+    padding-inline: 20px !important;
+  }
+
+  body.velvet-page .topbar.velvet-nav .topbar-inner {
+    min-height: 76px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 14px !important;
+  }
+
+  body.velvet-page .velvet-body-map h2 {
+    white-space: normal !important;
+  }
+
+  body.velvet-page .booking-questionnaire-cta {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.velvet-page .feedback-stable .feedback-carousel,
+  body.velvet-page .velvet-feedback .feedback-carousel {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.velvet-page .carousel-button {
+    display: none !important;
+  }
+
+  body.velvet-page .feedback-stable .feedback-card,
+  body.velvet-page .velvet-feedback .feedback-card {
+    flex-basis: min(86vw, 520px) !important;
+  }
+}

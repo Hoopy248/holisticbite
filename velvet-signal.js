@@ -147,6 +147,8 @@
   }
 
   function initFeedbackSequence() {
+    window.__HB_STABLE_FEEDBACK = true;
+    return;
     const section = doc.getElementById("feedback");
     const viewport = section?.querySelector(".feedback-viewport");
     const track = doc.getElementById("feedbackTrack");

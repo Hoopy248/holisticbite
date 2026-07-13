@@ -11,6 +11,117 @@ let currentLanguage = localStorage.getItem("siteLanguage") || "ru";
   }
 })();
 
+// Stable feedback carousel: replaces older competing handlers so arrows never
+// trigger random page scrolling and the sequence stays reachable on touch/keyboard.
+(function(){
+  function initStableFeedbackCarousel() {
+    const section = document.getElementById("feedback");
+    const viewport = section?.querySelector(".feedback-viewport");
+    const track = document.getElementById("feedbackTrack");
+    if (!section || !viewport || !track) return;
+
+    window.__HB_STABLE_FEEDBACK = true;
+
+    const cards = Array.from(track.querySelectorAll(".feedback-card"));
+    if (!cards.length) return;
+
+    section.classList.add("feedback-stable");
+    if (window.feedbackScrollTrigger?.kill) {
+      window.feedbackScrollTrigger.kill();
+      window.feedbackScrollTrigger = null;
+    }
+    track.style.transform = "none";
+
+    const oldPrev = document.getElementById("prevFeedback");
+    const oldNext = document.getElementById("nextFeedback");
+    const prev = oldPrev ? oldPrev.cloneNode(true) : null;
+    const next = oldNext ? oldNext.cloneNode(true) : null;
+    oldPrev?.replaceWith(prev);
+    oldNext?.replaceWith(next);
+
+    const counter = document.getElementById("feedbackCounter");
+    const progress = section.querySelector(".feedback-progress span");
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let active = 0;
+    let raf = 0;
+
+    function cardLeft(index) {
+      return cards[index].offsetLeft - track.offsetLeft;
+    }
+
+    function nearestIndex() {
+      const left = viewport.scrollLeft;
+      let closest = 0;
+      let distance = Infinity;
+      cards.forEach((card, index) => {
+        const nextDistance = Math.abs((card.offsetLeft - track.offsetLeft) - left);
+        if (nextDistance < distance) {
+          distance = nextDistance;
+          closest = index;
+        }
+      });
+      return closest;
+    }
+
+    function update() {
+      active = nearestIndex();
+      if (counter) counter.textContent = `${active + 1} / ${cards.length}`;
+      if (progress) {
+        progress.style.transform = `scaleX(${(active + 1) / cards.length})`;
+      }
+      prev?.toggleAttribute("disabled", active === 0);
+      next?.toggleAttribute("disabled", active === cards.length - 1);
+    }
+
+    function goTo(index) {
+      const target = Math.max(0, Math.min(cards.length - 1, index));
+      viewport.scrollTo({
+        left: cardLeft(target),
+        behavior: reduceMotion ? "auto" : "smooth"
+      });
+      window.setTimeout(update, reduceMotion ? 0 : 260);
+    }
+
+    prev?.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      goTo(active - 1);
+    });
+
+    next?.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      goTo(active + 1);
+    });
+
+    section.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goTo(active - 1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goTo(active + 1);
+      }
+    });
+
+    viewport.addEventListener("scroll", () => {
+      window.cancelAnimationFrame(raf);
+      raf = window.requestAnimationFrame(update);
+    }, { passive: true });
+
+    window.addEventListener("resize", update);
+    window.updateFeedbackCarousel = update;
+    update();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initStableFeedbackCarousel, { once: true });
+  } else {
+    initStableFeedbackCarousel();
+  }
+})();
+
 // Impeccable polish controls: accessible format picker + editorial horizontal reviews.
 (function () {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
