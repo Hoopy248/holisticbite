@@ -9,7 +9,7 @@
   --vs-ivory: #f5eee6;
   --vs-muted: #bdb2a9;
   --vs-line: rgba(169, 133, 82, 0.18);
-  --vs-serif: "Cormorant Garamond", "Bodoni Moda", Georgia, serif;
+  --vs-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --vs-sans: "Manrope", Arial, sans-serif;
 }
 

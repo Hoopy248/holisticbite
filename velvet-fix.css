@@ -3768,3 +3768,69 @@ body.velvet-page .carousel-button[disabled] {
     flex-basis: min(86vw, 520px) !important;
   }
 }
+
+/* Site-wide typography system */
+:root {
+  --vs-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --vs-sans: "Manrope", Arial, sans-serif;
+}
+
+html,
+body,
+body.velvet-page,
+body.velvet-page p,
+body.velvet-page li,
+body.velvet-page a,
+body.velvet-page span,
+body.velvet-page label,
+body.velvet-page small,
+body.velvet-page input,
+body.velvet-page textarea,
+body.velvet-page select,
+body.velvet-page button,
+body.velvet-page .nav-links,
+body.velvet-page .nav-links *,
+body.velvet-page .topbar-actions,
+body.velvet-page .topbar-actions *,
+body.velvet-page .eyebrow,
+body.velvet-page .kicker,
+body.velvet-page .label,
+body.velvet-page .form-label,
+body.velvet-page .booking-form,
+body.velvet-page .booking-form *,
+body.velvet-page .format-picker,
+body.velvet-page .format-picker *,
+body.velvet-page .contact-panel,
+body.velvet-page .contact-panel * {
+  font-family: var(--vs-sans) !important;
+}
+
+body.velvet-page h1,
+body.velvet-page h2,
+body.velvet-page h3,
+body.velvet-page h4,
+body.velvet-page h5,
+body.velvet-page h6,
+body.velvet-page .hero-title,
+body.velvet-page .hero-title *,
+body.velvet-page .section-title,
+body.velvet-page .section-title *,
+body.velvet-page .brand-name,
+body.velvet-page .expert-label strong,
+body.velvet-page .expert-name,
+body.velvet-page .request-card h3,
+body.velvet-page .approach-card h3,
+body.velvet-page .format-title,
+body.velvet-page .format-name,
+body.velvet-page .feedback-card p,
+body.velvet-page .review-quote,
+body.velvet-page .pause-phrase,
+body.velvet-page .body-map-title {
+  font-family: var(--vs-serif) !important;
+  font-weight: 400;
+}
+
+body.velvet-page .hero-title {
+  line-height: 0.92 !important;
+  letter-spacing: -0.02em !important;
+}
