@@ -3834,3 +3834,18 @@ body.velvet-page .hero-title {
   line-height: 0.92 !important;
   letter-spacing: -0.02em !important;
 }
+
+/* Final hero typography lock: these brand phrases stay in Cormorant Garamond. */
+body.velvet-page #hero-title,
+body.velvet-page #hero-title span,
+body.velvet-page .hero-note,
+body.velvet-page .cinematic-pause p {
+  font-family: var(--vs-serif) !important;
+  font-weight: 400 !important;
+}
+
+body.velvet-page .hero-note {
+  font-size: clamp(20px, 1.55vw, 30px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.01em !important;
+}
