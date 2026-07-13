@@ -317,7 +317,6 @@
     initMagneticButtons();
     initModals();
     initFormatPicker();
-    initFeedbackSequence();
     initVelvetMotion();
   }
 
