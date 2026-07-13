@@ -2366,3 +2366,424 @@ body.velvet-page .velvet-system-note .section-shell {
     padding-top: 82px !important;
   }
 }
+
+/* Impeccable flow pass: remove hard horizontal breaks between cinematic sections. */
+body.velvet-page .symptoms-section,
+body.velvet-page .velvet-system-note,
+body.velvet-page .approach-section,
+body.velvet-page .velvet-body-map,
+body.velvet-page .velvet-booking,
+body.velvet-page .velvet-feedback {
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+body.velvet-page .symptoms-section {
+  padding-bottom: clamp(88px, 8vw, 132px) !important;
+}
+
+body.velvet-page .symptoms-section::after {
+  bottom: calc(clamp(76px, 6vw, 118px) * -1) !important;
+  height: clamp(172px, 14vw, 260px) !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.74) 48%, #111013 100%) !important;
+  z-index: 4 !important;
+  pointer-events: none !important;
+}
+
+body.velvet-page .velvet-system-note {
+  --flow-overlap: clamp(64px, 5.5vw, 108px);
+  clip-path: none !important;
+  margin-top: calc(var(--flow-overlap) * -1) !important;
+  margin-bottom: calc(var(--flow-overlap) * -0.45) !important;
+  padding: clamp(94px, 8vw, 132px) 0 clamp(78px, 6.8vw, 116px) !important;
+  overflow: visible !important;
+  background:
+    radial-gradient(ellipse at 78% 42%, rgba(90, 16, 38, 0.28), transparent 46%),
+    linear-gradient(90deg, #111013 0%, rgba(17, 16, 19, 0.93) 44%, rgba(25, 16, 20, 0.86) 100%),
+    url("./assets/system-note-background.png") center / cover no-repeat,
+    #111013 !important;
+}
+
+body.velvet-page .velvet-system-note::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: calc(var(--flow-overlap) * -0.35) !important;
+  height: calc(var(--flow-overlap) * 1.9) !important;
+  background: linear-gradient(180deg, rgba(9, 8, 9, 0) 0%, rgba(17, 16, 19, 0.88) 54%, rgba(17, 16, 19, 0) 100%) !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+body.velvet-page .velvet-system-note::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: auto !important;
+  bottom: calc(var(--flow-overlap) * -0.85) !important;
+  height: calc(var(--flow-overlap) * 1.85) !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.88) 50%, rgba(28, 12, 18, 0.78) 100%) !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+body.velvet-page .velvet-system-note .section-shell,
+body.velvet-page .velvet-system-note .system-accordion {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+body.velvet-page .approach-section {
+  padding-bottom: clamp(92px, 7vw, 138px) !important;
+  overflow: visible !important;
+}
+
+body.velvet-page .approach-section::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: calc(clamp(76px, 6vw, 116px) * -1) !important;
+  height: clamp(160px, 13vw, 236px) !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.82) 54%, rgba(44, 7, 18, 0.62) 100%) !important;
+  z-index: 3 !important;
+  pointer-events: none !important;
+}
+
+body.velvet-page .velvet-body-map {
+  --map-overlap: clamp(74px, 6vw, 118px);
+  margin-top: calc(var(--map-overlap) * -0.72) !important;
+  margin-bottom: calc(var(--map-overlap) * -0.55) !important;
+  padding: clamp(96px, 7.4vw, 132px) 0 clamp(110px, 8.6vw, 156px) !important;
+  scroll-margin-top: 96px !important;
+  overflow: hidden !important;
+}
+
+body.velvet-page .velvet-body-map::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: clamp(140px, 12vw, 220px) !important;
+  background: linear-gradient(180deg, rgba(17, 16, 19, 0.96) 0%, rgba(42, 7, 17, 0.42) 58%, rgba(42, 7, 17, 0) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+body.velvet-page .velvet-body-map::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: clamp(150px, 13vw, 240px) !important;
+  background: linear-gradient(180deg, rgba(42, 7, 17, 0) 0%, rgba(17, 16, 19, 0.72) 56%, #111013 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+body.velvet-page .velvet-body-map .section-shell,
+body.velvet-page .velvet-body-map .body-map-copy {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+body.velvet-page .velvet-booking {
+  padding-top: clamp(102px, 8vw, 154px) !important;
+}
+
+body.velvet-page .velvet-booking::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: calc(clamp(70px, 6vw, 112px) * -1) !important;
+  height: clamp(132px, 10vw, 206px) !important;
+  background: linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.86) 62%, rgba(28, 12, 18, 0) 100%) !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .velvet-system-note,
+  body.velvet-page .velvet-body-map {
+    margin-top: -42px !important;
+    margin-bottom: -28px !important;
+  }
+
+  body.velvet-page .velvet-system-note {
+    padding: 76px 0 70px !important;
+  }
+
+  body.velvet-page .approach-section {
+    padding-bottom: 82px !important;
+  }
+
+  body.velvet-page .velvet-body-map {
+    padding: 78px 0 94px !important;
+  }
+}
+
+/* Final flow correction: sections should overlap like one continuous editorial canvas. */
+body.velvet-page .symptoms-section {
+  margin-bottom: -72px !important;
+  padding-bottom: clamp(118px, 10vw, 174px) !important;
+}
+
+body.velvet-page .symptoms-section::after {
+  bottom: -72px !important;
+  height: 180px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.62) 38%, #111013 100%) !important;
+}
+
+body.velvet-page .velvet-system-note {
+  margin-top: -28px !important;
+  margin-bottom: -58px !important;
+  padding-top: clamp(82px, 7vw, 112px) !important;
+  padding-bottom: clamp(76px, 6vw, 108px) !important;
+}
+
+body.velvet-page .velvet-system-note::before {
+  top: -92px !important;
+  height: 170px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.9) 68%, rgba(17, 16, 19, 0) 100%) !important;
+}
+
+body.velvet-page .velvet-system-note::after {
+  bottom: -132px !important;
+  height: 228px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.72) 38%, rgba(24, 10, 15, 0.96) 100%) !important;
+}
+
+body.velvet-page .approach-section {
+  margin-top: -38px !important;
+  margin-bottom: -112px !important;
+  padding-top: clamp(104px, 8vw, 146px) !important;
+  padding-bottom: clamp(58px, 5vw, 86px) !important;
+  background:
+    radial-gradient(ellipse at 78% 92%, rgba(90, 16, 38, 0.22), transparent 42%),
+    linear-gradient(180deg, #111013 0%, #141316 54%, #1a1116 100%) !important;
+}
+
+body.velvet-page .approach-section::after {
+  bottom: -168px !important;
+  height: 286px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.76) 28%, rgba(40, 6, 16, 0.86) 72%, rgba(40, 6, 16, 0) 100%),
+    radial-gradient(ellipse at 50% 100%, rgba(90, 16, 38, 0.34), transparent 64%),
+    url("./assets/body-map-crimson-texture.png") center top / cover no-repeat !important;
+  opacity: 0.92 !important;
+}
+
+body.velvet-page .velvet-body-map {
+  margin-top: -28px !important;
+  margin-bottom: -84px !important;
+  padding-top: clamp(76px, 6.4vw, 108px) !important;
+  padding-bottom: clamp(88px, 7vw, 122px) !important;
+}
+
+body.velvet-page .velvet-body-map::before {
+  height: 190px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0.82) 0%, rgba(42, 7, 17, 0.22) 62%, rgba(42, 7, 17, 0) 100%) !important;
+}
+
+body.velvet-page .velvet-body-map::after {
+  height: 210px !important;
+  background:
+    linear-gradient(180deg, rgba(42, 7, 17, 0) 0%, rgba(17, 16, 19, 0.7) 58%, #111013 100%) !important;
+}
+
+body.velvet-page .velvet-booking {
+  margin-top: -42px !important;
+  padding-top: clamp(96px, 7.5vw, 136px) !important;
+}
+
+body.velvet-page .velvet-booking::before {
+  top: -114px !important;
+  height: 196px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.88) 58%, rgba(21, 13, 17, 0) 100%) !important;
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .symptoms-section,
+  body.velvet-page .velvet-system-note,
+  body.velvet-page .approach-section,
+  body.velvet-page .velvet-body-map,
+  body.velvet-page .velvet-booking {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.velvet-page .approach-section {
+    padding-bottom: 76px !important;
+  }
+}
+
+/* Impeccable transition system: remove horizontal shelves between dark editorial planes. */
+body.velvet-page {
+  background: #111013 !important;
+}
+
+body.velvet-page .symptoms-section,
+body.velvet-page .velvet-system-note,
+body.velvet-page .approach-section,
+body.velvet-page .velvet-body-map,
+body.velvet-page .velvet-booking {
+  isolation: isolate !important;
+}
+
+body.velvet-page .symptoms-section {
+  position: relative !important;
+  z-index: 8 !important;
+  margin-bottom: -118px !important;
+  padding-bottom: clamp(128px, 10vw, 188px) !important;
+}
+
+body.velvet-page .symptoms-section::after {
+  bottom: -128px !important;
+  height: 260px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.48) 28%, rgba(17, 16, 19, 0.96) 76%, rgba(17, 16, 19, 0) 100%) !important;
+  opacity: 1 !important;
+}
+
+body.velvet-page .velvet-system-note {
+  position: relative !important;
+  z-index: 9 !important;
+  margin-top: -38px !important;
+  margin-bottom: -134px !important;
+  padding: clamp(86px, 6.4vw, 118px) 0 clamp(118px, 8vw, 164px) !important;
+  background:
+    radial-gradient(ellipse at 78% 18%, rgba(90, 16, 38, 0.28), transparent 42%),
+    linear-gradient(104deg, #111013 0%, #141316 48%, #1d1217 100%) !important;
+  clip-path: polygon(0 clamp(18px, 1.8vw, 34px), 100% 0, 100% calc(100% - clamp(30px, 2.8vw, 54px)), 0 100%) !important;
+  box-shadow:
+    0 -58px 112px rgba(0, 0, 0, 0.6),
+    0 64px 130px rgba(24, 6, 12, 0.58) !important;
+}
+
+body.velvet-page .velvet-system-note::before {
+  top: 0 !important;
+  height: 54% !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0.18) 0%, rgba(17, 16, 19, 0) 100%),
+    radial-gradient(ellipse at 100% 0%, rgba(176, 138, 87, 0.08), transparent 52%) !important;
+  opacity: 1 !important;
+}
+
+body.velvet-page .velvet-system-note::after {
+  bottom: -74px !important;
+  height: 184px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.72) 34%, rgba(18, 13, 16, 0.98) 100%) !important;
+  opacity: 1 !important;
+}
+
+body.velvet-page .approach-section {
+  position: relative !important;
+  z-index: 6 !important;
+  margin-top: -18px !important;
+  margin-bottom: -150px !important;
+  padding-top: clamp(148px, 11vw, 208px) !important;
+  padding-bottom: clamp(106px, 7.4vw, 146px) !important;
+  background:
+    radial-gradient(ellipse at 78% 8%, rgba(90, 16, 38, 0.2), transparent 34%),
+    linear-gradient(180deg, #111013 0%, #151317 52%, #180f14 100%) !important;
+}
+
+body.velvet-page .approach-section::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: clamp(150px, 12vw, 236px) !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0.98) 0%, rgba(17, 16, 19, 0.5) 42%, rgba(17, 16, 19, 0) 100%) !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+body.velvet-page .approach-section::after {
+  bottom: -150px !important;
+  height: 310px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.74) 30%, rgba(50, 7, 20, 0.82) 72%, rgba(50, 7, 20, 0) 100%),
+    url("./assets/body-map-crimson-texture.png") center top / cover no-repeat !important;
+  opacity: 0.98 !important;
+}
+
+body.velvet-page .approach-section .section-shell,
+body.velvet-page .approach-section .approach-grid {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+body.velvet-page .velvet-body-map {
+  position: relative !important;
+  z-index: 5 !important;
+  margin-top: -76px !important;
+  margin-bottom: -116px !important;
+  padding-top: clamp(112px, 8.5vw, 156px) !important;
+  padding-bottom: clamp(116px, 8vw, 160px) !important;
+}
+
+body.velvet-page .velvet-body-map::before {
+  top: 0 !important;
+  height: clamp(190px, 15vw, 290px) !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0.9) 0%, rgba(42, 7, 17, 0.34) 52%, rgba(42, 7, 17, 0) 100%) !important;
+  opacity: 1 !important;
+}
+
+body.velvet-page .velvet-body-map::after {
+  bottom: -1px !important;
+  height: clamp(180px, 14vw, 270px) !important;
+  background:
+    linear-gradient(180deg, rgba(42, 7, 17, 0) 0%, rgba(17, 16, 19, 0.7) 54%, #111013 100%) !important;
+  opacity: 1 !important;
+}
+
+body.velvet-page .velvet-booking {
+  position: relative !important;
+  z-index: 4 !important;
+  margin-top: -28px !important;
+  padding-top: clamp(118px, 9vw, 168px) !important;
+}
+
+body.velvet-page .velvet-booking::before {
+  top: -132px !important;
+  height: 260px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 16, 19, 0) 0%, rgba(17, 16, 19, 0.78) 42%, rgba(17, 16, 19, 0.98) 100%) !important;
+}
+
+@media (max-width: 900px) {
+  body.velvet-page .symptoms-section,
+  body.velvet-page .velvet-system-note,
+  body.velvet-page .approach-section,
+  body.velvet-page .velvet-body-map,
+  body.velvet-page .velvet-booking {
+    clip-path: none !important;
+    margin-top: 0 !important;
+    margin-bottom: -28px !important;
+  }
+
+  body.velvet-page .velvet-system-note,
+  body.velvet-page .approach-section,
+  body.velvet-page .velvet-body-map {
+    padding-top: 76px !important;
+    padding-bottom: 86px !important;
+  }
+}
