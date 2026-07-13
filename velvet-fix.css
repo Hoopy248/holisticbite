@@ -2123,37 +2123,43 @@ body.velvet-page .velvet-feedback .feedback-card footer span {
   }
 }
 
-/* Section bridge: soften the hard cut from request cards into the work-essence scene. */
+/* Section bridge: intentional diagonal reveal into the work-essence scene. */
 body.velvet-page .symptoms-section {
-  padding-bottom: clamp(112px, 11vw, 178px) !important;
+  padding-bottom: clamp(76px, 8vw, 126px) !important;
 }
 
 body.velvet-page .symptoms-section::after {
-  height: clamp(180px, 17vw, 260px) !important;
+  height: clamp(84px, 8vw, 132px) !important;
   background:
     linear-gradient(
       180deg,
       rgba(17, 16, 19, 0) 0%,
-      rgba(17, 16, 19, 0.54) 42%,
-      rgba(17, 16, 19, 0.94) 78%,
+      rgba(17, 16, 19, 0.5) 58%,
       #111013 100%
     ) !important;
 }
 
 body.velvet-page .velvet-system-note {
-  margin-top: clamp(-118px, -8vw, -72px) !important;
-  padding-top: clamp(118px, 10vw, 168px) !important;
+  --system-cut: clamp(52px, 5.8vw, 104px);
+  margin-top: calc(var(--system-cut) * -0.62) !important;
+  padding-top: clamp(104px, 10vw, 156px) !important;
+  clip-path: polygon(0 var(--system-cut), 100% 0, 100% 100%, 0 100%) !important;
   background:
     linear-gradient(
+      90deg,
+      rgba(17, 16, 19, 0.95) 0%,
+      rgba(17, 16, 19, 0.74) 34%,
+      rgba(17, 16, 19, 0.18) 66%,
+      rgba(17, 16, 19, 0.64) 100%
+    ),
+    linear-gradient(
       180deg,
-      #111013 0%,
-      rgba(17, 16, 19, 0.82) 11%,
-      rgba(17, 16, 19, 0.28) 34%,
-      rgba(17, 16, 19, 0.34) 72%,
-      rgba(17, 16, 19, 0.92) 100%
+      rgba(17, 16, 19, 0.82) 0%,
+      rgba(17, 16, 19, 0.18) 44%,
+      rgba(17, 16, 19, 0.84) 100%
     ),
     url("./assets/system-note-background.png") center / cover no-repeat,
-    #171517 !important;
+    #141213 !important;
 }
 
 body.velvet-page .velvet-system-note::before {
@@ -2162,26 +2168,43 @@ body.velvet-page .velvet-system-note::before {
   left: 0 !important;
   right: 0 !important;
   top: 0 !important;
-  height: clamp(130px, 12vw, 210px) !important;
+  height: var(--system-cut) !important;
   pointer-events: none !important;
   background:
-    radial-gradient(ellipse at 55% 0%, rgba(90, 16, 38, 0.18), transparent 54%),
-    linear-gradient(180deg, #111013 0%, rgba(17, 16, 19, 0.72) 42%, rgba(17, 16, 19, 0) 100%) !important;
+    linear-gradient(
+      to bottom right,
+      transparent calc(50% - 0.7px),
+      rgba(176, 138, 87, 0.38) 50%,
+      transparent calc(50% + 0.7px)
+    ),
+    linear-gradient(180deg, rgba(17, 16, 19, 0.92), rgba(17, 16, 19, 0)) !important;
+  z-index: 1 !important;
+}
+
+body.velvet-page .velvet-system-note::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  background:
+    radial-gradient(ellipse at 74% 34%, rgba(90, 16, 38, 0.2), transparent 42%),
+    linear-gradient(180deg, rgba(17, 16, 19, 0), rgba(17, 16, 19, 0.44) 100%) !important;
   z-index: 0 !important;
 }
 
 body.velvet-page .velvet-system-note .section-shell {
   position: relative !important;
-  z-index: 1 !important;
+  z-index: 2 !important;
 }
 
 @media (max-width: 760px) {
   body.velvet-page .symptoms-section {
-    padding-bottom: 112px !important;
+    padding-bottom: 82px !important;
   }
 
   body.velvet-page .velvet-system-note {
-    margin-top: -76px !important;
-    padding-top: 104px !important;
+    --system-cut: 38px;
+    margin-top: -28px !important;
+    padding-top: 82px !important;
   }
 }
