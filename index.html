@@ -36,9 +36,15 @@
         </nav>
         <div class="topbar-actions">
           <div class="language-switcher" aria-label="Язык сайта">
-            <button type="button" data-lang="ru" class="active">RU</button>
-            <button type="button" data-lang="et">ET</button>
-            <button type="button" data-lang="en">EN</button>
+            <button class="language-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="language-options" aria-label="Выбрать язык">
+              <span class="language-current">RU</span>
+              <span class="language-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="language-options" id="language-options" role="menu" hidden>
+              <button type="button" data-lang="ru" class="is-active" role="menuitemradio" aria-checked="true">RU</button>
+              <button type="button" data-lang="et" role="menuitemradio" aria-checked="false">ET</button>
+              <button type="button" data-lang="en" role="menuitemradio" aria-checked="false">EN</button>
+            </div>
           </div>
           <a class="nav-button primary" href="#booking" data-text="topbar_booking">Запись</a>
           <button class="nav-button secondary" type="button" data-open-questionnaire data-text="topbar_questionnaire">Анкета</button>
@@ -330,13 +336,6 @@
         </div>
       </section>
     </main>
-
-    <footer class="footer velvet-footer">
-      <div class="section-shell">
-        <p data-text="footer_text">Дарья Повалихина, нутрициолог</p>
-        <a href="https://taplink.cc/darja_nutritsioloog" target="_blank" rel="noreferrer" data-text="footer_link_label">taplink.cc/darja_nutritsioloog</a>
-      </div>
-    </footer>
 
     <div class="modal" id="labListModal" aria-hidden="true">
       <div class="modal-dialog lab-modal" role="dialog" aria-modal="true" aria-labelledby="labModalTitle">

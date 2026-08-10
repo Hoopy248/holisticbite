@@ -11,6 +11,385 @@ let currentLanguage = localStorage.getItem("siteLanguage") || "ru";
   }
 })();
 
+// Final feedback carousel lock: one review per view, no page-jump side effects.
+(function () {
+  const onReady = (callback) => {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  };
+
+  onReady(() => {
+    const section = document.getElementById("feedback");
+    const viewport = section && section.querySelector(".feedback-viewport");
+    const track = document.getElementById("feedbackTrack");
+    const previousButtonSource = document.getElementById("prevFeedback");
+    const nextButtonSource = document.getElementById("nextFeedback");
+
+    if (!section || !viewport || !track || !previousButtonSource || !nextButtonSource) return;
+
+    const previousButton = previousButtonSource.cloneNode(true);
+    const nextButton = nextButtonSource.cloneNode(true);
+    previousButtonSource.replaceWith(previousButton);
+    nextButtonSource.replaceWith(nextButton);
+
+    section.classList.add("feedback-stable");
+    section.querySelectorAll(".feedback-carousel > .feedback-progress, .feedback-progress__label").forEach((node) => node.remove());
+
+    const counter = document.getElementById("feedbackCounter");
+    const progress = section.querySelector(".feedback-meta .feedback-progress span");
+    let cards = Array.from(track.querySelectorAll(".feedback-card"));
+    let activeIndex = 0;
+    let touchStartX = 0;
+
+    const clampIndex = (index) => Math.max(0, Math.min(cards.length - 1, index));
+
+    const render = () => {
+      cards = Array.from(track.querySelectorAll(".feedback-card"));
+      activeIndex = clampIndex(activeIndex);
+      const translate = activeIndex * -100;
+      track.style.setProperty("--feedback-translate", `${translate}%`);
+      track.style.transform = `translate3d(${translate}%, 0, 0)`;
+      track.dataset.activeIndex = String(activeIndex);
+
+      cards.forEach((card, index) => {
+        const isActive = index === activeIndex;
+        card.setAttribute("aria-hidden", isActive ? "false" : "true");
+        card.tabIndex = isActive ? 0 : -1;
+      });
+
+      if (counter) counter.textContent = `${activeIndex + 1} / ${cards.length}`;
+      if (progress) progress.style.width = `${((activeIndex + 1) / cards.length) * 100}%`;
+      previousButton.disabled = activeIndex === 0;
+      nextButton.disabled = activeIndex === cards.length - 1;
+    };
+
+    const stop = (event) => {
+      if (!event) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+    };
+
+    const goTo = (index, event) => {
+      stop(event);
+      activeIndex = clampIndex(index);
+      render();
+    };
+
+    previousButton.addEventListener("click", (event) => goTo(activeIndex - 1, event));
+    nextButton.addEventListener("click", (event) => goTo(activeIndex + 1, event));
+
+    section.addEventListener("keydown", (event) => {
+      if (!section.contains(document.activeElement)) return;
+      if (event.key === "ArrowLeft") goTo(activeIndex - 1, event);
+      if (event.key === "ArrowRight") goTo(activeIndex + 1, event);
+    });
+
+    viewport.addEventListener("touchstart", (event) => {
+      touchStartX = event.touches[0].clientX;
+    }, { passive: true });
+
+    viewport.addEventListener("touchend", (event) => {
+      const delta = touchStartX - event.changedTouches[0].clientX;
+      if (Math.abs(delta) < 48) return;
+      goTo(activeIndex + (delta > 0 ? 1 : -1), event);
+    }, { passive: false });
+
+    new MutationObserver(render).observe(track, { childList: true });
+    window.addEventListener("resize", render);
+    render();
+    window.requestAnimationFrame(render);
+    window.setTimeout(render, 150);
+  });
+})();
+
+// Final feedback carousel lock: one review per view, no page-jump side effects.
+(function () {
+  const onReady = (callback) => {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  };
+
+  onReady(() => {
+    const section = document.getElementById("feedback");
+    const viewport = section && section.querySelector(".feedback-viewport");
+    const track = document.getElementById("feedbackTrack");
+    const previousButtonSource = document.getElementById("prevFeedback");
+    const nextButtonSource = document.getElementById("nextFeedback");
+
+    if (!section || !viewport || !track || !previousButtonSource || !nextButtonSource) return;
+
+    const previousButton = previousButtonSource.cloneNode(true);
+    const nextButton = nextButtonSource.cloneNode(true);
+    previousButtonSource.replaceWith(previousButton);
+    nextButtonSource.replaceWith(nextButton);
+
+    section.classList.add("feedback-stable");
+    section.querySelectorAll(".feedback-carousel > .feedback-progress, .feedback-progress__label").forEach((node) => node.remove());
+
+    const counter = document.getElementById("feedbackCounter");
+    const progress = section.querySelector(".feedback-meta .feedback-progress span");
+    let cards = Array.from(track.querySelectorAll(".feedback-card"));
+    let activeIndex = 0;
+    let touchStartX = 0;
+
+    const clampIndex = (index) => Math.max(0, Math.min(cards.length - 1, index));
+
+    const render = () => {
+      cards = Array.from(track.querySelectorAll(".feedback-card"));
+      activeIndex = clampIndex(activeIndex);
+      const translate = activeIndex * -100;
+      track.style.setProperty("--feedback-translate", `${translate}%`);
+      track.style.transform = `translate3d(${translate}%, 0, 0)`;
+      track.dataset.activeIndex = String(activeIndex);
+
+      cards.forEach((card, index) => {
+        const isActive = index === activeIndex;
+        card.setAttribute("aria-hidden", isActive ? "false" : "true");
+        card.tabIndex = isActive ? 0 : -1;
+      });
+
+      if (counter) counter.textContent = `${activeIndex + 1} / ${cards.length}`;
+      if (progress) progress.style.width = `${((activeIndex + 1) / cards.length) * 100}%`;
+      previousButton.disabled = activeIndex === 0;
+      nextButton.disabled = activeIndex === cards.length - 1;
+    };
+
+    const stop = (event) => {
+      if (!event) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+    };
+
+    const goTo = (index, event) => {
+      stop(event);
+      activeIndex = clampIndex(index);
+      render();
+    };
+
+    previousButton.addEventListener("click", (event) => goTo(activeIndex - 1, event));
+    nextButton.addEventListener("click", (event) => goTo(activeIndex + 1, event));
+
+    section.addEventListener("keydown", (event) => {
+      if (!section.contains(document.activeElement)) return;
+      if (event.key === "ArrowLeft") goTo(activeIndex - 1, event);
+      if (event.key === "ArrowRight") goTo(activeIndex + 1, event);
+    });
+
+    viewport.addEventListener("touchstart", (event) => {
+      touchStartX = event.touches[0].clientX;
+    }, { passive: true });
+
+    viewport.addEventListener("touchend", (event) => {
+      const delta = touchStartX - event.changedTouches[0].clientX;
+      if (Math.abs(delta) < 48) return;
+      goTo(activeIndex + (delta > 0 ? 1 : -1), event);
+    }, { passive: false });
+
+    new MutationObserver(render).observe(track, { childList: true });
+    window.addEventListener("resize", render);
+    render();
+    window.requestAnimationFrame(render);
+    window.setTimeout(render, 150);
+  });
+})();
+
+// Final feedback carousel lock: one review per view, no page-jump side effects.
+(function(){
+  function onReady(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+    } else {
+      callback();
+    }
+  }
+
+  onReady(function(){
+    const section = document.getElementById("feedback");
+    const viewport = section && section.querySelector(".feedback-viewport");
+    const track = document.getElementById("feedbackTrack");
+    const previousButtonSource = document.getElementById("prevFeedback");
+    const nextButtonSource = document.getElementById("nextFeedback");
+
+    if (!section || !viewport || !track || !previousButtonSource || !nextButtonSource) return;
+
+    const previousButton = previousButtonSource.cloneNode(true);
+    const nextButton = nextButtonSource.cloneNode(true);
+    previousButtonSource.replaceWith(previousButton);
+    nextButtonSource.replaceWith(nextButton);
+
+    const strayProgress = section.querySelector(".feedback-carousel > .feedback-progress");
+    if (strayProgress) strayProgress.remove();
+
+    const counter = document.getElementById("feedbackCounter");
+    const progress = section.querySelector(".feedback-meta .feedback-progress span");
+    let cards = Array.from(track.querySelectorAll(".feedback-card"));
+    let activeIndex = 0;
+    let touchStartX = 0;
+
+    function clampIndex(index) {
+      return Math.max(0, Math.min(index, cards.length - 1));
+    }
+
+    function render() {
+      cards = Array.from(track.querySelectorAll(".feedback-card"));
+      if (!cards.length) return;
+      activeIndex = clampIndex(activeIndex);
+      track.style.removeProperty("transform");
+      track.style.setProperty("--feedback-translate", `${activeIndex * -100}%`);
+
+      cards.forEach((card, index) => {
+        const isActive = index === activeIndex;
+        card.setAttribute("aria-hidden", isActive ? "false" : "true");
+        card.tabIndex = isActive ? 0 : -1;
+      });
+
+      if (counter) counter.textContent = `${activeIndex + 1} / ${cards.length}`;
+      if (progress) progress.style.width = `${((activeIndex + 1) / cards.length) * 100}%`;
+
+      previousButton.disabled = activeIndex === 0;
+      nextButton.disabled = activeIndex === cards.length - 1;
+    }
+
+    function goTo(index, event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      activeIndex = clampIndex(index);
+      render();
+    }
+
+    previousButton.addEventListener("click", (event) => goTo(activeIndex - 1, event));
+    nextButton.addEventListener("click", (event) => goTo(activeIndex + 1, event));
+
+    section.addEventListener("keydown", (event) => {
+      if (!section.contains(document.activeElement)) return;
+      if (event.key === "ArrowLeft") goTo(activeIndex - 1, event);
+      if (event.key === "ArrowRight") goTo(activeIndex + 1, event);
+    });
+
+    viewport.addEventListener("touchstart", (event) => {
+      touchStartX = event.changedTouches[0].clientX;
+    }, { passive: true });
+
+    viewport.addEventListener("touchend", (event) => {
+      const delta = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(delta) < 40) return;
+      goTo(activeIndex + (delta < 0 ? 1 : -1), event);
+    }, { passive: false });
+
+    const observer = new MutationObserver(render);
+    observer.observe(track, { childList: true });
+    window.addEventListener("resize", render);
+    render();
+  });
+})();
+
+// Final stable feedback carousel: one review per view, no page-jump side effects.
+(function(){
+  function onReady(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+    } else {
+      callback();
+    }
+  }
+
+  onReady(function(){
+    const section = document.getElementById("feedback");
+    if (!section) return;
+
+    const viewport = section.querySelector(".feedback-viewport");
+    const track = section.querySelector("#feedbackTrack");
+    const oldPrev = document.getElementById("prevFeedback");
+    const oldNext = document.getElementById("nextFeedback");
+    if (!viewport || !track || !oldPrev || !oldNext) return;
+
+    const prev = oldPrev.cloneNode(true);
+    const next = oldNext.cloneNode(true);
+    oldPrev.replaceWith(prev);
+    oldNext.replaceWith(next);
+
+    section.querySelectorAll(".feedback-carousel > .feedback-progress").forEach((node) => node.remove());
+
+    const counter = section.querySelector("#feedbackCounter");
+    const progress = section.querySelector(".feedback-meta .feedback-progress span");
+    let activeIndex = 0;
+    let touchStartX = 0;
+
+    function cards() {
+      return Array.from(track.querySelectorAll(".feedback-card"));
+    }
+
+    function clampIndex(index, total) {
+      return Math.max(0, Math.min(index, Math.max(0, total - 1)));
+    }
+
+    function render() {
+      const items = cards();
+      const total = items.length;
+      if (!total) return;
+
+      activeIndex = clampIndex(activeIndex, total);
+      track.style.removeProperty("transform");
+      track.style.setProperty("--feedback-translate", `${activeIndex * -100}%`);
+
+      items.forEach((item, index) => {
+        const isActive = index === activeIndex;
+        item.setAttribute("aria-hidden", isActive ? "false" : "true");
+        item.tabIndex = isActive ? 0 : -1;
+      });
+
+      if (counter) counter.textContent = `${activeIndex + 1} / ${total}`;
+      if (progress) progress.style.width = `${((activeIndex + 1) / total) * 100}%`;
+      prev.disabled = activeIndex === 0;
+      next.disabled = activeIndex === total - 1;
+    }
+
+    function goTo(index, event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      activeIndex = clampIndex(index, cards().length);
+      render();
+    }
+
+    prev.addEventListener("click", (event) => goTo(activeIndex - 1, event));
+    next.addEventListener("click", (event) => goTo(activeIndex + 1, event));
+
+    section.addEventListener("keydown", (event) => {
+      if (!section.contains(document.activeElement)) return;
+      if (event.key === "ArrowLeft") goTo(activeIndex - 1, event);
+      if (event.key === "ArrowRight") goTo(activeIndex + 1, event);
+    });
+
+    viewport.addEventListener("touchstart", (event) => {
+      touchStartX = event.changedTouches[0].clientX;
+    }, { passive: true });
+
+    viewport.addEventListener("touchend", (event) => {
+      const deltaX = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(deltaX) < 42) return;
+      goTo(activeIndex + (deltaX < 0 ? 1 : -1), event);
+    }, { passive: false });
+
+    const observer = new MutationObserver(render);
+    observer.observe(track, { childList: true });
+
+    window.addEventListener("resize", render, { passive: true });
+    render();
+  });
+})();
+
 // Stable feedback carousel: replaces older competing handlers so arrows never
 // trigger random page scrolling and the sequence stays reachable on touch/keyboard.
 (function(){
@@ -1030,14 +1409,55 @@ function applyLanguage(lang) {
     if (!element.dataset.placeholderSource) element.dataset.placeholderSource = element.getAttribute("placeholder");
     element.setAttribute("placeholder", lang === "ru" ? element.dataset.placeholderSource : (placeholderI18n[lang] && placeholderI18n[lang][element.dataset.placeholderSource]) || element.dataset.placeholderSource);
   });
-  document.querySelectorAll(".language-switcher button").forEach((button) => button.classList.toggle("is-active", button.dataset.lang === lang));
+  document.querySelectorAll(".language-switcher [data-lang]").forEach((button) => {
+    const isActive = button.dataset.lang === lang;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-checked", String(isActive));
+  });
+  const languageCurrent = document.querySelector(".language-current");
+  if (languageCurrent) languageCurrent.textContent = lang.toUpperCase();
   const selectedServiceInput = Array.from(formatInputs).find((input) => input.checked);
   if (selectedServiceInput && selectedFormatPrice) {
     selectedFormatPrice.textContent = lang === "et" ? selectedServiceInput.dataset.priceEt : lang === "en" ? selectedServiceInput.dataset.priceEn : selectedServiceInput.dataset.price;
   }
 }
 prepareI18nNodes();
-document.querySelectorAll(".language-switcher button").forEach((button) => button.addEventListener("click", () => applyLanguage(button.dataset.lang)));
+const languageSwitcher = document.querySelector(".language-switcher");
+const languageTrigger = languageSwitcher && languageSwitcher.querySelector(".language-trigger");
+const languageOptions = languageSwitcher && languageSwitcher.querySelector(".language-options");
+
+function closeLanguageMenu() {
+  if (!languageTrigger || !languageOptions) return;
+  languageOptions.hidden = true;
+  languageTrigger.setAttribute("aria-expanded", "false");
+}
+
+if (languageTrigger && languageOptions) {
+  languageTrigger.addEventListener("click", () => {
+    const willOpen = languageOptions.hidden;
+    languageOptions.hidden = !willOpen;
+    languageTrigger.setAttribute("aria-expanded", String(willOpen));
+  });
+
+  languageOptions.querySelectorAll("[data-lang]").forEach((button) => {
+    button.addEventListener("click", () => {
+      applyLanguage(button.dataset.lang);
+      closeLanguageMenu();
+      languageTrigger.focus();
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!languageSwitcher.contains(event.target)) closeLanguageMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !languageOptions.hidden) {
+      closeLanguageMenu();
+      languageTrigger.focus();
+    }
+  });
+}
 formatInputs.forEach((input) => input.addEventListener("change", () => setTimeout(() => applyLanguage(currentLanguage), 0)));
 applyLanguage(currentLanguage);
 
@@ -1369,7 +1789,7 @@ function revealCmsPage() {
     revealCmsPage();
   }
 
-  document.querySelectorAll(".language-switcher button").forEach((button) => {
+  document.querySelectorAll(".language-switcher [data-lang]").forEach((button) => {
     button.addEventListener("click", () => window.setTimeout(applyCmsData, 0));
   });
   document.addEventListener("change", (event) => {
@@ -1653,4 +2073,99 @@ function revealCmsPage() {
   } else {
     initEditorialMotion();
   }
+})();
+
+// Final feedback carousel lock: one review per view, no page-jump side effects.
+(function () {
+  const onReady = (callback) => {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  };
+
+  onReady(() => {
+    const section = document.getElementById("feedback");
+    const viewport = section && section.querySelector(".feedback-viewport");
+    const track = document.getElementById("feedbackTrack");
+    const previousButtonSource = document.getElementById("prevFeedback");
+    const nextButtonSource = document.getElementById("nextFeedback");
+
+    if (!section || !viewport || !track || !previousButtonSource || !nextButtonSource) return;
+
+    const previousButton = previousButtonSource.cloneNode(true);
+    const nextButton = nextButtonSource.cloneNode(true);
+    previousButtonSource.replaceWith(previousButton);
+    nextButtonSource.replaceWith(nextButton);
+
+    section.classList.add("feedback-stable");
+    section.querySelectorAll(".feedback-carousel > .feedback-progress, .feedback-progress__label").forEach((node) => node.remove());
+
+    const counter = document.getElementById("feedbackCounter");
+    const progress = section.querySelector(".feedback-meta .feedback-progress span");
+    let cards = Array.from(track.querySelectorAll(".feedback-card"));
+    let activeIndex = 0;
+    let touchStartX = 0;
+
+    const clampIndex = (index) => Math.max(0, Math.min(cards.length - 1, index));
+
+    const render = () => {
+      cards = Array.from(track.querySelectorAll(".feedback-card"));
+      activeIndex = clampIndex(activeIndex);
+      const translate = activeIndex * -100;
+      track.style.setProperty("--feedback-translate", `${translate}%`);
+      track.style.transform = `translate3d(${translate}%, 0, 0)`;
+      track.dataset.activeIndex = String(activeIndex);
+
+      cards.forEach((card, index) => {
+        const isActive = index === activeIndex;
+        card.setAttribute("aria-hidden", isActive ? "false" : "true");
+        card.tabIndex = isActive ? 0 : -1;
+      });
+
+      if (counter) counter.textContent = `${activeIndex + 1} / ${cards.length}`;
+      if (progress) progress.style.width = `${((activeIndex + 1) / cards.length) * 100}%`;
+      previousButton.disabled = activeIndex === 0;
+      nextButton.disabled = activeIndex === cards.length - 1;
+    };
+
+    const stop = (event) => {
+      if (!event) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+    };
+
+    const goTo = (index, event) => {
+      stop(event);
+      activeIndex = clampIndex(index);
+      render();
+    };
+
+    previousButton.addEventListener("click", (event) => goTo(activeIndex - 1, event));
+    nextButton.addEventListener("click", (event) => goTo(activeIndex + 1, event));
+
+    section.addEventListener("keydown", (event) => {
+      if (!section.contains(document.activeElement)) return;
+      if (event.key === "ArrowLeft") goTo(activeIndex - 1, event);
+      if (event.key === "ArrowRight") goTo(activeIndex + 1, event);
+    });
+
+    viewport.addEventListener("touchstart", (event) => {
+      touchStartX = event.touches[0].clientX;
+    }, { passive: true });
+
+    viewport.addEventListener("touchend", (event) => {
+      const delta = touchStartX - event.changedTouches[0].clientX;
+      if (Math.abs(delta) < 48) return;
+      goTo(activeIndex + (delta > 0 ? 1 : -1), event);
+    }, { passive: false });
+
+    new MutationObserver(render).observe(track, { childList: true });
+    window.addEventListener("resize", render);
+    render();
+    window.requestAnimationFrame(render);
+    window.setTimeout(render, 150);
+  });
 })();
