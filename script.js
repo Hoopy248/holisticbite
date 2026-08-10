@@ -1117,15 +1117,20 @@ function setLabListModal(open) {
 
 function updateFormatCarousel() {
   if (!formatTrack) return;
-  const isNarrow = window.matchMedia("(max-width: 900px)").matches;
+  const isNarrow = window.matchMedia("(max-width: 1179px)").matches;
   const cardsPerPage = isNarrow ? 1 : 2;
   const maxPage = Math.max(0, Math.ceil(formatCards.length / cardsPerPage) - 1);
   formatPage = Math.min(Math.max(formatPage, 0), maxPage);
+  const start = formatPage * cardsPerPage;
+  const end = start + cardsPerPage;
+
   formatCards.forEach((card, index) => {
-    const start = formatPage * cardsPerPage;
-    const end = start + cardsPerPage;
     card.classList.toggle("is-visible", index >= start && index < end);
   });
+
+  const visibleCount = Math.max(0, Math.min(cardsPerPage, formatCards.length - start));
+  formatTrack.classList.toggle("is-single-page", visibleCount === 1);
+
   if (prevFormat) prevFormat.disabled = formatPage === 0;
   if (nextFormat) nextFormat.disabled = formatPage === maxPage;
 }
