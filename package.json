@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "echo Static site",
-    "build": "echo Static site build",
+    "build": "node build-static.cjs",
     "start": "echo Static site"
   },
   "dependencies": {

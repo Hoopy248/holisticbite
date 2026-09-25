@@ -1,0 +1,35 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');
+process.env.CALENDAR_DEMO='1';process.env.ADMIN_PASSWORD='test-password';process.env.ADMIN_SESSION_SECRET='a-test-secret-that-is-not-a-production-secret';
+const handler=require('../api/calendar');const store=require('../lib/calendar-store.cjs');
+async function call(method,url,data,cookie='',origin){let code=200,headers={};let body;await handler({method,url,body:data,headers:{host:'localhost','content-type':'application/json',cookie,...(origin?{origin}: {})}},{setHeader(k,v){headers[k]=v;},status(v){code=v;return this;},json(v){body=v;}});return{code,headers,body};}
+test('Scheduling, authentication, concurrent booking, exceptions and session controls',async()=>{
+ assert.equal((await call('GET','/api/calendar?admin=1')).code,401);
+ assert.equal((await call('POST','/api/calendar',{action:'login',password:'wrong'})).code,401);
+ const login=await call('POST','/api/calendar',{action:'login',password:'test-password'});assert.equal(login.code,200);assert.match(login.headers['Set-Cookie'],/HttpOnly; SameSite=Strict/);const cookie=login.headers['Set-Cookie'].split(';')[0];
+ let admin=await call('GET','/api/calendar?admin=1',null,cookie);assert.equal(admin.code,200);assert.equal(admin.body.attempts,undefined);
+ const tomorrow=new Date(Date.now()+86400000).toISOString().slice(0,10);const weekly=Array.from({length:7},()=>['10:00','12:00']);
+ let result=await call('POST','/api/calendar',{action:'weekly',version:admin.body.version,weekly,duration:90,timezone:'Europe/Tallinn'},cookie);assert.equal(result.code,200);
+ assert.equal((await call('POST','/api/calendar',{action:'weekly',version:admin.body.version,weekly,duration:90,timezone:'Europe/Tallinn'},cookie)).code,409);
+ assert.equal((await call('POST','/api/calendar',{action:'weekly'},cookie,'https://evil.example')).code,403);
+ assert.equal((await call('GET','/api/calendar?date=2026-02-30')).code,400);
+ const availability=await call('GET',`/api/calendar?date=${tomorrow}`);assert.deepEqual(availability.body.slots,['10:00','12:00']);assert.equal(availability.body.bookings,undefined);
+ const payload={action:'book',requestId:'client-1',date:tomorrow,slot:'10:00',clientName:'Test Client',phone:'+000',email:'test@example.com',service:'Консультация'};
+ const pair=await Promise.all([call('POST','/api/calendar',payload),call('POST','/api/calendar',{...payload,requestId:'client-2'})]);assert.deepEqual(pair.map(x=>x.code).sort(),[200,409]);
+ const winner=pair.find(x=>x.code===200);const retry=await call('POST','/api/calendar',payload);assert.equal(retry.body.id,winner.body.id);
+ assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,['12:00']);
+ admin=await call('GET','/api/calendar?admin=1',null,cookie);
+ assert.equal((await call('POST','/api/calendar',{action:'exception',version:admin.body.version,from:tomorrow,to:tomorrow,times:['10:30','11:00']},cookie)).code,400);
+ result=await call('POST','/api/calendar',{action:'exception',version:admin.body.version,from:tomorrow,to:tomorrow,times:[]},cookie);assert.equal(result.code,200);
+ assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,[]);
+ admin=await call('GET','/api/calendar?admin=1',null,cookie);assert.equal(admin.body.bookings.length,1);assert.equal(admin.body.bookings[0].status,'confirmed');
+ assert.equal((await call('POST','/api/calendar',{action:'weekly',version:admin.body.version,weekly,duration:90,timezone:'Europe/Moscow'},cookie)).code,400);
+ await call('POST','/api/calendar',{action:'exception',version:admin.body.version,from:tomorrow,to:tomorrow,times:['10:30','12:00']},cookie);
+ assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,['12:00']);
+ admin=await call('GET','/api/calendar?admin=1',null,cookie);
+ assert.equal((await call('POST','/api/calendar',{action:'cancel',version:admin.body.version,id:winner.body.id},cookie)).code,200);
+ assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,['10:30','12:00']);
+ assert.equal((await call('GET','/api/calendar?admin=1',null,'hb_admin=1.fake')).code,401);
+ for(let i=0;i<10;i++)await call('POST','/api/calendar',{action:'login',password:'wrong'});
+ assert.equal((await call('POST','/api/calendar',{action:'login',password:'wrong'})).code,429);
+});
+test('Store fails closed without production credentials',async()=>{delete process.env.CALENDAR_DEMO;assert.equal((await call('GET','/api/calendar?date=2026-12-01')).code,503);process.env.CALENDAR_DEMO='1';});

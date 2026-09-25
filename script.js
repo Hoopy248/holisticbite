@@ -1008,15 +1008,8 @@ let currentLanguage = localStorage.getItem("siteLanguage") || "ru";
   }
 })();
 
-const slotsByDay = {
-  0: ["10:00", "12:30", "17:00"],
-  1: ["09:30", "13:00", "18:30"],
-  2: ["11:00", "15:30"],
-  3: ["10:30", "14:00", "19:00"],
-  4: ["09:00", "12:00", "16:30"],
-  5: ["11:30", "14:30"],
-  6: ["12:00", "16:00"],
-};
+let slotRequest = 0;
+let bookingRequestId = null;
 
 const serviceSelect = document.querySelector("#service");
 const formatInputs = document.querySelectorAll(".format-card input[name=\"formatChoice\"]");
@@ -1050,7 +1043,7 @@ const labListModal = document.querySelector("#labListModal");
 const closeLabControls = document.querySelectorAll("[data-close-lab-modal]");
 
 const formatter = new Intl.DateTimeFormat("ru-RU", { weekday: "short", day: "numeric", month: "long" });
-const toDateValue = (date) => date.toISOString().slice(0, 10);
+const toDateValue = (date) => `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
 
 function getLocalDate(value) {
   const [year, month, day] = value.split("-").map(Number);
@@ -1063,25 +1056,45 @@ function addDays(date, amount) {
   return next;
 }
 
-function renderSlots() {
+async function renderSlots() {
   if (!dateInput || !slotGrid) return;
-  const selectedDate = getLocalDate(dateInput.value);
-  const slots = slotsByDay[selectedDate.getDay()] || [];
-  slotGrid.innerHTML = slots.map((slot, index) => {
-    const checked = index === 0 ? "checked" : "";
-    return `<label><input type="radio" name="slot" value="${slot}" ${checked} required />${slot}</label>`;
-  }).join("");
+  const request = ++slotRequest;
+  slotGrid.textContent = "Загружаем свободное время…";
+  const submit = bookingForm?.querySelector('[type="submit"]');
+  if (submit) submit.disabled = true;
+  try {
+    const response = await fetch('/api/calendar?date=' + encodeURIComponent(dateInput.value));
+    const data = await response.json();
+    if (request !== slotRequest) return;
+    if (!response.ok) throw new Error(data.error || 'Не удалось загрузить расписание.');
+    slotGrid.replaceChildren();
+    const zone = document.createElement('p');
+    zone.textContent = 'Время: ' + data.timezone + ' · ' + data.duration + ' мин';
+    zone.style.gridColumn = '1 / -1';
+    slotGrid.append(zone);
+    if (!data.slots.length) {
+      const empty = document.createElement('p');
+      empty.textContent = 'На эту дату свободного времени нет. Выберите другой день.';
+      slotGrid.append(empty);
+    }
+    data.slots.forEach(slot => {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'radio'; input.name = 'slot'; input.value = slot; input.required = true;
+      label.append(input, slot); slotGrid.append(label);
+    });
+    if (submit) submit.disabled = !data.slots.length;
+  } catch(error) {
+    if (request !== slotRequest) return;
+    slotGrid.textContent = error.message + ' ';
+    const retry = document.createElement('button');
+    retry.type = 'button'; retry.textContent = 'Повторить'; retry.onclick = renderSlots;
+    slotGrid.append(retry);
+  }
 }
 
 function renderTimeline() {
-  if (!timeline || !dateInput) return;
-  const today = getLocalDate(dateInput.min);
-  timeline.innerHTML = Array.from({ length: 4 }, (_, index) => {
-    const day = addDays(today, index);
-    const slots = slotsByDay[day.getDay()] || [];
-    const items = slots.map((slot) => `<li>${slot}</li>`).join("");
-    return `<article class="timeline-day"><h3>${formatter.format(day)}</h3><ul>${items}</ul></article>`;
-  }).join("");
+  if (timeline) timeline.textContent = 'Выберите дату в форме, чтобы увидеть актуальное свободное время.';
 }
 
 function setSelectedService(service) {
@@ -1099,7 +1112,7 @@ function setupDates() {
   if (!dateInput) return;
   const today = new Date();
   dateInput.min = toDateValue(today);
-  dateInput.max = toDateValue(addDays(today, 21));
+  dateInput.max = toDateValue(addDays(today, 90));
   dateInput.value = dateInput.min;
 }
 
@@ -1184,22 +1197,22 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+bookingForm?.addEventListener("input", () => { bookingRequestId = null; });
 bookingForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(bookingForm);
-  const date = getLocalDate(data.get("date"));
-  const friendlyDate = formatter.format(date);
-  const submitButton = bookingForm.querySelector(".submit-button");
+  const submitButton = bookingForm.querySelector('[type="submit"]');
   const selectedInput = Array.from(formatInputs).find((input) => input.checked);
   const payload = {
-    type: "booking",
+    action: "book",
+    requestId: bookingRequestId ||= crypto.randomUUID(),
     clientName: data.get("clientName"),
     phone: data.get("phone"),
     email: data.get("email"),
     contactChannels: data.getAll("contactChannel"),
     service: data.get("service"),
     price: selectedInput ? selectedInput.dataset.price : selectedFormatPrice?.textContent,
-    date: friendlyDate,
+    date: data.get("date"),
     slot: data.get("slot"),
     message: data.get("message")
   };
@@ -1208,27 +1221,31 @@ bookingForm?.addEventListener("submit", async (event) => {
   if (submitButton) submitButton.disabled = true;
 
   try {
-    const response = await fetch("/api/send-email", {
+    const response = await fetch("/api/calendar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
     const result = await response.json().catch(() => ({}));
-    if (!response.ok || !result.ok) throw new Error(result.error || "Не удалось отправить заявку");
-    if (formStatus) formStatus.textContent = "Заявка отправлена. На вашу почту придет подтверждение, а Дарья свяжется с вами по указанным контактам.";
+    if (!response.ok || !result.ok) {
+      if (response.status === 409) { bookingRequestId = null; await renderSlots(); }
+      throw new Error(result.error || "Не удалось отправить заявку");
+    }
+    if (formStatus) formStatus.textContent = result.emailSent ? "Вы записаны. Подтверждение отправлено на вашу почту." : "Вы записаны. Дарья видит вашу запись в календаре и свяжется с вами по указанным контактам.";
+    bookingRequestId = null;
     bookingForm.reset();
     setupDates();
-    setSelectedService("Разбор состояния");
-    renderSlots();
+    setSelectedService(serviceSelect?.defaultValue || "Разовая консультация");
+    await renderSlots();
   } catch (error) {
     if (formStatus) formStatus.textContent = "Не удалось отправить заявку. Причина: " + (error.message || "попробуйте позже.");
   } finally {
-    if (submitButton) submitButton.disabled = false;
+    if (submitButton) submitButton.disabled = !slotGrid?.querySelector('input[name="slot"]');
   }
 });
 
 setupDates();
-setSelectedService("Разбор состояния");
+setSelectedService(serviceSelect?.value || "Разовая консультация");
 renderSlots();
 renderTimeline();
 updateFormatCarousel();
