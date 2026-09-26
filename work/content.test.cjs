@@ -12,6 +12,7 @@ test('Draft access, validation, concurrent edits, multilingual publishing and ca
  const initial=await call('GET','/api/content',null,'');assert.equal(initial.data.draft,undefined);assert.equal(initial.data.content.texts.length,defaults.texts.length);
  let draft=structuredClone(defaults);draft.texts[0].value={ru:'Новое имя',en:'New name',et:'Uus nimi'};
  draft.appearance={uniform:true,background:'#edf1ef',font:'georgia',images:{portrait:{src:'data:image/webp;base64,UklGRg==',alt:'Дарья'}}};
+ draft.appearance.design=require('../design-settings.js').defaults();draft.appearance.design.blocks.method={...require('../design-settings.js').style(),mode:'gradient',color1:'#253a30',color2:'#071812',textSize:18,headingSize:56,mobileHeadingSize:32};
  draft.reviews.push({id:'test-review',visible:true,author:{ru:'Тест',en:'Test',et:'Test'},body:{ru:'<script>alert(1)</script>',en:'English review',et:'Eesti tagasiside'},caption:{ru:'',en:'',et:''}});
  draft.formats.push({id:'new-format',visible:true,title:{ru:'Новый формат',en:'New service',et:'Uus teenus'},description:{ru:'Описание',en:'Description',et:'Kirjeldus'},includes:{ru:'Пункт',en:'Item',et:'Punkt'},priceRub:9000,priceEur:90});
  let saved=await call('POST','/api/content',{action:'save',version:0,content:draft});assert.equal(saved.code,200);

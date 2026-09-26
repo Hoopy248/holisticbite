@@ -18,15 +18,8 @@
   }finally{URL.revokeObjectURL(url);}
  }
  function editor(root,draft,changed,run,message){
-  const a=draft.appearance??=defaults(),form=make('div');form.className='cms-fields';
-  const label=make('label'),check=make('input');check.type='checkbox';check.checked=a.uniform;label.className='cms-visibility';label.append(check,document.createTextNode('Единый цвет фона во всех разделах'));form.append(label);
-  const help=make('p','В этом режиме убираются фоновые текстуры и градиенты разделов. Фото и изображения карточек остаются. Цвет текста подбирается автоматически.');help.className='muted';form.append(help);
-  const colorLabel=make('label','Цвет фона'),color=make('input');color.type='color';color.value=a.background;colorLabel.append(color);form.append(colorLabel);
-  const fontLabel=make('label','Шрифт сайта'),select=make('select');Object.entries(fonts).forEach(([id,title])=>{const option=make('option',title);option.value=id;select.append(option);});select.value=a.font;fontLabel.append(select);form.append(fontLabel);
-  const sample=make('div','HolisticBite · Забота о себе\nYour health · Sinu tervis');sample.className='cms-theme-sample';form.append(sample);
-  const update=()=>{sample.style.background=a.background;sample.style.color=ink(a.background);sample.style.fontFamily=families[a.font]||'Manrope, sans-serif';};update();
-  check.onchange=()=>{a.uniform=check.checked;changed();};color.oninput=()=>{a.background=color.value;update();changed();};select.onchange=()=>{a.font=select.value;update();changed();};
-  const reset=make('button','Вернуть исходный фон и шрифты');reset.type='button';reset.onclick=()=>{a.uniform=false;a.background='#111013';a.font='original';changed();root.replaceChildren();editor(root,draft,changed,run,message);};form.append(reset);root.append(form);
+  const a=draft.appearance??=defaults();
+  window.hbBlockDesign.editor(root,a,changed,run,message);
   root.append(make('h3','Изображения'),make('p','JPG, PNG или WebP до 15 МБ. Фото автоматически уменьшается для сайта. Изменения сохраняются вместе с черновиком.'));
   const grid=make('div');grid.className='cms-image-grid';root.append(grid);
   slots.forEach(([id,title,selector,original])=>{
@@ -39,10 +32,10 @@
   });
  }
  function apply(value){
-  const a=value||defaults(),body=document.body;body.id='hb-custom-theme';body.classList.toggle('cms-uniform',a.uniform);body.classList.toggle('cms-font',a.font!=='original');
+  const a={...(value||defaults())},body=document.body;if(a.design?.global.mode&&a.design.global.mode!=='inherit'){a.uniform=true;a.background=a.design.global.color1;}body.id='hb-custom-theme';body.classList.toggle('cms-uniform',a.uniform);body.classList.toggle('cms-font',a.font!=='original');
   document.documentElement.style.setProperty('--cms-background',a.background);body.style.setProperty('--cms-background',a.background);body.style.setProperty('--cms-ink',ink(a.background));body.style.setProperty('--cms-font',families[a.font]||'inherit');
   if(a.font!=='original'){body.style.setProperty('--vs-sans',families[a.font]);body.style.setProperty('--vs-serif',families[a.font]);}
-  slots.forEach(([id,title,selector,original])=>{const el=document.querySelector(selector);if(!el)return;const item=a.images[id];if(id==='portrait'){el.src=item?.src||original;el.alt=item?.alt||'';}else{if(item?.alt)el.setAttribute('aria-description',item.alt);else el.removeAttribute('aria-description');if(item?.src){el.style.setProperty('background-image',`linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.8)),url("${item.src}")`,'important');}else el.style.removeProperty('background-image');}});
+  slots.forEach(([id,title,selector,original])=>{const el=document.querySelector(selector);if(!el)return;const item=a.images[id];if(id==='portrait'){el.src=item?.src||original;el.alt=item?.alt||'';}else{if(item?.alt)el.setAttribute('aria-description',item.alt);else el.removeAttribute('aria-description');if(item?.src&&(!a.design?.blocks[id]||a.design.blocks[id].mode==='inherit')){el.style.setProperty('background-image',`linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.8)),url("${item.src}")`,'important');}else el.style.removeProperty('background-image');}});
  }
- window.hbAppearance={editor,apply};
+ window.hbAppearance={editor,apply,compress};
 })();
