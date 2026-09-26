@@ -12,15 +12,25 @@ test('Scheduling, authentication, concurrent booking, exceptions and session con
  assert.equal((await call('POST','/api/calendar',{action:'weekly',version:admin.body.version,weekly,duration:90,timezone:'Europe/Tallinn'},cookie)).code,409);
  assert.equal((await call('POST','/api/calendar',{action:'weekly'},cookie,'https://evil.example')).code,403);
  assert.equal((await call('GET','/api/calendar?date=2026-02-30')).code,400);
+ // Existing repeating hours must not accidentally open dates after this update.
+ await store.mutate(s => { s.weekly = weekly; });
+ assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,[]);
+ assert.deepEqual((await call('GET','/api/calendar?availability=1')).body.dates,{});
+ admin=await call('GET','/api/calendar?admin=1',null,cookie);
+ assert.equal((await call('POST','/api/calendar',{action:'exception',version:admin.body.version,from:tomorrow,to:tomorrow,times:['10:00','12:00']},cookie)).code,200);
+ const range=await call('GET','/api/calendar?availability=1');
+ assert.deepEqual(range.body.dates,{[tomorrow]:2});assert.equal(range.body.bookings,undefined);
  const availability=await call('GET',`/api/calendar?date=${tomorrow}`);assert.deepEqual(availability.body.slots,['10:00','12:00']);assert.equal(availability.body.bookings,undefined);
  const payload={action:'book',requestId:'client-1',date:tomorrow,slot:'10:00',clientName:'Test Client',phone:'+000',email:'test@example.com',service:'Консультация'};
  const pair=await Promise.all([call('POST','/api/calendar',payload),call('POST','/api/calendar',{...payload,requestId:'client-2'})]);assert.deepEqual(pair.map(x=>x.code).sort(),[200,409]);
  const winner=pair.find(x=>x.code===200);const retry=await call('POST','/api/calendar',payload);assert.equal(retry.body.id,winner.body.id);
  assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,['12:00']);
+ assert.deepEqual((await call('GET','/api/calendar?availability=1')).body.dates,{[tomorrow]:1});
  admin=await call('GET','/api/calendar?admin=1',null,cookie);
  assert.equal((await call('POST','/api/calendar',{action:'exception',version:admin.body.version,from:tomorrow,to:tomorrow,times:['10:30','11:00']},cookie)).code,400);
  result=await call('POST','/api/calendar',{action:'exception',version:admin.body.version,from:tomorrow,to:tomorrow,times:[]},cookie);assert.equal(result.code,200);
  assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,[]);
+ assert.deepEqual((await call('GET','/api/calendar?availability=1')).body.dates,{});
  admin=await call('GET','/api/calendar?admin=1',null,cookie);assert.equal(admin.body.bookings.length,1);assert.equal(admin.body.bookings[0].status,'confirmed');
  assert.equal((await call('POST','/api/calendar',{action:'weekly',version:admin.body.version,weekly,duration:90,timezone:'Europe/Moscow'},cookie)).code,400);
  await call('POST','/api/calendar',{action:'exception',version:admin.body.version,from:tomorrow,to:tomorrow,times:['10:30','12:00']},cookie);
@@ -28,6 +38,12 @@ test('Scheduling, authentication, concurrent booking, exceptions and session con
  admin=await call('GET','/api/calendar?admin=1',null,cookie);
  assert.equal((await call('POST','/api/calendar',{action:'cancel',version:admin.body.version,id:winner.body.id},cookie)).code,200);
  assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,['10:30','12:00']);
+ const far=new Date(Date.now()+95*86400000).toISOString().slice(0,10);
+ await store.mutate(s => {s.exceptions[far]=['10:00'];});
+ assert.deepEqual((await call('GET',`/api/calendar?date=${far}`)).body.slots,[]);
+ admin=await call('GET','/api/calendar?admin=1',null,cookie);
+ await call('POST','/api/calendar',{action:'exception',version:admin.body.version,from:tomorrow,to:tomorrow,reset:true},cookie);
+ assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,[]);
  assert.equal((await call('GET','/api/calendar?admin=1',null,'hb_admin=1.fake')).code,401);
  for(let i=0;i<10;i++)await call('POST','/api/calendar',{action:'login',password:'wrong'});
  assert.equal((await call('POST','/api/calendar',{action:'login',password:'wrong'})).code,429);

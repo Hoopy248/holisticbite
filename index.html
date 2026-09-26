@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./velvet-signal.css" />
     <link rel="stylesheet" href="./velvet-fix.css" />
+    <link rel="stylesheet" href="./booking-calendar.css" />
   </head>
   <body class="velvet-page">
     <header class="topbar velvet-nav">
@@ -240,10 +241,11 @@
                 <button class="button secondary" type="button" data-open-questionnaire data-text="questionnaire_button">Получить анкету</button>
               </div>
 
-              <label>
-                <span data-text="booking_date_label">Дата</span>
-                <input type="date" id="date" name="date" required />
-              </label>
+              <div>
+                <span class="booking-date-label" id="bookingDateLabel" data-text="booking_date_label">Дата</span>
+                <input type="hidden" id="date" name="date" />
+                <div id="bookingDatePicker" aria-labelledby="bookingDateLabel"></div>
+              </div>
 
               <div class="time-slots">
                 <span data-text="time_slots_legend">Свободное время</span>
@@ -455,6 +457,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="./booking-calendar.js"></script>
     <script src="./script.js"></script>
     <script src="./velvet-signal.js"></script>
   </body>

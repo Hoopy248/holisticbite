@@ -20,6 +20,16 @@ module.exports = async function handler(req, res) {
         return res.status(200).json({ ...publicAdmin, demo: demo() });
       }
       const date = url.searchParams.get('date');
+      if (url.searchParams.get('availability') === '1') {
+        const today = clock(state.timezone).date;
+        const dates = {};
+        for (let offset = 0; offset <= 90; offset++) {
+          const day = new Date(Date.parse(today) + offset * 86400000).toISOString().slice(0, 10);
+          const count = slots(state, day).length;
+          if (count) dates[day] = count;
+        }
+        return res.status(200).json({ dates, today, lastDate: new Date(Date.parse(today) + 90 * 86400000).toISOString().slice(0, 10), timezone: state.timezone });
+      }
       if (!validDate(date)) fail('Выберите дату.');
       return res.status(200).json({ date, slots: slots(state, date), timezone: state.timezone, duration: state.duration, today: clock(state.timezone).date });
     }
@@ -70,14 +80,13 @@ module.exports = async function handler(req, res) {
     if (!authorized(req)) fail('Войдите, чтобы изменить расписание.', 401);
     await mutate(s => {
       if (data.version !== s.version) fail('Расписание изменилось в другом окне. Обновите страницу перед сохранением.', 409);
-      if (data.action === 'weekly') {
+      if (data.action === 'weekly' || data.action === 'settings') {
         const duration = Number(data.duration);
         if (![30, 45, 60, 75, 90, 120].includes(duration)) fail('Выберите длительность.');
         try { new Intl.DateTimeFormat('ru', { timeZone: data.timezone }).format(); } catch { fail('Проверьте часовой пояс.'); }
         if (typeof data.timezone !== 'string' || !data.timezone) fail('Укажите часовой пояс.');
         if (data.timezone !== s.timezone && s.bookings.some(b => b.status !== 'cancelled' && b.date >= clock(s.timezone).date)) fail('Есть будущие записи. Сначала согласуйте их перенос, затем меняйте часовой пояс.');
-        if (!Array.isArray(data.weekly) || data.weekly.length !== 7) fail('Проверьте расписание недели.');
-        s.weekly = data.weekly.map(t => validateTimes(t, duration));
+        s.weekly = [[], [], [], [], [], [], []];
         for (const date in s.exceptions) s.exceptions[date] = validateTimes(s.exceptions[date], duration);
         s.duration = duration; s.timezone = data.timezone;
       } else if (data.action === 'exception') {

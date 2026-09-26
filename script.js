@@ -1059,6 +1059,12 @@ function addDays(date, amount) {
 async function renderSlots() {
   if (!dateInput || !slotGrid) return;
   const request = ++slotRequest;
+  if (!dateInput.value || window.hbCalendar?.isLoading()) {
+    slotGrid.textContent = 'Сначала выберите доступную дату в календаре.';
+    const submit = bookingForm?.querySelector('[type="submit"]');
+    if (submit) submit.disabled = true;
+    return;
+  }
   slotGrid.textContent = "Загружаем свободное время…";
   const submit = bookingForm?.querySelector('[type="submit"]');
   if (submit) submit.disabled = true;
@@ -1110,6 +1116,7 @@ function setSelectedService(service) {
 
 function setupDates() {
   if (!dateInput) return;
+  if (window.hbCalendar) { dateInput.value = ''; window.hbCalendar.refresh({reset:true}); return; }
   const today = new Date();
   dateInput.min = toDateValue(today);
   dateInput.max = toDateValue(addDays(today, 90));
@@ -1201,6 +1208,10 @@ bookingForm?.addEventListener("input", () => { bookingRequestId = null; });
 bookingForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(bookingForm);
+  if (!data.get('date') || !data.get('slot') || window.hbCalendar?.isLoading()) {
+    if (formStatus) formStatus.textContent = 'Выберите доступную дату и время.';
+    return;
+  }
   const submitButton = bookingForm.querySelector('[type="submit"]');
   const selectedInput = Array.from(formatInputs).find((input) => input.checked);
   const payload = {
@@ -1228,7 +1239,7 @@ bookingForm?.addEventListener("submit", async (event) => {
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || !result.ok) {
-      if (response.status === 409) { bookingRequestId = null; await renderSlots(); }
+      if (response.status === 409) { bookingRequestId = null; await window.hbCalendar?.refresh(); await renderSlots(); }
       throw new Error(result.error || "Не удалось отправить заявку");
     }
     if (formStatus) formStatus.textContent = result.emailSent ? "Вы записаны. Подтверждение отправлено на вашу почту." : "Вы записаны. Дарья видит вашу запись в календаре и свяжется с вами по указанным контактам.";
