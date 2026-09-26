@@ -21,7 +21,7 @@ test('Scheduling, authentication, concurrent booking, exceptions and session con
  const range=await call('GET','/api/calendar?availability=1');
  assert.deepEqual(range.body.dates,{[tomorrow]:2});assert.equal(range.body.bookings,undefined);
  const availability=await call('GET',`/api/calendar?date=${tomorrow}`);assert.deepEqual(availability.body.slots,['10:00','12:00']);assert.equal(availability.body.bookings,undefined);
- const payload={action:'book',requestId:'client-1',date:tomorrow,slot:'10:00',clientName:'Test Client',phone:'+000',email:'test@example.com',service:'Консультация'};
+ const payload={action:'book',requestId:'client-1',date:tomorrow,slot:'10:00',clientName:'Test Client',phone:'+000',email:'test@example.com',service:'Разовая консультация'};
  const pair=await Promise.all([call('POST','/api/calendar',payload),call('POST','/api/calendar',{...payload,requestId:'client-2'})]);assert.deepEqual(pair.map(x=>x.code).sort(),[200,409]);
  const winner=pair.find(x=>x.code===200);const retry=await call('POST','/api/calendar',payload);assert.equal(retry.body.id,winner.body.id);
  assert.deepEqual((await call('GET',`/api/calendar?date=${tomorrow}`)).body.slots,['12:00']);

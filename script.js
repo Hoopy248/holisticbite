@@ -566,6 +566,7 @@ let currentLanguage = localStorage.getItem("siteLanguage") || "ru";
   }
 
   window.updateFormatCarousel = function updateFormatCarouselPolished() {
+    if(window.hbCMS) { window.hbCMS.syncFormats(); return; }
     const cards = Array.from(document.querySelectorAll("#formatTrack .format-card"));
     cards.forEach((card, index) => {
       const input = card.querySelector('input[name="formatChoice"]');
@@ -1206,6 +1207,7 @@ document.addEventListener("keydown", (event) => {
 
 bookingForm?.addEventListener("input", () => { bookingRequestId = null; });
 bookingForm?.addEventListener("submit", async (event) => {
+  if(window.hbContentPreview){event.preventDefault();alert('В предпросмотре черновика запись отключена.');return;}
   event.preventDefault();
   const data = new FormData(bookingForm);
   if (!data.get('date') || !data.get('slot') || window.hbCalendar?.isLoading()) {
@@ -1222,6 +1224,8 @@ bookingForm?.addEventListener("submit", async (event) => {
     email: data.get("email"),
     contactChannels: data.getAll("contactChannel"),
     service: data.get("service"),
+    serviceId: data.get("serviceId"),
+    language: currentLanguage,
     price: selectedInput ? selectedInput.dataset.price : selectedFormatPrice?.textContent,
     date: data.get("date"),
     slot: data.get("slot"),
@@ -1453,6 +1457,7 @@ function applyLanguage(lang) {
   if (selectedServiceInput && selectedFormatPrice) {
     selectedFormatPrice.textContent = lang === "et" ? selectedServiceInput.dataset.priceEt : lang === "en" ? selectedServiceInput.dataset.priceEn : selectedServiceInput.dataset.price;
   }
+  window.dispatchEvent(new CustomEvent("site:language"));
 }
 prepareI18nNodes();
 const languageSwitcher = document.querySelector(".language-switcher");

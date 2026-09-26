@@ -1,12 +1,5 @@
 const { read, mutate, fail, validDate, validateTimes, clock, slots, demo, crypto } = require('../lib/calendar-store.cjs');
-const sign = value => crypto.createHmac('sha256', process.env.ADMIN_SESSION_SECRET || '').update(value).digest('hex');
-function equal(a, b) { const x = crypto.createHash('sha256').update(a).digest(); const y = crypto.createHash('sha256').update(b).digest(); return crypto.timingSafeEqual(x, y); }
-function authorized(req) {
-  if (!process.env.ADMIN_SESSION_SECRET) return false;
-  const cookie = (req.headers.cookie || '').split('; ').find(c => c.startsWith('hb_admin='))?.slice(9) || '';
-  const [expiry, signature] = cookie.split('.');
-  return Number(expiry) > Date.now() && equal(signature || '', sign(expiry));
-}
+const {sign,equal,authorized}=require('../lib/admin-auth.cjs');
 function cookie(res, value, maxAge) { res.setHeader('Set-Cookie', `hb_admin=${value}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${maxAge}${demo() ? '' : '; Secure'}`); }
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
@@ -61,6 +54,15 @@ module.exports = async function handler(req, res) {
       const booking = { id: crypto.randomUUID(), requestId: clean('requestId', 80), date: data.date, slot: data.slot, clientName: clean('clientName', 120), email: clean('email', 254), phone: clean('phone', 80), service: clean('service', 200), message: clean('message', 3000), status: 'confirmed', createdAt: new Date().toISOString() };
       booking.contactChannels = Array.isArray(data.contactChannels) ? data.contactChannels.filter(c => ['WhatsApp', 'Telegram'].includes(c)) : [];
       if (!validDate(booking.date) || !booking.requestId || !booking.clientName || !booking.phone || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(booking.email)) fail('Проверьте имя, телефон, почту и дату.');
+      {
+        const {state:catalog}=await require('../lib/content-store.cjs').get();
+        const format=catalog.published.formats.find(f=>f.visible&&(data.serviceId?f.id===data.serviceId:Object.values(f.title).includes(booking.service)));
+        if(!format)fail('Этот формат больше недоступен. Обновите страницу и выберите другой.',409);
+        const language=['ru','en','et'].includes(data.language)?data.language:'ru';
+        booking.serviceId=format.id;
+        booking.service=format.title[language]||format.title.ru;
+        booking.price=language==='ru'?`${format.priceRub} рублей`:`${format.priceEur} EUR`;
+      }
       const saved = await mutate(s => {
         const prior = s.bookings.find(b => b.requestId === booking.requestId);
         if (prior) return { id: prior.id, duplicate: true };

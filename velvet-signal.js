@@ -90,6 +90,7 @@
   }
 
   function initFormatPicker() {
+    if(document.querySelector('script[src="./site-content.js"]')) return;
     const track = doc.getElementById("formatTrack");
     const cards = track ? Array.from(track.querySelectorAll(".format-card")) : [];
     const viewport = track?.closest(".format-viewport");

@@ -17,23 +17,23 @@
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./velvet-signal.css" />
     <link rel="stylesheet" href="./velvet-fix.css" />
-    <link rel="stylesheet" href="./booking-calendar.css" />
+    <link rel="stylesheet" href="./booking-calendar.css" /><link rel="stylesheet" href="./content.css" />
   </head>
   <body class="velvet-page">
     <header class="topbar velvet-nav">
       <div class="topbar-inner">
         <a class="brand wordmark" href="#hero" aria-label="HolisticBite">
-          <span class="wordmark-main" data-text="brand_name">HolisticBite</span>
-          <span class="wordmark-sub">клиническая нутрициология</span>
+          <span class="wordmark-main" data-text="brand_name" data-cms-text="text-001">HolisticBite</span>
+          <span class="wordmark-sub" data-cms-text="text-002">клиническая нутрициология</span>
         </a>
         <nav class="nav" aria-label="Основная навигация">
-          <a href="#hero">Обо мне</a>
-          <a href="#method" data-text="nav_approach">Подход</a>
-          <a href="#booking">Услуги</a>
-          <a href="#booking">Пациентам</a>
-          <a href="https://t.me/+Zd26m1wUGTZIYTc0" target="_blank" rel="noreferrer">Блог</a>
-          <a href="#contact">Контакты</a>
-          <a href="#feedback" data-text="nav_cases">Кейсы</a>
+          <a href="#hero" data-cms-text="text-003">Обо мне</a>
+          <a href="#method" data-text="nav_approach" data-cms-text="text-004">Подход</a>
+          <a href="#booking" data-cms-text="text-005">Услуги</a>
+          <a href="#booking" data-cms-text="text-006">Пациентам</a>
+          <a href="https://t.me/+Zd26m1wUGTZIYTc0" target="_blank" rel="noreferrer" data-cms-text="text-007">Блог</a>
+          <a href="#contact" data-cms-text="text-008">Контакты</a>
+          <a href="#feedback" data-text="nav_cases" data-cms-text="text-009">Кейсы</a>
         </nav>
         <div class="topbar-actions">
           <div class="language-switcher" aria-label="Язык сайта">
@@ -47,8 +47,8 @@
               <button type="button" data-lang="en" role="menuitemradio" aria-checked="false">EN</button>
             </div>
           </div>
-          <a class="nav-button primary" href="#booking" data-text="topbar_booking">Запись</a>
-          <button class="nav-button secondary" type="button" data-open-questionnaire data-text="topbar_questionnaire">Анкета</button>
+          <a class="nav-button primary" href="#booking" data-text="topbar_booking" data-cms-text="text-010">Запись</a>
+          <button class="nav-button secondary" type="button" data-open-questionnaire data-text="topbar_questionnaire" data-cms-text="text-011">Анкета</button>
         </div>
       </div>
     </header>
@@ -57,71 +57,71 @@
       <section class="hero velvet-hero" id="hero" aria-labelledby="hero-title">
         <div class="hero-copy velvet-reveal">
           <h1 id="hero-title">
-            <span data-text="hero_title">Вы чувствуете симптомы.</span>
-            <span class="gold-line">Я смотрю на систему.</span>
+            <span data-text="hero_title" data-cms-text="text-012">Вы чувствуете симптомы.</span>
+            <span class="gold-line" data-cms-text="text-013">Я смотрю на систему.</span>
           </h1>
-          <p data-text="hero_subtitle">
+          <p data-text="hero_subtitle" data-cms-text="text-014">
             Разбираю, почему тело оказалось в этом состоянии и как вернуть ему регуляцию через питание,
             закрытие дефицитов и образ жизни.
           </p>
-          <p class="hero-note" data-text="hero_note">С уважением к телу, психике и реальности</p>
+          <p class="hero-note" data-text="hero_note" data-cms-text="text-015">С уважением к телу, психике и реальности</p>
           <div class="hero-actions">
-            <a class="button primary magnetic" href="#booking">Разобрать свой случай</a>
+            <a class="button primary magnetic" href="#booking" data-cms-text="text-016">Разобрать свой случай</a>
           </div>
-          <p class="hero-caption">разбор причин и логики симптомов</p>
+          <p class="hero-caption" data-cms-text="text-017">разбор причин и логики симптомов</p>
         </div>
 
         <div class="hero-visual" aria-hidden="true">
           <div class="hero-split"></div>
           <img class="profile-photo velvet-portrait" src="./assets/darya-hero-photo.png" alt="" />
           <div class="expert-label profile-caption">
-            <strong data-text="profile_name">Дарья</strong>
-            <span class="expert-role">клинический нутрициолог</span>
-            <button class="expert-link" type="button" id="openEducationModal">Дипломы и обучение</button>
+            <strong data-text="profile_name" data-cms-text="text-018">Дарья</strong>
+            <span class="expert-role" data-cms-text="text-019">клинический нутрициолог</span>
+            <button class="expert-link" type="button" id="openEducationModal" data-cms-text="text-020">Дипломы и обучение</button>
           </div>
         </div>
       </section>
 
       <section class="marquee velvet-marquee" aria-label="Темы работы">
         <div>
-          <span>гормоны</span><span>цикл</span><span>мужское здоровье</span><span>беременность</span>
-          <span>ЖКТ</span><span>щитовидная железа</span><span>митохондрия</span><span>метаболизм</span>
-          <span>управление старением</span><span>воспаление</span><span>аутоиммунные заболевания</span>
-          <span>тревога</span><span>усталость</span><span>восстановление</span>
+          <span data-cms-text="text-021">гормоны</span><span data-cms-text="text-022">цикл</span><span data-cms-text="text-023">мужское здоровье</span><span data-cms-text="text-024">беременность</span>
+          <span data-cms-text="text-025">ЖКТ</span><span data-cms-text="text-026">щитовидная железа</span><span data-cms-text="text-027">митохондрия</span><span data-cms-text="text-028">метаболизм</span>
+          <span data-cms-text="text-029">управление старением</span><span data-cms-text="text-030">воспаление</span><span data-cms-text="text-031">аутоиммунные заболевания</span>
+          <span data-cms-text="text-032">тревога</span><span data-cms-text="text-033">усталость</span><span data-cms-text="text-034">восстановление</span>
         </div>
       </section>
 
       <section class="section symptoms-section velvet-section" id="requests" aria-labelledby="requests-title">
         <div class="section-shell">
-          <p class="eyebrow velvet-reveal">Запросы</p>
-          <h2 id="requests-title" class="velvet-heading velvet-reveal">Когда это уже не случайно?</h2>
+          <p class="eyebrow velvet-reveal" data-cms-text="text-035">Запросы</p>
+          <h2 id="requests-title" class="velvet-heading velvet-reveal" data-cms-text="text-036">Когда это уже не случайно?</h2>
           <div class="request-columns symptom-fragments">
             <article class="request-column symptom-fragment velvet-reveal">
-              <h3>Состояние</h3>
+              <h3 data-cms-text="text-037">Состояние</h3>
               <ul>
-                <li>Анализы красивые, но вы разваливаетесь</li>
-                <li>Утром встал - уже устал</li>
-                <li>Жизнь между тревогой и апатией</li>
+                <li data-cms-text="text-038">Анализы красивые, но вы разваливаетесь</li>
+                <li data-cms-text="text-039">Утром встал - уже устал</li>
+                <li data-cms-text="text-040">Жизнь между тревогой и апатией</li>
               </ul>
             </article>
             <article class="request-column symptom-fragment velvet-reveal">
-              <h3>Тело</h3>
+              <h3 data-cms-text="text-041">Тело</h3>
               <ul>
-                <li>Некомфортно в собственном теле</li>
-                <li>Набор веса</li>
-                <li>Вздутие и тяжесть</li>
-                <li>ПМС, приливы</li>
-                <li>Отсутствие либидо</li>
+                <li data-cms-text="text-042">Некомфортно в собственном теле</li>
+                <li data-cms-text="text-043">Набор веса</li>
+                <li data-cms-text="text-044">Вздутие и тяжесть</li>
+                <li data-cms-text="text-045">ПМС, приливы</li>
+                <li data-cms-text="text-046">Отсутствие либидо</li>
               </ul>
             </article>
             <article class="request-column symptom-fragment velvet-reveal">
-              <h3>Биохимия</h3>
+              <h3 data-cms-text="text-047">Биохимия</h3>
               <ul>
-                <li>Скрытые дефициты и тканевое воспаление</li>
-                <li>Сбои щитовидной железы (АИТ, узлы, кисты)</li>
-                <li>Нарушение метаболизма</li>
-                <li>Женское здоровье</li>
-                <li>Мужское здоровье</li>
+                <li data-cms-text="text-048">Скрытые дефициты и тканевое воспаление</li>
+                <li data-cms-text="text-049">Сбои щитовидной железы (АИТ, узлы, кисты)</li>
+                <li data-cms-text="text-050">Нарушение метаболизма</li>
+                <li data-cms-text="text-051">Женское здоровье</li>
+                <li data-cms-text="text-052">Мужское здоровье</li>
               </ul>
             </article>
           </div>
@@ -130,16 +130,16 @@
 
       <section class="system-note velvet-system-note">
         <div class="section-shell">
-          <p class="eyebrow velvet-reveal">Суть моей работы</p>
+          <p class="eyebrow velvet-reveal" data-cms-text="text-053">Суть моей работы</p>
           <details class="system-accordion velvet-reveal">
             <summary>
-              <span>Я помогаю понять, что происходит с организмом и выстроить условия, в которых он сам возвращается к балансу.</span>
-              <span class="system-accordion__toggle">Раскрыть подробнее</span>
+              <span data-cms-text="text-054">Я помогаю понять, что происходит с организмом и выстроить условия, в которых он сам возвращается к балансу.</span>
+              <span class="system-accordion__toggle" data-cms-text="text-055">Раскрыть подробнее</span>
             </summary>
             <div class="system-copy">
-              <h2>Повторяющиеся или новые симптомы дисбаланса - это признак того, что организм постепенно теряет способность удерживать ресурсное состояние.</h2>
-              <p>Острые состояния можно вылечить. Но причины формируются не в момент обострения, а в том, как вы живете каждый день.</p>
-              <p class="gold-text">И именно это можно изменить.</p>
+              <h2 data-cms-text="text-056">Повторяющиеся или новые симптомы дисбаланса - это признак того, что организм постепенно теряет способность удерживать ресурсное состояние.</h2>
+              <p data-cms-text="text-057">Острые состояния можно вылечить. Но причины формируются не в момент обострения, а в том, как вы живете каждый день.</p>
+              <p class="gold-text" data-cms-text="text-058">И именно это можно изменить.</p>
             </div>
           </details>
         </div>
@@ -148,30 +148,30 @@
       <section class="section approach-section velvet-section" id="method" aria-labelledby="method-title">
         <div class="section-shell approach-layout">
           <div class="approach-intro velvet-reveal">
-            <p class="eyebrow">Подход</p>
-            <h2 id="method-title" class="velvet-heading">Без жестких запретов и универсальных схем</h2>
-            <p>Мы соединяем симптомы, анализы, историю, питание, стресс, сон и образ жизни в одну понятную систему.</p>
+            <p class="eyebrow" data-cms-text="text-059">Подход</p>
+            <h2 id="method-title" class="velvet-heading" data-cms-text="text-060">Без жестких запретов и универсальных схем</h2>
+            <p data-cms-text="text-061">Мы соединяем симптомы, анализы, историю, питание, стресс, сон и образ жизни в одну понятную систему.</p>
           </div>
           <div class="method-grid process-sequence">
             <article class="method-card velvet-reveal">
               <span>01</span>
-              <h3>Разбираем запрос</h3>
-              <p>Фиксируем, что не устраивает вас сейчас, и четко определяем, к чему мы хотим прийти.</p>
+              <h3 data-cms-text="text-062">Разбираем запрос</h3>
+              <p data-cms-text="text-063">Фиксируем, что не устраивает вас сейчас, и четко определяем, к чему мы хотим прийти.</p>
             </article>
             <article class="method-card velvet-reveal">
               <span>02</span>
-              <h3>Ищем причины</h3>
-              <p>Соединяем ваши симптомы с дефицитами, рационом, перенесенными операциями, приемом препаратов и биоритмами.</p>
+              <h3 data-cms-text="text-064">Ищем причины</h3>
+              <p data-cms-text="text-065">Соединяем ваши симптомы с дефицитами, рационом, перенесенными операциями, приемом препаратов и биоритмами.</p>
             </article>
             <article class="method-card velvet-reveal">
               <span>03</span>
-              <h3>Собираем план</h3>
-              <p>План восстановления: питание, режим, движение, минимально необходимая нутритивная поддержка.</p>
+              <h3 data-cms-text="text-066">Собираем план</h3>
+              <p data-cms-text="text-067">План восстановления: питание, режим, движение, минимально необходимая нутритивная поддержка.</p>
             </article>
             <article class="method-card velvet-reveal">
               <span>04</span>
-              <h3>Стратегия</h3>
-              <p>Не список рекомендаций, а выстроенные условия, в которых организм начинает возвращать баланс.</p>
+              <h3 data-cms-text="text-068">Стратегия</h3>
+              <p data-cms-text="text-069">Не список рекомендаций, а выстроенные условия, в которых организм начинает возвращать баланс.</p>
             </article>
           </div>
         </div>
@@ -180,10 +180,10 @@
       <section class="body-map-teaser velvet-body-map">
         <div class="section-shell">
           <div class="body-map-copy velvet-reveal">
-            <p class="eyebrow">Карта тела</p>
-            <h2 class="velvet-heading">Почему организм теряет баланс?</h2>
-            <p>Интерактивная карта наблюдений помогает пройтись по системам тела и заметить связи между симптомами, стрессом, энергией и восстановлением.</p>
-            <a class="button secondary magnetic" href="./body-map.html">Открыть карту тела</a>
+            <p class="eyebrow" data-cms-text="text-070">Карта тела</p>
+            <h2 class="velvet-heading" data-cms-text="text-071">Почему организм теряет баланс?</h2>
+            <p data-cms-text="text-072">Интерактивная карта наблюдений помогает пройтись по системам тела и заметить связи между симптомами, стрессом, энергией и восстановлением.</p>
+            <a class="button secondary magnetic" href="./body-map.html" data-cms-text="text-073">Открыть карту тела</a>
           </div>
         </div>
       </section>
@@ -191,10 +191,10 @@
       <section class="booking-section velvet-booking" id="booking" aria-labelledby="booking-title">
         <div class="section-shell booking-layout">
           <aside class="booking-intro velvet-reveal">
-            <p class="eyebrow" data-text="booking_eyebrow">Форматы работы</p>
-            <h2 id="booking-title" class="velvet-heading" data-text="booking_title">Запись на консультацию</h2>
-            <p data-text="booking_intro">Выберите формат, посмотрите, что входит в работу нутрициолога, затем укажите удобную дату и время.</p>
-            <button class="lab-list-button" type="button" id="openLabList" data-text="analyses_button">Перечень анализов</button>
+            <p class="eyebrow" data-text="booking_eyebrow" data-cms-text="text-074">Форматы работы</p>
+            <h2 id="booking-title" class="velvet-heading" data-text="booking_title" data-cms-text="text-075">Запись на консультацию</h2>
+            <p data-text="booking_intro" data-cms-text="text-076">Выберите формат, посмотрите, что входит в работу нутрициолога, затем укажите удобную дату и время.</p>
+            <button class="lab-list-button" type="button" id="openLabList" data-text="analyses_button" data-cms-text="text-077">Перечень анализов</button>
           </aside>
 
           <div class="booking-panel velvet-reveal">
@@ -208,56 +208,56 @@
             </div>
 
             <form id="bookingForm" class="booking-form">
-              <input type="hidden" id="service" name="service" value="Разовая консультация" />
+              <input type="hidden" id="serviceId" name="serviceId" /><input type="hidden" id="service" name="service" value="Разовая консультация" />
               <input type="hidden" id="servicePrice" name="servicePrice" value="6000 рублей" />
 
               <div class="form-row">
                 <label>
-                  <span data-text="booking_name_label">Имя</span>
+                  <span data-text="booking_name_label" data-cms-text="text-078">Имя</span>
                   <input type="text" id="name" name="clientName" autocomplete="name" required />
                 </label>
                 <label>
-                  <span data-text="booking_phone_label">Телефон</span>
+                  <span data-text="booking_phone_label" data-cms-text="text-079">Телефон</span>
                   <input type="tel" id="phone" name="phone" placeholder="+7 999 000-00-00" autocomplete="tel" required />
                 </label>
               </div>
 
               <label>
-                <span data-text="booking_email_label">Email</span>
+                <span data-text="booking_email_label" data-cms-text="text-080">Email</span>
                 <input type="email" id="email" name="email" placeholder="name@example.com" autocomplete="email" required />
               </label>
 
               <fieldset class="choice-fieldset">
-                <legend data-text="contact_choice_title">Комфортная связь по номеру телефона</legend>
+                <legend data-text="contact_choice_title" data-cms-text="text-081">Комфортная связь по номеру телефона</legend>
                 <label><input type="checkbox" name="contactChannel" value="WhatsApp" /> WhatsApp</label>
                 <label><input type="checkbox" name="contactChannel" value="Telegram" /> Telegram</label>
               </fieldset>
 
               <div class="booking-questionnaire-cta">
                 <div>
-                  <span data-text="questionnaire_title">Анкета клиента</span>
-                  <p data-text="questionnaire_description">Анкету можно выбрать при записи: онлайн для заполнения за один раз или документ, если удобнее возвращаться к вопросам в несколько заходов.</p>
+                  <span data-text="questionnaire_title" data-cms-text="text-082">Анкета клиента</span>
+                  <p data-text="questionnaire_description" data-cms-text="text-083">Анкету можно выбрать при записи: онлайн для заполнения за один раз или документ, если удобнее возвращаться к вопросам в несколько заходов.</p>
                 </div>
-                <button class="button secondary" type="button" data-open-questionnaire data-text="questionnaire_button">Получить анкету</button>
+                <button class="button secondary" type="button" data-open-questionnaire data-text="questionnaire_button" data-cms-text="text-084">Получить анкету</button>
               </div>
 
               <div>
-                <span class="booking-date-label" id="bookingDateLabel" data-text="booking_date_label">Дата</span>
+                <span class="booking-date-label" id="bookingDateLabel" data-text="booking_date_label" data-cms-text="text-085">Дата</span>
                 <input type="hidden" id="date" name="date" />
                 <div id="bookingDatePicker" aria-labelledby="bookingDateLabel"></div>
               </div>
 
               <div class="time-slots">
-                <span data-text="time_slots_legend">Свободное время</span>
+                <span data-text="time_slots_legend" data-cms-text="text-086">Свободное время</span>
                 <div id="slotGrid" class="slot-grid" role="radiogroup" aria-label="Свободное время"></div>
               </div>
 
               <label>
-                <span data-text="booking_request_label">Запрос</span>
+                <span data-text="booking_request_label" data-cms-text="text-087">Запрос</span>
                 <textarea id="request" name="message" rows="4" placeholder="Например: хочу разобрать питание, дефициты и усталость"></textarea>
               </label>
 
-              <button class="button primary magnetic" type="submit" data-text="booking_submit_button">Забронировать</button>
+              <button class="button primary magnetic" type="submit" data-text="booking_submit_button" data-cms-text="text-088">Забронировать</button>
               <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
             </form>
           </div>
@@ -266,10 +266,10 @@
 
       <section class="cases-section velvet-cases" id="cases">
         <div class="section-shell cases-copy velvet-reveal">
-          <h2 class="velvet-heading">Больше историй и разборов в Instagram и Telegram</h2>
+          <h2 class="velvet-heading" data-cms-text="text-089">Больше историй и разборов в Instagram и Telegram</h2>
           <div class="case-actions">
-            <a class="button primary" href="https://www.instagram.com/holisticbite_nutritionist?igsh=bGVONzFxdDNqbg9t" target="_blank" rel="noreferrer">Истории пациентов</a>
-            <a class="button primary" href="https://t.me/+Zd26m1wUGTZIYTc0" target="_blank" rel="noreferrer">Блог в Telegram</a>
+            <a class="button primary" href="https://www.instagram.com/holisticbite_nutritionist?igsh=bGVONzFxdDNqbg9t" target="_blank" rel="noreferrer" data-cms-text="text-090">Истории пациентов</a>
+            <a class="button primary" href="https://t.me/+Zd26m1wUGTZIYTc0" target="_blank" rel="noreferrer" data-cms-text="text-091">Блог в Telegram</a>
           </div>
         </div>
       </section>
@@ -277,8 +277,8 @@
       <section class="feedback-section velvet-feedback" id="feedback" aria-labelledby="feedback-title">
         <div class="section-shell feedback-shell">
           <div class="feedback-head velvet-reveal">
-            <p class="eyebrow">Обратная связь</p>
-            <h2 id="feedback-title" class="velvet-heading" data-text="feedback_title">Что меняется после системной работы?</h2>
+            <p class="eyebrow" data-cms-text="text-092">Обратная связь</p>
+            <h2 id="feedback-title" class="velvet-heading" data-text="feedback_title" data-cms-text="text-093">Что меняется после системной работы?</h2>
           </div>
           <div class="feedback-carousel" aria-label="Отзывы пациентов">
             <button class="carousel-button prev" type="button" id="prevFeedback" aria-label="Предыдущий отзыв">‹</button>
@@ -320,20 +320,20 @@
       </section>
 
       <section class="cinematic-pause">
-        <p>С уважением к телу, психике и реальности.</p>
+        <p data-cms-text="text-094">С уважением к телу, психике и реальности.</p>
       </section>
 
       <section class="contact-section velvet-contact" id="contact">
         <div class="section-shell contact-layout">
           <div class="velvet-reveal">
-            <p class="eyebrow">Связь</p>
-            <h2 class="velvet-heading">Связь с нутрициологом</h2>
-            <p>Выберите удобный способ связи: можно написать в мессенджер или отправить письмо на почту.</p>
+            <p class="eyebrow" data-cms-text="text-095">Связь</p>
+            <h2 class="velvet-heading" data-cms-text="text-096">Связь с нутрициологом</h2>
+            <p data-cms-text="text-097">Выберите удобный способ связи: можно написать в мессенджер или отправить письмо на почту.</p>
           </div>
           <div class="contact-actions velvet-reveal">
-            <a class="button primary" href="https://wa.me/37200000000" target="_blank" rel="noreferrer">WhatsApp</a>
-            <a class="button primary" href="https://t.me/darja_nutritsioloog" target="_blank" rel="noreferrer">Telegram</a>
-            <a class="button secondary" href="mailto:darja.nutritsioloog@gmail.com">Почта</a>
+            <a class="button primary" href="https://wa.me/37200000000" target="_blank" rel="noreferrer" data-cms-text="text-098">WhatsApp</a>
+            <a class="button primary" href="https://t.me/darja_nutritsioloog" target="_blank" rel="noreferrer" data-cms-text="text-099">Telegram</a>
+            <a class="button secondary" href="mailto:darja.nutritsioloog@gmail.com" data-cms-text="text-100">Почта</a>
           </div>
         </div>
       </section>
@@ -342,41 +342,41 @@
     <div class="modal" id="labListModal" aria-hidden="true">
       <div class="modal-dialog lab-modal" role="dialog" aria-modal="true" aria-labelledby="labModalTitle">
         <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
-        <p class="eyebrow" data-text="lab_modal_eyebrow">Перед консультацией</p>
-        <h2 id="labModalTitle" data-text="lab_modal_title">Перечень анализов</h2>
-        <p data-text="lab_modal_note">Для полноты картины желательны свежие данные анализов из списка. МРТ, УЗИ и сведения об операциях, если они были, можно приложить за последние 3 года.</p>
+        <p class="eyebrow" data-text="lab_modal_eyebrow" data-cms-text="text-101">Перед консультацией</p>
+        <h2 id="labModalTitle" data-text="lab_modal_title" data-cms-text="text-102">Перечень анализов</h2>
+        <p data-text="lab_modal_note" data-cms-text="text-103">Для полноты картины желательны свежие данные анализов из списка. МРТ, УЗИ и сведения об операциях, если они были, можно приложить за последние 3 года.</p>
         <ul class="lab-list">
-          <li>Общий анализ крови (гемограмма) с 5-компонентной дифференцировкой лейкоцитов</li>
-          <li>Холестерол</li>
-          <li>ЛПВП - холестерол</li>
-          <li>ЛПНП - холестерол</li>
-          <li>Триглицериды</li>
-          <li>Витамин Д</li>
-          <li>Альбумин</li>
-          <li>Общий белок</li>
-          <li>Глюкоза</li>
-          <li>Инсулин</li>
-          <li>АЛТ</li>
-          <li>АСТ</li>
-          <li>Билирубин (прямой и коньюгированный)</li>
-          <li>Витамин Б12 (кобаламин)</li>
-          <li>Витамин Б9 (фолиевая кислота)</li>
-          <li>Ферритин</li>
-          <li>Железо</li>
-          <li>ТТГ</li>
-          <li>fT3</li>
-          <li>fT4</li>
-          <li>МРТ, УЗИ, сведения об операциях при наличии</li>
+          <li data-cms-text="text-104">Общий анализ крови (гемограмма) с 5-компонентной дифференцировкой лейкоцитов</li>
+          <li data-cms-text="text-105">Холестерол</li>
+          <li data-cms-text="text-106">ЛПВП - холестерол</li>
+          <li data-cms-text="text-107">ЛПНП - холестерол</li>
+          <li data-cms-text="text-108">Триглицериды</li>
+          <li data-cms-text="text-109">Витамин Д</li>
+          <li data-cms-text="text-110">Альбумин</li>
+          <li data-cms-text="text-111">Общий белок</li>
+          <li data-cms-text="text-112">Глюкоза</li>
+          <li data-cms-text="text-113">Инсулин</li>
+          <li data-cms-text="text-114">АЛТ</li>
+          <li data-cms-text="text-115">АСТ</li>
+          <li data-cms-text="text-116">Билирубин (прямой и коньюгированный)</li>
+          <li data-cms-text="text-117">Витамин Б12 (кобаламин)</li>
+          <li data-cms-text="text-118">Витамин Б9 (фолиевая кислота)</li>
+          <li data-cms-text="text-119">Ферритин</li>
+          <li data-cms-text="text-120">Железо</li>
+          <li data-cms-text="text-121">ТТГ</li>
+          <li data-cms-text="text-122">fT3</li>
+          <li data-cms-text="text-123">fT4</li>
+          <li data-cms-text="text-124">МРТ, УЗИ, сведения об операциях при наличии</li>
         </ul>
-        <p class="lab-deadline" data-text="lab_modal_deadline">Все вышеуказанные материалы необходимо предоставить не позднее чем за сутки до консультации.</p>
+        <p class="lab-deadline" data-text="lab_modal_deadline" data-cms-text="text-125">Все вышеуказанные материалы необходимо предоставить не позднее чем за сутки до консультации.</p>
       </div>
     </div>
 
     <div class="modal" id="formatModal" aria-hidden="true">
       <div class="modal-dialog format-modal" role="dialog" aria-modal="true" aria-labelledby="formatModalTitle">
         <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
-        <p class="eyebrow" data-text="format_modal_eyebrow">Форматы работы</p>
-        <h2 id="formatModalTitle" data-text="format_modal_title">Выберите формат</h2>
+        <p class="eyebrow" data-text="format_modal_eyebrow" data-cms-text="text-126">Форматы работы</p>
+        <h2 id="formatModalTitle" data-text="format_modal_title" data-cms-text="text-127">Выберите формат</h2>
         <div class="format-controls">
           <button class="carousel-button prev" type="button" id="prevFormat" aria-label="Предыдущие форматы">‹</button>
           <div class="format-viewport">
@@ -420,23 +420,23 @@
           </div>
           <button class="carousel-button next" type="button" id="nextFormat" aria-label="Следующие форматы">›</button>
         </div>
-        <button class="button primary modal-apply" type="button" id="applyFormatChoice" data-text="format_apply_button">Выбрать</button>
+        <button class="button primary modal-apply" type="button" id="applyFormatChoice" data-text="format_apply_button" data-cms-text="text-128">Выбрать</button>
       </div>
     </div>
 
     <div class="modal" id="questionnaireModal" aria-hidden="true">
       <div class="modal-dialog questionnaire-modal" role="dialog" aria-modal="true" aria-labelledby="questionnaireModalTitle">
         <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
-        <p class="eyebrow" data-text="questionnaire_modal_eyebrow">Анкета клиента</p>
-        <h2 id="questionnaireModalTitle" data-text="questionnaire_modal_title">Как вам удобнее заполнить анкету?</h2>
+        <p class="eyebrow" data-text="questionnaire_modal_eyebrow" data-cms-text="text-129">Анкета клиента</p>
+        <h2 id="questionnaireModalTitle" data-text="questionnaire_modal_title" data-cms-text="text-130">Как вам удобнее заполнить анкету?</h2>
         <div class="questionnaire-options">
           <a class="questionnaire-option" href="./questionnaire.html" target="_blank" rel="noreferrer">
-            <strong data-text="questionnaire_online_title">Анкета онлайн</strong>
-            <span data-text="questionnaire_online_text">Откроется онлайн-анкета с вопросами по порядку и окном для ответа.</span>
+            <strong data-text="questionnaire_online_title" data-cms-text="text-131">Анкета онлайн</strong>
+            <span data-text="questionnaire_online_text" data-cms-text="text-132">Откроется онлайн-анкета с вопросами по порядку и окном для ответа.</span>
           </a>
           <a class="questionnaire-option" href="./assets/questionnaire.pdf" download>
-            <strong data-text="questionnaire_download_title">Скачать документ</strong>
-            <span data-text="questionnaire_download_text">Скачайте PDF-анкету и заполните в удобном темпе.</span>
+            <strong data-text="questionnaire_download_title" data-cms-text="text-133">Скачать документ</strong>
+            <span data-text="questionnaire_download_text" data-cms-text="text-134">Скачайте PDF-анкету и заполните в удобном темпе.</span>
           </a>
         </div>
       </div>
@@ -445,9 +445,9 @@
     <div class="modal" id="educationModal" aria-hidden="true">
       <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="educationModalTitle">
         <button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button>
-        <p class="eyebrow">Экспертность</p>
-        <h2 id="educationModalTitle">Дипломы и обучение</h2>
-        <p>
+        <p class="eyebrow" data-cms-text="text-135">Экспертность</p>
+        <h2 id="educationModalTitle" data-cms-text="text-136">Дипломы и обучение</h2>
+        <p data-cms-text="text-137">
           Здесь можно разместить дипломы, сертификаты и дополнительное обучение Дарьи. Блок оставлен
           лаконичным, чтобы не перегружать hero и показать подтверждение экспертности по запросу.
         </p>
@@ -459,6 +459,6 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="./booking-calendar.js"></script>
     <script src="./script.js"></script>
-    <script src="./velvet-signal.js"></script>
+    <script src="./velvet-signal.js"></script><script src="./site-content.js"></script>
   </body>
 </html>

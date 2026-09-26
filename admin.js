@@ -7,7 +7,7 @@ const parse = d => new Date(d + 'T12:00:00');
 const times = v => v.trim() ? v.split(',').map(s => s.trim()) : [];
 function status(message='', error=false){$('#status').textContent=message;$('#status').classList.toggle('error',error);}
 async function api(data){const r=await fetch('/api/calendar'+(data?'':'?admin=1'),data?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{});const result=await r.json();if(!r.ok)throw Object.assign(new Error(result.error||'Не удалось загрузить расписание.'),{status:r.status});return result;}
-function loginView(){ $('#login').hidden=false;$('#workspace').hidden=true;$('#logout').hidden=true;state=null; }
+function loginView(){ $('#login').hidden=false;$('#workspace').hidden=true;$('#logout').hidden=true;state=null; window.dispatchEvent(new Event('admin:logout')); }
 async function load(){state=await api();$('#login').hidden=true;$('#workspace').hidden=false;$('#logout').hidden=false;$('#demo').hidden=!state.demo;$('#zone').textContent=`Время консультаций: ${state.timezone} · ${state.duration} минут`;selected ||= new Intl.DateTimeFormat('en-CA',{timeZone:state.timezone,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());month ||= parse(selected);render();}
 async function run(fn){if(busy)return;busy=true;document.querySelectorAll('button').forEach(b=>b.disabled=true);status();try{await fn();}catch(e){status(e.message,true);if(e.status===401)loginView();}finally{busy=false;document.querySelectorAll('button').forEach(b=>b.disabled=false);}}
 async function save(data){await api({...data,version:state.version});await load();status('Сохранено. Новое расписание уже доступно клиентам.');}
