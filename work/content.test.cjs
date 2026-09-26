@@ -1,0 +1,38 @@
+const {test}=require('node:test'),assert=require('node:assert/strict');
+process.env.CALENDAR_DEMO='1';process.env.ADMIN_SESSION_SECRET='content-test-session-secret';
+const handler=require('../api/content'),calendar=require('../api/calendar');
+const {sign}=require('../lib/admin-auth.cjs');const {defaults}=require('../lib/content-store.cjs');
+const expiry=String(Date.now()+60000),cookie=`hb_admin=${expiry}.${sign(expiry)}`;
+async function call(method,url,body,session=cookie,origin,endpoint=handler){let code=200,data;await endpoint({method,url,body,headers:{host:'localhost',cookie:session,'content-type':'application/json',...(origin?{origin}:{})}},{setHeader(){},status(v){code=v;return this;},json(v){data=v;}});return{code,data};}
+test('Draft access, validation, concurrent edits, multilingual publishing and canonical formats',async()=>{
+ assert.equal((await call('GET','/api/content?admin=1',null,'')).code,401);
+ assert.equal((await call('GET','/api/content?preview=1',null,'')).code,401);
+ assert.equal((await call('POST','/api/content',{action:'publish',version:0},'')).code,401);
+ assert.equal((await call('POST','/api/content',{action:'publish',version:0},cookie,'https://evil.example')).code,403);
+ const initial=await call('GET','/api/content',null,'');assert.equal(initial.data.draft,undefined);assert.equal(initial.data.content.texts.length,defaults.texts.length);
+ let draft=structuredClone(defaults);draft.texts[0].value={ru:'Новое имя',en:'New name',et:'Uus nimi'};
+ draft.appearance={uniform:true,background:'#edf1ef',font:'georgia',images:{portrait:{src:'data:image/webp;base64,UklGRg==',alt:'Дарья'}}};
+ draft.appearance.design=require('../design-settings.js').defaults();draft.appearance.design.blocks.method={...require('../design-settings.js').style(),mode:'gradient',color1:'#253a30',color2:'#071812',textSize:18,headingSize:56,mobileHeadingSize:32};
+ draft.reviews.push({id:'test-review',visible:true,author:{ru:'Тест',en:'Test',et:'Test'},body:{ru:'<script>alert(1)</script>',en:'English review',et:'Eesti tagasiside'},caption:{ru:'',en:'',et:''}});
+ draft.formats.push({id:'new-format',visible:true,title:{ru:'Новый формат',en:'New service',et:'Uus teenus'},description:{ru:'Описание',en:'Description',et:'Kirjeldus'},includes:{ru:'Пункт',en:'Item',et:'Punkt'},priceRub:9000,priceEur:90});
+ let saved=await call('POST','/api/content',{action:'save',version:0,content:draft});assert.equal(saved.code,200);
+ assert.equal((await call('GET','/api/content',null,'')).data.content.texts[0].value.ru,defaults.texts[0].value.ru);
+ assert.equal((await call('GET','/api/content',null,'')).data.content.appearance,undefined);
+ assert.equal((await call('GET','/api/content?preview=1')).data.content.appearance.font,'georgia');
+ assert.equal((await call('GET','/api/content?preview=1')).data.content.texts[0].value.en,'New name');
+ assert.equal((await call('POST','/api/content',{action:'save',version:0,content:draft})).code,409);
+ assert.equal((await call('POST','/api/content',{action:'publish',version:saved.data.version})).code,200);
+ let published=await call('GET','/api/content',null,'');assert.equal(published.data.content.texts[0].value.et,'Uus nimi');assert.equal(published.data.content.reviews.at(-1).body.en,'English review');
+ assert.deepEqual(published.data.content.appearance,draft.appearance);
+ const store=require('../lib/calendar-store.cjs'),date=new Date(Date.now()+86400000).toISOString().slice(0,10);
+ await store.mutate(s=>s.exceptions[date]=['10:00','12:00']);
+ const booking={action:'book',requestId:'cms-test-book',clientName:'Test',phone:'+000',email:'test@example.com',serviceId:'new-format',service:'Fake',price:'1',language:'en',date,slot:'10:00'};
+ assert.equal((await call('POST','/api/calendar',booking,'',undefined,calendar)).code,200);
+ const record=(await store.read()).state.bookings[0];assert.equal(record.price,'90 EUR');assert.equal(record.service,'New service');
+ let admin=await call('GET','/api/content?admin=1');draft=admin.data.draft;draft.formats.at(-1).visible=false;draft.reviews.forEach(r=>r.visible=false);
+ saved=await call('POST','/api/content',{action:'save',version:admin.data.version,content:draft});await call('POST','/api/content',{action:'publish',version:saved.data.version});
+ assert.equal((await call('POST','/api/calendar',{...booking,slot:'12:00',requestId:'hidden-format'},'',undefined,calendar)).code,409);
+ admin=await call('GET','/api/content?admin=1');draft=admin.data.draft;draft.formats.forEach(f=>f.visible=false);
+ saved=await call('POST','/api/content',{action:'save',version:admin.data.version,content:draft});assert.equal(saved.code,200);assert.equal((await call('POST','/api/content',{action:'publish',version:saved.data.version})).code,400);
+ draft.formats[0].priceEur=-1;assert.equal((await call('POST','/api/content',{action:'save',version:saved.data.version,content:draft})).code,400);
+});

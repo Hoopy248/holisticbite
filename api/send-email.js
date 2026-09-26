@@ -76,7 +76,8 @@ async function sendViaResend(message) {
       Authorization: "Bearer " + process.env.RESEND_API_KEY,
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(message)
+    body: JSON.stringify(message),
+    signal: AbortSignal.timeout(10000)
   });
   const result = await response.json().catch(() => ({}));
   if (!response.ok) {
@@ -99,7 +100,8 @@ module.exports = async function handler(req, res) {
 
   try {
     const data = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
-    const email = data.type === "questionnaire" ? questionnaireEmail(data) : bookingEmail(data);
+    if (data.type !== 'questionnaire') return res.status(400).json({ ok: false, error: 'Для записи используйте календарь сайта.' });
+    const email = questionnaireEmail(data);
 
     const result = await sendViaResend({
       from: FROM_EMAIL,
@@ -123,4 +125,14 @@ module.exports = async function handler(req, res) {
   } catch (error) {
     res.status(500).json({ ok: false, error: error.message });
   }
+};
+
+module.exports.notifyBooking = async function(data) {
+  if (!process.env.RESEND_API_KEY) throw new Error('Email is not configured');
+  const admin = bookingEmail(data);
+  const client = clientBookingEmail(data);
+  await Promise.all([
+    sendViaResend({ from: FROM_EMAIL, to: [TARGET_EMAIL], reply_to: data.email, subject: admin.subject, text: admin.text }),
+    sendViaResend({ from: FROM_EMAIL, to: [data.email], subject: client.subject, text: client.text })
+  ]);
 };
