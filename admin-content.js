@@ -16,8 +16,10 @@
   document.querySelectorAll('[data-content-kind]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.contentKind===kind)));
   root.replaceChildren();
   const languageSelect=document.querySelector('#contentLanguage');languageSelect.value=language;
-  const add=document.querySelector('#addContentItem');add.hidden=kind==='texts';add.textContent=kind==='reviews'?'Добавить отзыв':'Добавить формат';
+  const add=document.querySelector('#addContentItem');add.hidden=['texts','appearance'].includes(kind);add.textContent=kind==='reviews'?'Добавить отзыв':'Добавить формат';
   const filter=document.querySelector('#contentGroup');filter.hidden=kind!=='texts';
+  languageSelect.parentElement.hidden=kind==='appearance';
+  if(kind==='appearance'){window.hbAppearance.editor(root,draft,markDirty,run,message);return;}
   if(kind==='texts'){
    const groups=[...new Set(draft.texts.map(t=>t.group))],previous=filter.value;filter.replaceChildren();groups.forEach(g=>{const option=make('option',g);option.value=g;filter.append(option);});if(groups.includes(previous))filter.value=previous;
    const section=make('div');section.className='cms-fields';

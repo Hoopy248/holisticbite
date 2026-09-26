@@ -36,6 +36,7 @@
  function render(){
   if(!content)return;
   const values=new Map(content.texts.map(t=>[t.id,t.value]));
+  window.hbAppearance.apply(content.appearance);
   document.querySelectorAll('[data-cms-text]').forEach(el=>{if(values.has(el.dataset.cmsText))el.textContent=pick(values.get(el.dataset.cmsText));});
   renderFormats();
   const track=document.querySelector('#feedbackTrack');

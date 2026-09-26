@@ -16,7 +16,7 @@ module.exports=async(req,res)=>{
   if(req.headers.origin&&new URL(req.headers.origin).host!==req.headers.host)fail('Запрос отклонён.',403);
   if(!String(req.headers['content-type']||'').startsWith('application/json'))fail('Ожидается JSON.',415);
   const data=typeof req.body==='string'?JSON.parse(req.body):req.body||{};
-  if(JSON.stringify(data).length>600000)fail('Слишком много текста.');
+  if(JSON.stringify(data).length>1400000)fail('Слишком большой объём содержимого.');
   const content=data.action==='save'?validate(data.content):null;
   await change(s=>{
    if(data.version!==s.version)fail('Черновик изменился в другом окне. Скопируйте свои правки и обновите редактор.',409);

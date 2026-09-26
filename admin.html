@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Расписание · holisticbite</title><link rel="stylesheet" href="/admin.css"><link rel="stylesheet" href="/content.css"><script src="/admin.js" defer></script><script src="/admin-content.js" defer></script></head>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Расписание · holisticbite</title><link rel="stylesheet" href="/admin.css"><link rel="stylesheet" href="/content.css"><script src="/admin.js" defer></script><script src="/appearance.js" defer></script><script src="/admin-content.js" defer></script></head>
 <body><header><a href="/">holisticbite<span>Кабинет Дарьи</span></a><button id="logout" hidden>Выйти</button></header>
 <main><p id="status" role="status" aria-live="polite"></p>
 <section id="login" class="login"><p class="muted">Ваше время — под вашим управлением</p><h1>Здравствуйте, Даша</h1><p>Откройте расписание, чтобы выбрать часы консультаций и посмотреть записи.</p><form id="loginForm"><label>Пароль<input type="password" name="password" autocomplete="current-password" required></label><button class="primary">Войти в кабинет</button></form></section>
@@ -13,6 +13,6 @@
 <h2>Редактор сайта</h2><p class="muted">Измените текст на нужном языке, сохраните черновик и проверьте его. Клиенты увидят изменения только после публикации.</p>
 <p id="draftState" class="muted"></p><p id="contentStatus" role="status" class="cms-status"></p>
 <div class="actions cms-actions"><button id="saveContent">Сохранить черновик</button><button id="previewContent">Предпросмотр</button><button id="publishContent" class="primary">Опубликовать</button><button id="reloadContent">Загрузить сохранённое</button></div>
-<div class="cms-toolbar"><button data-content-kind="texts" aria-pressed="true">Тексты сайта</button><button data-content-kind="reviews" aria-pressed="false">Отзывы</button><button data-content-kind="formats" aria-pressed="false">Форматы консультаций</button></div>
+<div class="cms-toolbar"><button data-content-kind="texts" aria-pressed="true">Тексты сайта</button><button data-content-kind="reviews" aria-pressed="false">Отзывы</button><button data-content-kind="formats" aria-pressed="false">Форматы консультаций</button><button data-content-kind="appearance" aria-pressed="false">Оформление</button></div>
 <div class="cms-toolbar"><label>Язык<select id="contentLanguage"><option value="ru">Русский · RU</option><option value="en">English · EN</option><option value="et">Eesti · ET</option></select></label><select id="contentGroup" aria-label="Раздел сайта"></select><button id="addContentItem" hidden>Добавить</button></div>
 <div id="contentEditor"></div></section></div></main></body></html>

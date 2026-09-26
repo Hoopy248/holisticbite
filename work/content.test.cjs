@@ -11,14 +11,18 @@ test('Draft access, validation, concurrent edits, multilingual publishing and ca
  assert.equal((await call('POST','/api/content',{action:'publish',version:0},cookie,'https://evil.example')).code,403);
  const initial=await call('GET','/api/content',null,'');assert.equal(initial.data.draft,undefined);assert.equal(initial.data.content.texts.length,defaults.texts.length);
  let draft=structuredClone(defaults);draft.texts[0].value={ru:'Новое имя',en:'New name',et:'Uus nimi'};
+ draft.appearance={uniform:true,background:'#edf1ef',font:'georgia',images:{portrait:{src:'data:image/webp;base64,UklGRg==',alt:'Дарья'}}};
  draft.reviews.push({id:'test-review',visible:true,author:{ru:'Тест',en:'Test',et:'Test'},body:{ru:'<script>alert(1)</script>',en:'English review',et:'Eesti tagasiside'},caption:{ru:'',en:'',et:''}});
  draft.formats.push({id:'new-format',visible:true,title:{ru:'Новый формат',en:'New service',et:'Uus teenus'},description:{ru:'Описание',en:'Description',et:'Kirjeldus'},includes:{ru:'Пункт',en:'Item',et:'Punkt'},priceRub:9000,priceEur:90});
  let saved=await call('POST','/api/content',{action:'save',version:0,content:draft});assert.equal(saved.code,200);
  assert.equal((await call('GET','/api/content',null,'')).data.content.texts[0].value.ru,defaults.texts[0].value.ru);
+ assert.equal((await call('GET','/api/content',null,'')).data.content.appearance,undefined);
+ assert.equal((await call('GET','/api/content?preview=1')).data.content.appearance.font,'georgia');
  assert.equal((await call('GET','/api/content?preview=1')).data.content.texts[0].value.en,'New name');
  assert.equal((await call('POST','/api/content',{action:'save',version:0,content:draft})).code,409);
  assert.equal((await call('POST','/api/content',{action:'publish',version:saved.data.version})).code,200);
  let published=await call('GET','/api/content',null,'');assert.equal(published.data.content.texts[0].value.et,'Uus nimi');assert.equal(published.data.content.reviews.at(-1).body.en,'English review');
+ assert.deepEqual(published.data.content.appearance,draft.appearance);
  const store=require('../lib/calendar-store.cjs'),date=new Date(Date.now()+86400000).toISOString().slice(0,10);
  await store.mutate(s=>s.exceptions[date]=['10:00','12:00']);
  const booking={action:'book',requestId:'cms-test-book',clientName:'Test',phone:'+000',email:'test@example.com',serviceId:'new-format',service:'Fake',price:'1',language:'en',date,slot:'10:00'};
